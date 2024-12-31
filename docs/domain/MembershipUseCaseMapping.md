@@ -5,8 +5,8 @@ This page describes all the use case mappings that we identified in the membersh
 Scenario: Onboarding a citizen as a regular patron
 
 Given Maddy visits the library to register as a patron
-When the Librarian verifies that Maddy is not already a registered patron
-And the Librarian verifies the address proof
+When the Librarian Mrs. Robinson verifies that Maddy is not already a registered patron
+And verifies the address proof
 And submits the onboarding application
 Then the LMS onboards Maddy as a regular patron
 And Issue the membership card with a unique patron id
@@ -17,7 +17,7 @@ And notifies Maddy by sending the Patron Id and a link to sign-up on the website
 Scenario: Onboarding a citizen as a research patron
 
 Given Dr. Patel visits the library to register as a patron
-When the Librarian verifies that Dr. Patel is not already a registered patron
+When the Librarian Mrs. Robinson verifies that Dr. Patel is not already a registered patron
 And verifies the address proof
 And verifies the proof of ongoing research
 And submits the onboarding application
@@ -31,8 +31,8 @@ And notifies Dr. Patel by sending an email with the Patron Id and a link to sign
 Scenario: Rejecting onboarding of an existing regular patron
 
 Given Greg visits the library to register as a patron
-When the Librarian verifies that Greg is already a regular patron
-Then the LMS system rejects the Patron Membership onboarding request
+When the Librarian Mrs. Robinson verifies that Greg is already a regular patron
+Then the LMS rejects the Patron Membership onboarding request
 And notifies Greg by sending an email of rejection with reason
 
 # Reject onboarding for an existing research patron
@@ -40,7 +40,7 @@ And notifies Greg by sending an email of rejection with reason
 Scenario: Rejecting onboarding of an existing research patron
 
 Given Lukas visits the library to register as a patron
-When the Librarian verifies that Lukas is already a research patron
+When the Librarian Mrs. Robinson verifies that Lukas is already a research patron
 Then the LMS rejects the Patron Membership onboarding request
 And notifies Lukas by sending an email of rejection with reason
 
