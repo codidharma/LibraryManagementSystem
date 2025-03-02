@@ -12,10 +12,4 @@ public abstract class DomainEvent : IDomianEvent
         Id = id;
         OccuredOnUtc = DateTime.UtcNow;
     }
-
-    protected DomainEvent(Guid id, DateTime occuredOnUtc)
-    {
-        Id = id;
-        OccuredOnUtc = occuredOnUtc;
-    }
 }
