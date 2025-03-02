@@ -1,0 +1,6 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\LMS.Modules.IAM.Domain\LMS.Modules.IAM.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<ItemGroup>
+		<InternalsVisibleTo Include="LMS.Modules.IAM.ArchitectureTests" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\Common\LMS.Common.Domain\LMS.Common.Domain.csproj" />
+	</ItemGroup>
+</Project>
