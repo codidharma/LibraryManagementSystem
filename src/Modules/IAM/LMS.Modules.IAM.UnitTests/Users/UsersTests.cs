@@ -27,6 +27,11 @@ public class UsersTests : TestBase
         Assert.Equal(email, user.Email);
         Assert.Equal(identityId, user.IdentityId);
         Assert.IsType<UserId>(user.Id);
-    }
 
+
+        UserCreatedDomainEvent userCreatedDomainEvent = GetRaisedEvent<UserCreatedDomainEvent>(user);
+
+        Assert.Equal(user.Id.Value, userCreatedDomainEvent.Id);
+
+    }
 }

@@ -119,4 +119,36 @@ public class DomainTests : TestBase
 
         Assert.True(result.IsSuccessful);
     }
+
+    [Fact]
+    public void DomainEvents_Should_EndWithWordDomainEvent()
+    {
+        TestResult result = Types
+            .InAssembly(DomainAssembly)
+            .That()
+            .ImplementInterface(typeof(IDomianEvent))
+            .Or()
+            .Inherit(typeof(DomainEvent))
+            .Should()
+            .HaveNameEndingWith("DomainEvent")
+            .GetResult();
+
+        Assert.True(result.IsSuccessful);
+    }
+
+    [Fact]
+    public void DomainEvents_ShouldBe_Sealed()
+    {
+        TestResult result = Types
+            .InAssembly(DomainAssembly)
+            .That()
+            .ImplementInterface(typeof(IDomianEvent))
+            .Or()
+            .Inherit(typeof(DomainEvent))
+            .Should()
+            .BeSealed()
+            .GetResult();
+
+        Assert.True(result.IsSuccessful);
+    }
 }
