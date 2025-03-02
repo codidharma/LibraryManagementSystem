@@ -11,21 +11,24 @@ public sealed class User : Entity
 
     public UserId Id { get; }
 
+    public Role Role { get; }
+
     private User()
     {
     }
 
-    private User(Name name, Email email, IdentityId identityId)
+    private User(Name name, Email email, IdentityId identityId, Role role)
     {
         Name = name;
         Email = email;
         IdentityId = identityId;
         Id = new(Guid.NewGuid());
+        Role = role;
     }
 
-    public static User Create(Name name, Email email, IdentityId identityId)
+    public static User Create(Name name, Email email, IdentityId identityId, Role role)
     {
-        var user = new User(name, email, identityId);
+        var user = new User(name, email, identityId, role);
 
         user.Raise(new UserCreatedDomainEvent(user.Id.Value));
 

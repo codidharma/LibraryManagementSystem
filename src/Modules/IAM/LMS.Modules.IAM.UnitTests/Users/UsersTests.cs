@@ -17,9 +17,10 @@ public class UsersTests : TestBase
 
         IdentityId identityId = new(Guid.NewGuid());
 
+        Role role = Role.Librarian;
 
         //Act
-        var user = User.Create(name, email, identityId);
+        var user = User.Create(name, email, identityId, role);
 
         //Assert
         Assert.NotNull(user);
@@ -27,11 +28,43 @@ public class UsersTests : TestBase
         Assert.Equal(email, user.Email);
         Assert.Equal(identityId, user.IdentityId);
         Assert.IsType<UserId>(user.Id);
+        Assert.Equal(role, user.Role);
 
 
         UserCreatedDomainEvent userCreatedDomainEvent = GetRaisedEvent<UserCreatedDomainEvent>(user);
 
         Assert.Equal(user.Id.Value, userCreatedDomainEvent.Id);
+    }
 
+    [Fact]
+    public void Create_Returns_RegularPatronUser()
+    {
+        //Arrange
+        Name name = new(Faker.Person.FirstName, Faker.Person.LastName);
+        Email email = new(Faker.Person.Email);
+        IdentityId identityId = new(Guid.NewGuid());
+        Role role = Role.RegularPatron;
+
+        //Act
+        var user = User.Create(name, email, identityId, role);
+
+        //Assert
+        Assert.Equal(role, user.Role);
+    }
+
+    [Fact]
+    public void Create_Returns_ResearchPatronUser()
+    {
+        //Arrange
+        Name name = new(Faker.Person.FirstName, Faker.Person.LastName);
+        Email email = new(Faker.Person.Email);
+        IdentityId identityId = new(Guid.NewGuid());
+        Role role = Role.ResearchPatron;
+
+        //Act
+        var user = User.Create(name, email, identityId, role);
+
+        //Assert
+        Assert.Equal(role, user.Role);
     }
 }
