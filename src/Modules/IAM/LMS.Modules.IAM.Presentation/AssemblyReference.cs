@@ -3,6 +3,7 @@ using System.Reflection;
 
 namespace LMS.Modules.IAM.Presentation;
 
+[ExcludeFromCodeCoverage]
 [SuppressMessage("Maintainability", "CA1515:Consider making public types internal", Justification = "Used to get assembly information in the test")]
 public static class AssemblyReference
 {
