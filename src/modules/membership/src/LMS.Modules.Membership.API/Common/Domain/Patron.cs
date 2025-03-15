@@ -3,15 +3,15 @@ using LMS.Modules.Membership.API.Common.Domain.Exceptions;
 
 namespace LMS.Modules.Membership.API.Common.Domain;
 
-internal sealed class RegularPatron : Entity
+internal sealed class Patron : Entity
 {
     public Name Name { get; }
     public Gender Gender { get; }
     public DateOfBirth DateOfBirth { get; }
     public Address Address { get; }
 
-    private RegularPatron() { }
-    private RegularPatron(
+    private Patron() { }
+    private Patron(
         Name name,
         Gender gender,
         DateOfBirth dateOfBirth,
@@ -23,7 +23,7 @@ internal sealed class RegularPatron : Entity
         Address = address;
     }
 
-    public static RegularPatron Create(
+    public static Patron Create(
         Name name,
         Gender gender,
         DateOfBirth dateOfBirth,
@@ -37,7 +37,7 @@ internal sealed class RegularPatron : Entity
             throw new NotAllowedAddressException($"The value for property {nameof(address.ZipCode)} is not allowed.");
         }
 
-        RegularPatron regularPatron = new(name, gender, dateOfBirth, address);
+        Patron regularPatron = new(name, gender, dateOfBirth, address);
 
         return regularPatron;
     }

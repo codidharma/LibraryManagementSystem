@@ -4,7 +4,7 @@ using LMS.Modules.Membership.UnitTests.Base;
 
 namespace LMS.Modules.Membership.UnitTests.DomainTests;
 
-public class RegularPatronTests : TestBase
+public class PatronTests : TestBase
 {
 
     [Fact]
@@ -22,7 +22,7 @@ public class RegularPatronTests : TestBase
             "412105");
 
         //Act
-        RegularPatron regularPatron = RegularPatron.Create(name, gender, dateOfBirth, address);
+        Patron regularPatron = Patron.Create(name, gender, dateOfBirth, address);
 
         //Assert
         Assert.NotNull(regularPatron);
@@ -45,10 +45,10 @@ public class RegularPatronTests : TestBase
             Faker.Address.Country(),
             Faker.Address.ZipCode());
 
-        RegularPatron regularPatron;
+        Patron regularPatron;
 
         //Act
-        Action action = () => { regularPatron = RegularPatron.Create(name, gender, dateOfBirth, address); };
+        Action action = () => { regularPatron = Patron.Create(name, gender, dateOfBirth, address); };
 
         Assert.Throws<NotAllowedAddressException>(action);
     }
