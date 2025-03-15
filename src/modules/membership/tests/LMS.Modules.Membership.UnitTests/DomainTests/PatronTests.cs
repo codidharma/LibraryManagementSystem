@@ -8,7 +8,7 @@ public class PatronTests : TestBase
 {
 
     [Fact]
-    public void Create_Should_ReturnUser()
+    public void Create_Should_ReturnPatron()
     {
         //Arrange
         Name name = new(Faker.Person.FullName);
