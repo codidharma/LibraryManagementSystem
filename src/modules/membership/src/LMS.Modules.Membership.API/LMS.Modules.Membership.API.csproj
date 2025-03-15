@@ -16,8 +16,4 @@
     <ProjectReference Include="..\..\..\..\hosting\LMS.ServiceDefaults\LMS.ServiceDefaults.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Common\NewFolder\" />
-  </ItemGroup>
-
 </Project>
