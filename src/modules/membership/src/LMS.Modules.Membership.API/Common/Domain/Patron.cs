@@ -10,24 +10,29 @@ internal sealed class Patron : Entity
     public DateOfBirth DateOfBirth { get; }
     public Address Address { get; }
 
+    public PatronType PatronType { get; }
+
     private Patron() { }
     private Patron(
         Name name,
         Gender gender,
         DateOfBirth dateOfBirth,
-        Address address)
+        Address address,
+        PatronType patronType)
     {
         Name = name;
         Gender = gender;
         DateOfBirth = dateOfBirth;
         Address = address;
+        PatronType = patronType;
     }
 
     public static Patron Create(
         Name name,
         Gender gender,
         DateOfBirth dateOfBirth,
-        Address address)
+        Address address,
+        PatronType patronType)
     {
         AddressValidationService addressValidationService = new();
         bool isAddressAllowed = addressValidationService.Validate(address);
@@ -37,7 +42,7 @@ internal sealed class Patron : Entity
             throw new NotAllowedAddressException($"The value for property {nameof(address.ZipCode)} is not allowed.");
         }
 
-        Patron regularPatron = new(name, gender, dateOfBirth, address);
+        Patron regularPatron = new(name, gender, dateOfBirth, address, patronType);
 
         return regularPatron;
     }
