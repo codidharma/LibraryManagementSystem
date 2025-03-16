@@ -1,4 +1,5 @@
-﻿using LMS.Common.Domain;
+﻿using System.Diagnostics.CodeAnalysis;
+using LMS.Common.Domain;
 
 namespace LMS.Modules.Membership.API.Common.Domain;
 
@@ -7,6 +8,7 @@ internal sealed class Document : Entity
     public DocumentType DocumentType { get; }
     public DocumentContent Content { get; }
 
+    [ExcludeFromCodeCoverage]
     private Document()
     { }
     private Document(DocumentType documentType, DocumentContent content)
