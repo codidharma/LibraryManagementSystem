@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 namespace LMS.Common.Domain;
 
 public abstract class Enumeration : IComparable
@@ -65,6 +66,7 @@ public abstract class Enumeration : IComparable
 
     }
 
+    [ExcludeFromCodeCoverage]
     public override int GetHashCode() => Id.GetHashCode();
 
 

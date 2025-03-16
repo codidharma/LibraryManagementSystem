@@ -1,4 +1,6 @@
-﻿namespace LMS.Common.Domain.Tests;
+﻿using System.Dynamic;
+
+namespace LMS.Common.Domain.Tests;
 
 public class EnumerationTests
 {
@@ -82,5 +84,41 @@ public class EnumerationTests
 
         //Assert
         Assert.Throws<InvalidOperationException>(action);
+    }
+
+    [Fact]
+    public void Enumerations_ShouldBeComparable_UsingOperators()
+    {
+        TestEnumeration testEnumeration1 = TestEnumeration.Test1;
+        TestEnumeration testEnumeration2 = TestEnumeration.Test2;
+
+        Assert.True(testEnumeration2 > testEnumeration1);
+        Assert.True(testEnumeration2 >= testEnumeration1);
+        Assert.True(testEnumeration1 < testEnumeration2);
+        Assert.True(testEnumeration1 <= testEnumeration2);
+        Assert.True(testEnumeration1 != testEnumeration2);
+
+    }
+
+    [Fact]
+    public void Enumerations_ShouldBeComparable_UsingCompareToFunction()
+    {
+        //Arrange
+        TestEnumeration testEnumeration1 = TestEnumeration.Test1;
+        TestEnumeration testEnumeration2 = TestEnumeration.Test1;
+
+        //Assert
+        Assert.Equal(0, testEnumeration1.CompareTo(testEnumeration2));
+    }
+
+    [Fact]
+    public void Enumerations_ShouldFailEqualityComparison_BetweenDisparateTypes()
+    {
+        //Arrange
+        TestEnumeration testEnumeration = TestEnumeration.Test1;
+        ExpandoObject dynamicObject = new();
+
+        //Assert
+        Assert.False(testEnumeration.Equals(dynamicObject));
     }
 }
