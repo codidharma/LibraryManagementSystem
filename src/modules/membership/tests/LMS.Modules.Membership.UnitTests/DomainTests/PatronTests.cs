@@ -6,6 +6,12 @@ namespace LMS.Modules.Membership.UnitTests.DomainTests;
 
 public class PatronTests : TestBase
 {
+    private readonly Document PersonalIdentification = Document.Create(
+        DocumentType.PersonalIdentification,
+        new("somedata", DocumentContentType.Pdf));
+    private readonly Document AcademicsIdentification = Document.Create(
+        DocumentType.AcademicsIdentification,
+        new("somedata", DocumentContentType.Pdf));
 
     [Fact]
     public void Create_Should_ReturnRegularPatron()
@@ -22,9 +28,11 @@ public class PatronTests : TestBase
             "412105");
 
         PatronType patronType = PatronType.Regular;
+        List<Document> onboardingDocuments = [PersonalIdentification];
+
 
         //Act
-        Patron regularPatron = Patron.Create(name, gender, dateOfBirth, address, patronType);
+        Patron regularPatron = Patron.Create(name, gender, dateOfBirth, address, patronType, onboardingDocuments);
 
         //Assert
         Assert.NotNull(regularPatron);
@@ -47,11 +55,18 @@ public class PatronTests : TestBase
             Faker.Address.State(),
             Faker.Address.Country(),
             "412105");
+        List<Document> onboardingDocuments = [PersonalIdentification, AcademicsIdentification];
 
         PatronType patronType = PatronType.Research;
 
         //Act
-        Patron regularPatron = Patron.Create(name, gender, dateOfBirth, address, patronType);
+        Patron regularPatron = Patron.Create(
+            name,
+            gender,
+            dateOfBirth,
+            address,
+            patronType,
+            onboardingDocuments);
 
         //Assert
         Assert.NotNull(regularPatron);
@@ -77,10 +92,128 @@ public class PatronTests : TestBase
         PatronType patronType = PatronType.Regular;
 
         Patron regularPatron;
+        List<Document> onboardingDocuments = [PersonalIdentification];
 
         //Act
-        Action action = () => { regularPatron = Patron.Create(name, gender, dateOfBirth, address, patronType); };
+        Action action = () =>
+        {
+            regularPatron = Patron.Create(
+            name,
+            gender,
+            dateOfBirth,
+            address,
+            patronType,
+            onboardingDocuments);
+        };
 
         Assert.Throws<NotAllowedAddressException>(action);
+    }
+
+    [Fact]
+    public void ForRegularPatron_Create_ThrowsMissingDocumentException_WhenPersonalIdentificationIsNotProvided()
+    {
+        //Arrange
+        //Arrange
+        Name name = new(Faker.Person.FullName);
+        Gender gender = new(Faker.Person.Gender.ToString());
+        DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
+        Address address = new(
+            Faker.Address.StreetName(),
+            Faker.Address.City(),
+            Faker.Address.State(),
+            Faker.Address.Country(),
+            "412105");
+
+        PatronType patronType = PatronType.Regular;
+        List<Document> onboardingDocuments = [];
+
+        Patron patron;
+
+        //Assert
+        Action action = () =>
+        {
+            patron = Patron.Create(
+            name,
+            gender,
+            dateOfBirth,
+            address,
+            patronType,
+            onboardingDocuments);
+        };
+
+        //Assert
+        Assert.Throws<MissingPersonalIdentificationException>(action);
+    }
+
+    [Fact]
+    public void ForResearchPatron_Create_Throws_MissingPersonalIdentificationException_WhenPersonalIdentificationIsNotProvided()
+    {
+        //Arrange
+        //Arrange
+        Name name = new(Faker.Person.FullName);
+        Gender gender = new(Faker.Person.Gender.ToString());
+        DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
+        Address address = new(
+            Faker.Address.StreetName(),
+            Faker.Address.City(),
+            Faker.Address.State(),
+            Faker.Address.Country(),
+            "412105");
+
+        PatronType patronType = PatronType.Research;
+        List<Document> onboardingDocuments = [];
+
+        Patron patron;
+
+        //Assert
+        Action action = () =>
+        {
+            patron = Patron.Create(
+            name,
+            gender,
+            dateOfBirth,
+            address,
+            patronType,
+            onboardingDocuments);
+        };
+
+        //Assert
+        Assert.Throws<MissingPersonalIdentificationException>(action);
+    }
+
+    [Fact]
+    public void ForResearchPatron_Create_Throws_MissingAcademicIdentificationException_WhenAcademicIdentificationIsNotProvided()
+    {
+        //Arrange
+        //Arrange
+        Name name = new(Faker.Person.FullName);
+        Gender gender = new(Faker.Person.Gender.ToString());
+        DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
+        Address address = new(
+            Faker.Address.StreetName(),
+            Faker.Address.City(),
+            Faker.Address.State(),
+            Faker.Address.Country(),
+            "412105");
+
+        PatronType patronType = PatronType.Research;
+        List<Document> onboardingDocuments = [PersonalIdentification];
+
+        Patron patron;
+
+        //Assert
+        Action action = () =>
+        {
+            patron = Patron.Create(
+            name,
+            gender,
+            dateOfBirth,
+            address,
+            patronType,
+            onboardingDocuments);
+        };
+
+        //Assert
+        Assert.Throws<MissingAcademicsIdentificationException>(action);
     }
 }
