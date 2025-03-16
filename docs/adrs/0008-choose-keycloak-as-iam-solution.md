@@ -27,12 +27,11 @@ We will evaluate following solutions available on the market
 
 |Parameter|Auth0|Identity Server| KeyCloak|
 |---------|-----|---------------|---------|
-|Is it scalable?||||
-|What is the pricing?||||
-|Supports single sign on?||||
-|Supports multi factor authentication?||||
-|Does it lock us to a cloud platform?||||
-|What is the support available in case of issues?||||
+|Is it scalable?|Yes|Yes|Yes|
+|What is the pricing?|Freemium|Freemium|Free|
+|Supports single sign on?|Yes|Yes|Yes|
+|Does it lock us to a cloud platform?|No|No|No|
+|What is the support available in case of issues?|Freemium|Freemium|Freemium|
 
 
 # Decision
