@@ -38,13 +38,15 @@ public class AddressTests : TestBase
         string zipCode)
     {
         //Arrange
+        string expectdExceptionMessage = $"Address should be composed of non null, empty of whitespace values for {nameof(Address.Street)}, {nameof(Address.City)}, {nameof(Address.State)} {nameof(Address.Country)} and {nameof(Address.ZipCode)}";
         Address address;
 
         //Act
         Action action = () => { address = new(street, city, state, country, zipCode); };
 
         //Assert
-        Assert.Throws<InvalidValueException>(action);
+        InvalidValueException exception = Assert.Throws<InvalidValueException>(action);
+        Assert.Equal(expectdExceptionMessage, exception.Message);
 
     }
 }

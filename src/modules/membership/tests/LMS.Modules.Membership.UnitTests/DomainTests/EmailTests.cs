@@ -26,12 +26,14 @@ public class EmailTests : TestBase
     public void InvalidEmail_Throws_InvalidValueException(string emailValue)
     {
         //Arrange
+        string expectedExceptionMessage = "Email should be in format abc@pqr.com.";
         Email email;
 
         //Act
         Action action = () => { email = new(emailValue); };
 
         //Assert
-        Assert.Throws<InvalidValueException>(action);
+        InvalidValueException exception = Assert.Throws<InvalidValueException>(action);
+        Assert.Equal(expectedExceptionMessage, exception.Message);
     }
 }

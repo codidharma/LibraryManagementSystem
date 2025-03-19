@@ -12,7 +12,7 @@ internal sealed record Email : ValueObject
     {
         if (!IsValid(value))
         {
-            throw new InvalidValueException("Email should be in format abc@pqr.com");
+            throw new InvalidValueException("Email should be in format abc@pqr.com.");
         }
         Value = value;
 

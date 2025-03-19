@@ -80,6 +80,7 @@ public class PatronTests : TestBase
     public void ForNonAllowedZipCodes_Create_Should_Throw_NotAllowedAddressException()
     {
         //Arrange
+        string expectedExceptionMessage = $"The value for property {nameof(Address.ZipCode)} is not allowed.";
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
@@ -106,14 +107,16 @@ public class PatronTests : TestBase
             onboardingDocuments);
         };
 
-        Assert.Throws<NotAllowedAddressException>(action);
+        NotAllowedAddressException exception = Assert.Throws<NotAllowedAddressException>(action);
+        Assert.Equal(expectedExceptionMessage, exception.Message);
     }
 
     [Fact]
     public void ForRegularPatron_Create_ThrowsMissingDocumentException_WhenPersonalIdentificationIsNotProvided()
     {
+
         //Arrange
-        //Arrange
+        string expectedExceptionMessage = $"Document of type {DocumentType.PersonalIdentification.Name} is mandatory.";
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
@@ -142,14 +145,16 @@ public class PatronTests : TestBase
         };
 
         //Assert
-        Assert.Throws<MissingPersonalIdentificationException>(action);
+        MissingPersonalIdentificationException exception = Assert.Throws<MissingPersonalIdentificationException>(action);
+        Assert.Equal(expectedExceptionMessage, exception.Message);
     }
 
     [Fact]
     public void ForResearchPatron_Create_Throws_MissingPersonalIdentificationException_WhenPersonalIdentificationIsNotProvided()
     {
+
         //Arrange
-        //Arrange
+        string expectedExceptionMessage = $"Document of type {DocumentType.PersonalIdentification.Name} is mandatory.";
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
@@ -178,14 +183,16 @@ public class PatronTests : TestBase
         };
 
         //Assert
-        Assert.Throws<MissingPersonalIdentificationException>(action);
+        MissingPersonalIdentificationException exception = Assert.Throws<MissingPersonalIdentificationException>(action);
+        Assert.Equal(expectedExceptionMessage, exception.Message);
     }
 
     [Fact]
     public void ForResearchPatron_Create_Throws_MissingAcademicIdentificationException_WhenAcademicIdentificationIsNotProvided()
     {
+
         //Arrange
-        //Arrange
+        string expectedExceptionMessage = $"Document of type {DocumentType.AcademicsIdentification.Name} is mandatory for a research patron.";
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
@@ -214,6 +221,7 @@ public class PatronTests : TestBase
         };
 
         //Assert
-        Assert.Throws<MissingAcademicsIdentificationException>(action);
+        MissingAcademicsIdentificationException exception = Assert.Throws<MissingAcademicsIdentificationException>(action);
+        Assert.Equal(expectedExceptionMessage, exception.Message);
     }
 }

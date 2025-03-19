@@ -24,4 +24,25 @@ public class AddressValidationServiceTests : TestBase
         //Assert
         Assert.False(isAddressAllowed);
     }
+
+    [Theory]
+    [InlineData("412105")]
+    [InlineData("411027")]
+    public void ForAllowedZipCodes_Service_ShouldReturn_True(string zipCode)
+    {
+        //Arrange
+        Address address = new(
+            Faker.Address.StreetName(),
+            Faker.Address.City(),
+            Faker.Address.State(),
+            Faker.Address.Country(),
+            zipCode);
+
+        //Act
+        AddressValidationService addressValidationService = new();
+        bool isAddressAllowed = addressValidationService.Validate(address);
+
+        //Assert
+        Assert.True(isAddressAllowed);
+    }
 }

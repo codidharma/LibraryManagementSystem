@@ -23,6 +23,7 @@ public class DateofBirthTests : TestBase
     public void DateOfBirth_ShouldNotBe_InFuture()
     {
         //Arrange
+        string expectedExceptionMessage = "Date of birth cannot be in future or today.";
         DateTime futureDateOfBirthValue = DateTime.UtcNow.AddYears(1000);
 
         //Act
@@ -31,8 +32,24 @@ public class DateofBirthTests : TestBase
         Action action = () => { dateOfBirth = new(futureDateOfBirthValue); };
 
         //Assert
-        Assert.Throws<InvalidValueException>(action);
+        InvalidValueException exception = Assert.Throws<InvalidValueException>(action);
+        Assert.Equal(expectedExceptionMessage, exception.Message);
+    }
 
+    [Fact]
+    public void DateOfBirth_ShouldNotBe_Today()
+    {
+        //Arrange
+        string expectedExceptionMessage = "Date of birth cannot be in future or today.";
+        DateTime futureDateOfBirthValue = DateTime.Now;
 
+        //Act
+        DateOfBirth dateOfBirth;
+
+        Action action = () => { dateOfBirth = new(futureDateOfBirthValue); };
+
+        //Assert
+        InvalidValueException exception = Assert.Throws<InvalidValueException>(action);
+        Assert.Equal(expectedExceptionMessage, exception.Message);
     }
 }

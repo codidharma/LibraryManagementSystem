@@ -49,7 +49,7 @@ internal sealed class Patron : Entity
 
         if (!IsPersonalIdentificationDocumentAvailable(identityDocuments))
         {
-            throw new MissingPersonalIdentificationException($"Document of type {DocumentType.PersonalIdentification.Name} is mandatory ");
+            throw new MissingPersonalIdentificationException($"Document of type {DocumentType.PersonalIdentification.Name} is mandatory.");
         }
 
         if (patronType.Equals(PatronType.Research) && !IsAcademicsIdentificationDocumentAvailable(identityDocuments))

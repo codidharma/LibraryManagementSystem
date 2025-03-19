@@ -24,13 +24,16 @@ public class NameTests : TestBase
     [InlineData(" ")]
     public void InvalidNameValue_Should_ThrowInvalidValueException(string nameValue)
     {
-        //Act
+        //Arrange
+        string expectedExceptionMessage = "Name can not be null, empty or whitespace string.";
         Name name;
 
+        //Act
         Action action = () => { name = new(nameValue); };
 
         //Assert
-        Assert.Throws<InvalidValueException>(action);
+        InvalidValueException exception = Assert.Throws<InvalidValueException>(action);
+        Assert.Equal(expectedExceptionMessage, exception.Message);
 
     }
 }

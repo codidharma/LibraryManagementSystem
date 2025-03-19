@@ -25,13 +25,14 @@ public class GenderTests : TestBase
     public void InvalidGender_Throws_InvalidValueException(string genderValue)
     {
         //Arrange
+        string expectedExceptionMessage = "Gender value cannot be null, empty or whitespace string.";
         Gender gender;
 
         //Act
         Action action = () => { gender = new(genderValue); };
 
         //Assert
-        Assert.Throws<InvalidValueException>(action);
-
+        InvalidValueException exception = Assert.Throws<InvalidValueException>(action);
+        Assert.Equal(expectedExceptionMessage, exception.Message);
     }
 }

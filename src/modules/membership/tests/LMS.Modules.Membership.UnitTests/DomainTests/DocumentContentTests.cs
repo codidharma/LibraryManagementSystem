@@ -10,6 +10,7 @@ public class DocumentContentTests : TestBase
     public void New_ShouldThrow_InvalidValueException_ForInvalidBase64String()
     {
         //arrange
+        string expectedExceptionMessage = $"The value provided is not a valid base64 string.";
         string sampleData = "somedata#!@!@!@";
         DocumentContentType contentType = DocumentContentType.Pdf;
 
@@ -19,7 +20,8 @@ public class DocumentContentTests : TestBase
         Action action = () => { content = new(sampleData, contentType); };
 
         //Assert
-        Assert.Throws<InvalidValueException>(action);
+        InvalidValueException exception = Assert.Throws<InvalidValueException>(action);
+        Assert.Equal(expectedExceptionMessage, exception.Message);
     }
 
     [Fact]

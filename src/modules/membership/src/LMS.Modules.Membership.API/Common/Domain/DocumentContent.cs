@@ -11,7 +11,7 @@ internal sealed record DocumentContent : ValueObject
     {
         if (!IsValidBase64String(value))
         {
-            throw new InvalidValueException($"The value provided for parameter {nameof(value)} is not a valid base64 string.");
+            throw new InvalidValueException($"The value provided is not a valid base64 string.");
         }
         Value = value;
         ContentType = contentType;

@@ -8,16 +8,16 @@ internal sealed record DateOfBirth : ValueObject
     public DateTime Value { get; }
     public DateOfBirth(DateTime value)
     {
-        if (IsInFuture(value))
+        if (IsDateOfBirthInFutureorToday(value))
         {
-            throw new InvalidValueException("Date of birth cannot be in future.");
+            throw new InvalidValueException("Date of birth cannot be in future or today.");
         }
         Value = value;
     }
 
-    private static bool IsInFuture(DateTime value)
+    private static bool IsDateOfBirthInFutureorToday(DateTime value)
     {
-        return value.Date > DateTime.Today.Date;
 
+        return value.Date >= DateTime.Today.Date;
     }
 }
