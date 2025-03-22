@@ -2,7 +2,7 @@
 
 namespace LMS.Modules.Membership.Domain;
 
-public sealed class PatronType : Enumeration
+public sealed record PatronType : Enumeration
 {
     public static readonly PatronType Regular = new(1, "Regular");
     public static readonly PatronType Research = new(2, "Research");

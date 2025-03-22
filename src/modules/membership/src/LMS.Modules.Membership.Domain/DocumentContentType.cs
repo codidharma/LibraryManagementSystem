@@ -2,7 +2,7 @@
 
 namespace LMS.Modules.Membership.Domain;
 
-public sealed class DocumentContentType : Enumeration
+public sealed record DocumentContentType : Enumeration
 {
     public static readonly DocumentContentType Pdf = new(1, "application/pdf");
     public static readonly DocumentContentType Jpeg = new(2, "application/jpeg");

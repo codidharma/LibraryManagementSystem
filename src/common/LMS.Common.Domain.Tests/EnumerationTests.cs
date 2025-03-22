@@ -48,13 +48,16 @@ public class EnumerationTests
     public void FromId_ShouldThrow_InvalidOperationException_ForIncorrectId()
     {
         //Arrange
+        int id = 5;
+        string expectedExceptionMessage = $"Value of Id {id} for type {typeof(TestEnumeration)} is invalid.";
         TestEnumeration expected;
 
         //Act
-        Action action = () => { expected = Enumeration.FromId<TestEnumeration>(4); };
+        Action action = () => { expected = Enumeration.FromId<TestEnumeration>(id); };
 
         //Assert
-        Assert.Throws<InvalidOperationException>(action);
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(action);
+        Assert.Equal(expectedExceptionMessage, exception.Message);
 
     }
 
@@ -77,38 +80,15 @@ public class EnumerationTests
     {
         //Arrange
         string inputName = "someValue";
+        string expectedExceptionMessage = $"Value of Name {inputName} for type {typeof(TestEnumeration)} is invalid.";
         TestEnumeration enumeration;
 
         //Act
         Action action = () => { enumeration = Enumeration.FromName<TestEnumeration>(inputName); };
 
         //Assert
-        Assert.Throws<InvalidOperationException>(action);
-    }
-
-    [Fact]
-    public void Enumerations_ShouldBeComparable_UsingOperators()
-    {
-        TestEnumeration testEnumeration1 = TestEnumeration.Test1;
-        TestEnumeration testEnumeration2 = TestEnumeration.Test2;
-
-        Assert.True(testEnumeration2 > testEnumeration1);
-        Assert.True(testEnumeration2 >= testEnumeration1);
-        Assert.True(testEnumeration1 < testEnumeration2);
-        Assert.True(testEnumeration1 <= testEnumeration2);
-        Assert.True(testEnumeration1 != testEnumeration2);
-
-    }
-
-    [Fact]
-    public void Enumerations_ShouldBeComparable_UsingCompareToFunction()
-    {
-        //Arrange
-        TestEnumeration testEnumeration1 = TestEnumeration.Test1;
-        TestEnumeration testEnumeration2 = TestEnumeration.Test1;
-
-        //Assert
-        Assert.Equal(0, testEnumeration1.CompareTo(testEnumeration2));
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(action);
+        Assert.Equal(expectedExceptionMessage, exception.Message);
     }
 
     [Fact]
