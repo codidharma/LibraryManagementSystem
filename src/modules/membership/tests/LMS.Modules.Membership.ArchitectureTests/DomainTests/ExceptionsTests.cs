@@ -1,5 +1,4 @@
 ﻿using LMS.Modules.Membership.ArchitectureTests.Base;
-using NetArchTest.Rules;
 
 namespace LMS.Modules.Membership.ArchitectureTests.DomainTests;
 
