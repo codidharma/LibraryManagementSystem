@@ -1,0 +1,32 @@
+{
+  "stryker-config": {
+    "project-info": {
+      "name": "Library Management System Mutation",
+      "version": "1.0"
+    },
+    "concurrency": 8,
+    "mutation-level": "Standard",
+    "language-version": "latest",
+    "additional-timeout": 5000,
+    "mutate": [
+      
+      "!**/LMS.ServiceDefaults/Extensions.cs",
+      "!**/*/Program.cs"
+
+    ],
+    "solution": "./LMS.sln",
+    "coverage-analysis": "perTest",
+    "disable-bail": false,
+    "disable-mix-mutants": false,
+    "thresholds": {
+      "high": 80,
+      "low": 60,
+      "break": 0
+    },
+    "verbosity": "info",
+    "reporters": [
+      "Progress",
+      "Html"
+    ]
+  }
+}
