@@ -11,7 +11,7 @@ public class ExceptionsTests : TestBase
     public void Exceptions_ShouldEndWith_ExceptionSuffix()
     {
         TestResult result = Types
-            .InAssembly(MembershipAssembly)
+            .InAssembly(DomainAssembly)
             .That()
             .ResideInNamespace(ExceptionNamespace)
             .Should()
@@ -25,7 +25,7 @@ public class ExceptionsTests : TestBase
     public void Exceptions_ShouldBe_Sealed()
     {
         TestResult result = Types
-            .InAssembly(MembershipAssembly)
+            .InAssembly(DomainAssembly)
             .That()
             .ResideInNamespace(ExceptionNamespace)
             .Should()

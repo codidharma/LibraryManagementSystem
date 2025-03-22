@@ -1,5 +1,4 @@
 ﻿using Bogus;
-using LMS.Modules.Membership.API.Common.Domain;
 using LMS.Modules.Membership.UnitTests.Base;
 
 namespace LMS.Modules.Membership.UnitTests.DomainTests;

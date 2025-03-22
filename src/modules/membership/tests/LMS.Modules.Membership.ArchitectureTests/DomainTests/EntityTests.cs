@@ -8,16 +8,14 @@ namespace LMS.Modules.Membership.ArchitectureTests.DomainTests;
 public class EntityTests : TestBase
 {
     [Fact]
-    public void Entites_ShouldBe_Sealed_And_ShouldNotBe_Public()
+    public void Entites_ShouldBe_Sealed()
     {
         TestResult result = Types
-            .InAssembly(MembershipAssembly)
+            .InAssembly(DomainAssembly)
             .That()
             .Inherit(typeof(Entity))
             .Should()
             .BeSealed()
-            .And()
-            .NotBePublic()
             .GetResult();
 
         Assert.True(result.IsSuccessful);
@@ -27,7 +25,7 @@ public class EntityTests : TestBase
     public void Entities_ShouldOnlyHave_PrivateConstructors()
     {
         IEnumerable<Type> entityTypes = Types
-            .InAssembly(MembershipAssembly)
+            .InAssembly(DomainAssembly)
             .That()
             .Inherit(typeof(Entity))
             .GetTypes();
@@ -51,7 +49,7 @@ public class EntityTests : TestBase
     public void Entities_ShouldHave_ParameterlessPrivateConstructor()
     {
         IEnumerable<Type> entityTypes = Types
-            .InAssembly(MembershipAssembly)
+            .InAssembly(DomainAssembly)
             .That()
             .Inherit(typeof(Entity))
             .GetTypes();

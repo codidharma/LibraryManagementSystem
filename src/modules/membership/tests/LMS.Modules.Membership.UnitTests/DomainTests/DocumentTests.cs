@@ -1,6 +1,4 @@
-﻿using LMS.Modules.Membership.API.Common.Domain;
-
-namespace LMS.Modules.Membership.UnitTests.DomainTests;
+﻿namespace LMS.Modules.Membership.UnitTests.DomainTests;
 
 public class DocumentTests
 {

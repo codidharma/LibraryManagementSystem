@@ -1,9 +1,9 @@
 ﻿using LMS.Common.Domain;
-using LMS.Modules.Membership.API.Common.Domain.Exceptions;
+using LMS.Modules.Membership.Domain.Exceptions;
 
-namespace LMS.Modules.Membership.API.Common.Domain;
+namespace LMS.Modules.Membership.Domain;
 
-internal sealed record Gender : ValueObject
+public sealed record Gender : ValueObject
 {
     public string Value { get; }
     public Gender(string value)

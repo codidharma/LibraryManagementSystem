@@ -1,9 +1,11 @@
 ﻿using LMS.Common.Domain;
-using LMS.Modules.Membership.API.Common.Domain.Exceptions;
+using LMS.Modules.Membership.Domain.Exceptions;
 
-namespace LMS.Modules.Membership.API.Common.Domain;
 
-internal sealed class Patron : Entity
+
+namespace LMS.Modules.Membership.Domain;
+
+public sealed class Patron : Entity
 {
     public Name Name { get; }
     public Gender Gender { get; }

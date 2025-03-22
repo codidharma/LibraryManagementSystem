@@ -1,9 +1,10 @@
 ﻿using LMS.Common.Domain;
-using LMS.Modules.Membership.API.Common.Domain.Exceptions;
+using LMS.Modules.Membership.Domain.Exceptions;
 
-namespace LMS.Modules.Membership.API.Common.Domain;
 
-internal sealed record DateOfBirth : ValueObject
+namespace LMS.Modules.Membership.Domain;
+
+public sealed record DateOfBirth : ValueObject
 {
     public DateTime Value { get; }
     public DateOfBirth(DateTime value)

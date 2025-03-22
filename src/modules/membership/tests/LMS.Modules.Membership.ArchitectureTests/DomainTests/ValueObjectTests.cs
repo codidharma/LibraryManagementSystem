@@ -7,16 +7,14 @@ namespace LMS.Modules.Membership.ArchitectureTests.DomainTests;
 public class ValueObjectTests : TestBase
 {
     [Fact]
-    public void ValueObjects_ShouldBe_Sealed_And_ShouldNotBe_Public()
+    public void ValueObjects_ShouldBe_Sealed()
     {
         TestResult result = Types
-            .InAssembly(MembershipAssembly)
+            .InAssembly(DomainAssembly)
             .That()
             .Inherit(typeof(ValueObject))
             .Should()
             .BeSealed()
-            .And()
-            .NotBePublic()
             .GetResult();
 
         Assert.True(result.IsSuccessful);

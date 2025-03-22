@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\LMS.Modules.Membership.API\LMS.Modules.Membership.API.csproj" />
+    <ProjectReference Include="..\..\src\LMS.Modules.Membership.Domain\LMS.Modules.Membership.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

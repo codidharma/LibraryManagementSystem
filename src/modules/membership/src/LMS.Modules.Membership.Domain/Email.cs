@@ -1,10 +1,10 @@
 ﻿using System.Net.Mail;
 using LMS.Common.Domain;
-using LMS.Modules.Membership.API.Common.Domain.Exceptions;
+using LMS.Modules.Membership.Domain.Exceptions;
 
-namespace LMS.Modules.Membership.API.Common.Domain;
+namespace LMS.Modules.Membership.Domain;
 
-internal sealed record Email : ValueObject
+public sealed record Email : ValueObject
 {
     public string Value { get; }
 

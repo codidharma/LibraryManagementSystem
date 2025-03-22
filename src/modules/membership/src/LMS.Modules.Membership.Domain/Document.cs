@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using LMS.Common.Domain;
 
-namespace LMS.Modules.Membership.API.Common.Domain;
+namespace LMS.Modules.Membership.Domain;
 
-internal sealed class Document : Entity
+public sealed class Document : Entity
 {
     public DocumentType DocumentType { get; }
     public DocumentContent Content { get; }

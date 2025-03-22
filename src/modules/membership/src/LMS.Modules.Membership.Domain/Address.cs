@@ -1,9 +1,9 @@
 ﻿using LMS.Common.Domain;
-using LMS.Modules.Membership.API.Common.Domain.Exceptions;
+using LMS.Modules.Membership.Domain.Exceptions;
 
-namespace LMS.Modules.Membership.API.Common.Domain;
+namespace LMS.Modules.Membership.Domain;
 
-internal sealed record Address : ValueObject
+public sealed record Address : ValueObject
 {
     private const string ExceptionMessage = @$"Address should be composed of non null, empty of whitespace values for {nameof(Street)}, {nameof(City)}, {nameof(State)} {nameof(Country)} and {nameof(ZipCode)}";
 

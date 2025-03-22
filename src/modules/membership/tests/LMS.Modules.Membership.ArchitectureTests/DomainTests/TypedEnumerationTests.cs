@@ -11,7 +11,7 @@ public class TypedEnumerationTests : TestBase
     public void StronglyTypedEnumerations_shouldBe_Sealed()
     {
         TestResult result = Types
-            .InAssembly(MembershipAssembly)
+            .InAssembly(DomainAssembly)
             .That()
             .Inherit(typeof(Enumeration))
             .Should()
@@ -27,7 +27,7 @@ public class TypedEnumerationTests : TestBase
     {
         //Arrange
         IEnumerable<Type> enumerationTypes = Types
-            .InAssembly(MembershipAssembly)
+            .InAssembly(DomainAssembly)
             .That()
             .Inherit(typeof(Enumeration))
             .GetTypes();

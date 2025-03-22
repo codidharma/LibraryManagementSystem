@@ -1,9 +1,9 @@
 ﻿using LMS.Common.Domain;
-using LMS.Modules.Membership.API.Common.Domain.Exceptions;
+using LMS.Modules.Membership.Domain.Exceptions;
 
-namespace LMS.Modules.Membership.API.Common.Domain;
+namespace LMS.Modules.Membership.Domain;
 
-internal sealed record DocumentContent : ValueObject
+public sealed record DocumentContent : ValueObject
 {
     public string Value { get; }
     public DocumentContentType ContentType { get; }
@@ -19,7 +19,7 @@ internal sealed record DocumentContent : ValueObject
 
     private static bool IsValidBase64String(string value)
     {
-        Span<byte> buffer = new Span<byte>(new byte[value.Length]);
+        var buffer = new Span<byte>(new byte[value.Length]);
         return Convert.TryFromBase64String(value, buffer, out int _);
     }
 }

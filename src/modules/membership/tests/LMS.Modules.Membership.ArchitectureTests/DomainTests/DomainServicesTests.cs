@@ -9,7 +9,7 @@ public class DomainServicesTests : TestBase
     public void DomainServices_ShouldBe_Sealed()
     {
         TestResult result = Types
-            .InAssembly(MembershipAssembly)
+            .InAssembly(DomainAssembly)
             .That()
             .HaveNameEndingWith("Service")
             .Should()

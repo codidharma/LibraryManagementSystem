@@ -1,8 +1,8 @@
 ﻿using LMS.Common.Domain;
 
-namespace LMS.Modules.Membership.API.Common.Domain;
+namespace LMS.Modules.Membership.Domain;
 
-internal sealed class PatronType : Enumeration
+public sealed class PatronType : Enumeration
 {
     public static readonly PatronType Regular = new(1, "Regular");
     public static readonly PatronType Research = new(2, "Research");
