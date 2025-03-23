@@ -24,4 +24,15 @@ public class DocumentTypeTests
         //Assert
         Assert.Equal(documentType1, documentType2);
     }
+
+    [Fact]
+    public void New_ShouldReturn_AddressProof()
+    {
+        //Arrange
+        DocumentType documentType1 = DocumentType.AddressProof;
+        DocumentType documentType2 = DocumentType.AddressProof;
+
+        //Assert
+        Assert.Equal(documentType1, documentType2);
+    }
 }

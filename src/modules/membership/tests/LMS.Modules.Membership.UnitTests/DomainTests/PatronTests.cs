@@ -10,6 +10,9 @@ public class PatronTests : TestBase
     private readonly Document AcademicsIdentification = Document.Create(
         DocumentType.AcademicsIdentification,
         new("somedata", DocumentContentType.Pdf));
+    private readonly Document AddressProof = Document.Create(
+        DocumentType.AddressProof,
+        new("somedata", DocumentContentType.Pdf));
 
     [Fact]
     public void Create_Should_ReturnRegularPatron()
@@ -26,7 +29,7 @@ public class PatronTests : TestBase
             "412105");
 
         PatronType patronType = PatronType.Regular;
-        List<Document> onboardingDocuments = [PersonalIdentification];
+        List<Document> onboardingDocuments = [PersonalIdentification, AddressProof];
 
 
         //Act
@@ -53,7 +56,7 @@ public class PatronTests : TestBase
             Faker.Address.State(),
             Faker.Address.Country(),
             "412105");
-        List<Document> onboardingDocuments = [PersonalIdentification, AcademicsIdentification];
+        List<Document> onboardingDocuments = [PersonalIdentification, AcademicsIdentification, AddressProof];
 
         PatronType patronType = PatronType.Research;
 
@@ -202,7 +205,7 @@ public class PatronTests : TestBase
             "412105");
 
         PatronType patronType = PatronType.Research;
-        List<Document> onboardingDocuments = [PersonalIdentification];
+        List<Document> onboardingDocuments = [PersonalIdentification, AddressProof];
 
         Patron patron;
 
@@ -220,6 +223,82 @@ public class PatronTests : TestBase
 
         //Assert
         MissingAcademicsIdentificationException exception = Assert.Throws<MissingAcademicsIdentificationException>(action);
+        Assert.Equal(expectedExceptionMessage, exception.Message);
+    }
+
+    [Fact]
+    public void ForRegularPatron_Create_ThrowsMissingAddressProofException_WhenAddressProofIsNotProvided()
+    {
+
+        //Arrange
+        string expectedExceptionMessage = $"Document of type {DocumentType.AddressProof.Name} is mandatory.";
+        Name name = new(Faker.Person.FullName);
+        Gender gender = new(Faker.Person.Gender.ToString());
+        DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
+        Address address = Address.Create(Guid.NewGuid(),
+            Faker.Address.StreetName(),
+            Faker.Address.City(),
+            Faker.Address.State(),
+            Faker.Address.Country(),
+            "412105");
+
+        PatronType patronType = PatronType.Regular;
+        List<Document> onboardingDocuments = [PersonalIdentification];
+
+        Patron patron;
+
+        //Assert
+        Action action = () =>
+        {
+            patron = Patron.Create(
+            name,
+            gender,
+            dateOfBirth,
+            address,
+            patronType,
+            onboardingDocuments);
+        };
+
+        //Assert
+        MissingAddressProofException exception = Assert.Throws<MissingAddressProofException>(action);
+        Assert.Equal(expectedExceptionMessage, exception.Message);
+    }
+
+    [Fact]
+    public void ForResearchPatron_Create_ThrowsMissingAddressProofException_WhenAddressProofIsNotProvided()
+    {
+
+        //Arrange
+        string expectedExceptionMessage = $"Document of type {DocumentType.AddressProof.Name} is mandatory.";
+        Name name = new(Faker.Person.FullName);
+        Gender gender = new(Faker.Person.Gender.ToString());
+        DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
+        Address address = Address.Create(Guid.NewGuid(),
+            Faker.Address.StreetName(),
+            Faker.Address.City(),
+            Faker.Address.State(),
+            Faker.Address.Country(),
+            "412105");
+
+        PatronType patronType = PatronType.Regular;
+        List<Document> onboardingDocuments = [PersonalIdentification, AcademicsIdentification];
+
+        Patron patron;
+
+        //Assert
+        Action action = () =>
+        {
+            patron = Patron.Create(
+            name,
+            gender,
+            dateOfBirth,
+            address,
+            patronType,
+            onboardingDocuments);
+        };
+
+        //Assert
+        MissingAddressProofException exception = Assert.Throws<MissingAddressProofException>(action);
         Assert.Equal(expectedExceptionMessage, exception.Message);
     }
 }

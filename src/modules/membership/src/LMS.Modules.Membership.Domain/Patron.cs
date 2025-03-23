@@ -54,6 +54,11 @@ public sealed class Patron : Entity
             throw new MissingPersonalIdentificationException($"Document of type {DocumentType.PersonalIdentification.Name} is mandatory.");
         }
 
+        if (!IsAddressProofDocumentAvailable(identityDocuments))
+        {
+            throw new MissingAddressProofException($"Document of type {DocumentType.AddressProof.Name} is mandatory.");
+        }
+
         if (patronType.Equals(PatronType.Research) && !IsAcademicsIdentificationDocumentAvailable(identityDocuments))
         {
             throw new MissingAcademicsIdentificationException($"Document of type {DocumentType.AcademicsIdentification.Name} is mandatory for a research patron.");
@@ -76,5 +81,11 @@ public sealed class Patron : Entity
         DocumentType academicsIdentification = DocumentType.AcademicsIdentification;
 
         return identityDocuments.Any(x => x.DocumentType == academicsIdentification);
+    }
+
+    private static bool IsAddressProofDocumentAvailable(List<Document> documents)
+    {
+        DocumentType addressProof = DocumentType.AddressProof;
+        return documents.Any(doc => doc.DocumentType == addressProof);
     }
 }
