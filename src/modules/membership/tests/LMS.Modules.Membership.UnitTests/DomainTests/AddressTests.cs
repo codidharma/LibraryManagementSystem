@@ -6,9 +6,10 @@ namespace LMS.Modules.Membership.UnitTests.DomainTests;
 public class AddressTests : TestBase
 {
     [Fact]
-    public void Constructor_ShouldReturn_AddressInstance()
+    public void Create_ShouldReturn_Address()
     {
         //Arrange
+        Guid patronId = Guid.NewGuid();
         string street = Faker.Address.StreetName();
         string city = Faker.Address.City();
         string state = Faker.Address.State();
@@ -16,9 +17,10 @@ public class AddressTests : TestBase
         string zipCode = Faker.Address.ZipCode();
 
         //Act
-        Address address = new(street, city, state, country, zipCode);
+        Address address = Address.Create(patronId, street, city, state, country, zipCode);
 
         //Assert
+        Assert.Equal(patronId, address.PatronId);
         Assert.Equal(street, address.Street);
         Assert.Equal(city, address.City);
         Assert.Equal(state, address.State);
@@ -40,7 +42,7 @@ public class AddressTests : TestBase
         Address address;
 
         //Act
-        Action action = () => { address = new(street, city, state, country, zipCode); };
+        Action action = () => { address = Address.Create(Guid.NewGuid(), street, city, state, country, zipCode); };
 
         //Assert
         InvalidValueException exception = Assert.Throws<InvalidValueException>(action);
