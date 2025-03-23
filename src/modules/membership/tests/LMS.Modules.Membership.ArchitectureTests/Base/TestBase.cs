@@ -6,4 +6,5 @@ public class TestBase
 {
     protected readonly Assembly DomainAssembly = Domain.AssemblyReference.Assembly;
     protected readonly Assembly ApiAssembly = API.AssemblyReference.Assembly;
+    protected readonly Assembly ApplicationAssembly = Application.AssemblyReference.Assembly;
 }
