@@ -35,4 +35,36 @@ public class CommandHandlerTests : TestBase
         //Assert
         Assert.True(result.IsSuccessful);
     }
+
+    [Fact]
+    public void CommandDispatchers_ShouldBe_Sealed()
+    {
+        //Act
+        TestResult result = Types
+            .InAssembly(ApplicationAssembly)
+            .That()
+            .ImplementInterface(typeof(ICommandDispatcher))
+            .Should()
+            .BeSealed()
+            .GetResult();
+
+        //Assert
+        Assert.True(result.IsSuccessful);
+    }
+
+    [Fact]
+    public void CommandDispatchers_ShouldEndWith_DispatcherPostFix()
+    {
+        //Act
+        TestResult result = Types
+            .InAssembly(ApplicationAssembly)
+            .That()
+            .ImplementInterface(typeof(ICommandDispatcher))
+            .Should()
+            .HaveNameEndingWith("Dispatcher")
+            .GetResult();
+
+        //Assert
+        Assert.True(result.IsSuccessful);
+    }
 }
