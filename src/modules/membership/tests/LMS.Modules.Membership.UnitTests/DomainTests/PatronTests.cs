@@ -41,6 +41,7 @@ public class PatronTests : TestBase
         Assert.Equal(dateOfBirth, regularPatron.DateOfBirth);
         Assert.Equal(address, regularPatron.Address);
         Assert.Equal(patronType, regularPatron.PatronType);
+        Assert.IsType<Guid>(regularPatron.Id);
     }
 
     [Fact]
@@ -75,6 +76,7 @@ public class PatronTests : TestBase
         Assert.Equal(dateOfBirth, regularPatron.DateOfBirth);
         Assert.Equal(address, regularPatron.Address);
         Assert.Equal(patronType, regularPatron.PatronType);
+        Assert.IsType<Guid>(regularPatron.Id);
     }
 
     [Fact]

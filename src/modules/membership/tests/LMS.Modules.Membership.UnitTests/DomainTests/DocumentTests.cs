@@ -20,5 +20,6 @@ public class DocumentTests
         //Assert
         Assert.Equal(documentType, document.DocumentType);
         Assert.Equal(content, document.Content);
+        Assert.IsType<Guid>(document.Id);
     }
 }
