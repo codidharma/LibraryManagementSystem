@@ -21,7 +21,8 @@ public class PatronTests : TestBase
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
-        Address address = Address.Create(Guid.NewGuid(),
+        PatronId patronId = new(Guid.NewGuid());
+        Address address = Address.Create(patronId,
             Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
@@ -41,7 +42,7 @@ public class PatronTests : TestBase
         Assert.Equal(dateOfBirth, regularPatron.DateOfBirth);
         Assert.Equal(address, regularPatron.Address);
         Assert.Equal(patronType, regularPatron.PatronType);
-        Assert.IsType<Guid>(regularPatron.Id);
+        Assert.IsType<EntityId>(regularPatron.Id);
     }
 
     [Fact]
@@ -51,7 +52,8 @@ public class PatronTests : TestBase
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
-        Address address = Address.Create(Guid.NewGuid(),
+        PatronId patronId = new(Guid.NewGuid());
+        Address address = Address.Create(patronId,
             Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
@@ -76,7 +78,7 @@ public class PatronTests : TestBase
         Assert.Equal(dateOfBirth, regularPatron.DateOfBirth);
         Assert.Equal(address, regularPatron.Address);
         Assert.Equal(patronType, regularPatron.PatronType);
-        Assert.IsType<Guid>(regularPatron.Id);
+        Assert.IsType<EntityId>(regularPatron.Id);
     }
 
     [Fact]
@@ -87,7 +89,8 @@ public class PatronTests : TestBase
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
-        Address address = Address.Create(Guid.NewGuid(),
+        PatronId patronId = new(Guid.NewGuid());
+        Address address = Address.Create(patronId,
             Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
@@ -123,7 +126,8 @@ public class PatronTests : TestBase
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
-        Address address = Address.Create(Guid.NewGuid(),
+        PatronId patronId = new(Guid.NewGuid());
+        Address address = Address.Create(patronId,
             Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
@@ -161,7 +165,8 @@ public class PatronTests : TestBase
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
-        Address address = Address.Create(Guid.NewGuid(),
+        PatronId patronId = new(Guid.NewGuid());
+        Address address = Address.Create(patronId,
             Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
@@ -199,7 +204,8 @@ public class PatronTests : TestBase
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
-        Address address = Address.Create(Guid.NewGuid(),
+        PatronId patronId = new(Guid.NewGuid());
+        Address address = Address.Create(patronId,
             Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
@@ -237,7 +243,8 @@ public class PatronTests : TestBase
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
-        Address address = Address.Create(Guid.NewGuid(),
+        PatronId patronId = new(Guid.NewGuid());
+        Address address = Address.Create(patronId,
             Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
@@ -275,7 +282,8 @@ public class PatronTests : TestBase
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
-        Address address = Address.Create(Guid.NewGuid(),
+        PatronId patronId = new(Guid.NewGuid());
+        Address address = Address.Create(patronId,
             Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),

@@ -2,9 +2,9 @@
 
 public abstract class Entity
 {
-    public Guid Id { get; }
+    public EntityId Id { get; }
     protected Entity()
     {
-        Id = Guid.NewGuid();
+        Id = new(Guid.NewGuid());
     }
 }

@@ -12,11 +12,11 @@ public sealed class Address : Entity
     public string State { get; }
     public string Country { get; }
 
-    public Guid PatronId { get; }
+    public PatronId PatronId { get; }
     public string ZipCode { get; }
 
     private Address() { }
-    private Address(Guid patronId,
+    private Address(PatronId patronId,
                    string street,
                    string city,
                    string state,
@@ -39,7 +39,7 @@ public sealed class Address : Entity
         ZipCode = zipCode;
     }
 
-    public static Address Create(Guid patronId,
+    public static Address Create(PatronId patronId,
                    string street,
                    string city,
                    string state,
