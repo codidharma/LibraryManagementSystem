@@ -11,13 +11,10 @@ public sealed class Address : Entity
     public string City { get; }
     public string State { get; }
     public string Country { get; }
-
-    public PatronId PatronId { get; }
     public string ZipCode { get; }
 
     private Address() { }
-    private Address(PatronId patronId,
-                   string street,
+    private Address(string street,
                    string city,
                    string state,
                    string country,
@@ -31,7 +28,7 @@ public sealed class Address : Entity
         {
             throw new InvalidValueException(ExceptionMessage);
         }
-        PatronId = patronId;
+
         Street = street;
         City = city;
         State = state;
@@ -39,14 +36,13 @@ public sealed class Address : Entity
         ZipCode = zipCode;
     }
 
-    public static Address Create(PatronId patronId,
-                   string street,
+    public static Address Create(string street,
                    string city,
                    string state,
                    string country,
                    string zipCode)
     {
-        Address address = new Address(patronId, street, city, state, country, zipCode);
+        Address address = new Address(street, city, state, country, zipCode);
         return address;
     }
 }

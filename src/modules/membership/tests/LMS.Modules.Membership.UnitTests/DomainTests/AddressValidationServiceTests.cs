@@ -9,9 +9,7 @@ public class AddressValidationServiceTests : TestBase
     public void ForUnAllowedZipCodes_Service_ShouldReturn_False()
     {
         //Arrange
-        PatronId patronId = new(Guid.NewGuid());
-        Address address = Address.Create(patronId,
-            Faker.Address.StreetName(),
+        Address address = Address.Create(Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
             Faker.Address.Country(),
@@ -31,9 +29,7 @@ public class AddressValidationServiceTests : TestBase
     public void ForAllowedZipCodes_Service_ShouldReturn_True(string zipCode)
     {
         //Arrange
-        PatronId patronId = new(Guid.NewGuid());
-        Address address = Address.Create(patronId,
-            Faker.Address.StreetName(),
+        Address address = Address.Create(Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
             Faker.Address.Country(),

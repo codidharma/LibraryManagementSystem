@@ -9,7 +9,6 @@ public class AddressTests : TestBase
     public void Create_ShouldReturn_Address()
     {
         //Arrange
-        PatronId patronId = new(Guid.NewGuid());
         string street = Faker.Address.StreetName();
         string city = Faker.Address.City();
         string state = Faker.Address.State();
@@ -17,10 +16,9 @@ public class AddressTests : TestBase
         string zipCode = Faker.Address.ZipCode();
 
         //Act
-        Address address = Address.Create(patronId, street, city, state, country, zipCode);
+        Address address = Address.Create(street, city, state, country, zipCode);
 
         //Assert
-        Assert.Equal(patronId, address.PatronId);
         Assert.Equal(street, address.Street);
         Assert.Equal(city, address.City);
         Assert.Equal(state, address.State);
@@ -41,10 +39,9 @@ public class AddressTests : TestBase
         //Arrange
         string expectdExceptionMessage = $"Address should be composed of non null, empty of whitespace values for {nameof(Address.Street)}, {nameof(Address.City)}, {nameof(Address.State)} {nameof(Address.Country)} and {nameof(Address.ZipCode)}";
         Address address;
-        PatronId patronId = new(Guid.NewGuid());
 
         //Act
-        Action action = () => { address = Address.Create(patronId, street, city, state, country, zipCode); };
+        Action action = () => { address = Address.Create(street, city, state, country, zipCode); };
 
         //Assert
         InvalidValueException exception = Assert.Throws<InvalidValueException>(action);
