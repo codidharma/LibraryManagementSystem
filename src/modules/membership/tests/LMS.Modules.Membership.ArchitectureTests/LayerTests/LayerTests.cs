@@ -11,7 +11,8 @@ public class LayerTests : TestBase
         //Arrange
         string?[] notAllowedLayers = [
             ApiAssembly.GetName().Name,
-            ApplicationAssembly.GetName().Name
+            ApplicationAssembly.GetName().Name,
+            InfrastructureAssembly.GetName().Name
         ];
 
         //Act
@@ -30,6 +31,32 @@ public class LayerTests : TestBase
     {
         TestResult result = Types
             .InAssembly(ApplicationAssembly)
+            .ShouldNot()
+            .HaveDependencyOn(ApiAssembly.GetName().Name)
+            .GetResult();
+
+        //Assert
+        Assert.True(result.IsSuccessful);
+    }
+
+    [Fact]
+    public void Application_ShouldNotReference_InfrastructureLayer()
+    {
+        TestResult result = Types
+            .InAssembly(ApplicationAssembly)
+            .ShouldNot()
+            .HaveDependencyOn(InfrastructureAssembly.GetName().Name)
+            .GetResult();
+
+        //Assert
+        Assert.True(result.IsSuccessful);
+    }
+
+    [Fact]
+    public void Infrastructure_ShouldNotReference_APILayer()
+    {
+        TestResult result = Types
+            .InAssembly(InfrastructureAssembly)
             .ShouldNot()
             .HaveDependencyOn(ApiAssembly.GetName().Name)
             .GetResult();
