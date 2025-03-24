@@ -1,19 +1,17 @@
-﻿using LMS.Modules.Membership.Domain.PatronAggregate;
-using LMS.Modules.Membership.Domain.PatronAggregate.Exceptions;
-using LMS.Modules.Membership.UnitTests.Base;
+﻿using LMS.Modules.Membership.UnitTests.Base;
 
 namespace LMS.Modules.Membership.UnitTests.DomainTests;
 
 public class PatronTests : TestBase
 {
     private readonly Document PersonalIdentification = Document.Create(
-        DocumentType.PersonalIdentification,
+        Domain.PatronAggregate.DocumentType.PersonalIdentification,
         new("somedata", DocumentContentType.Pdf));
     private readonly Document AcademicsIdentification = Document.Create(
-        DocumentType.AcademicsIdentification,
+        Domain.PatronAggregate.DocumentType.AcademicsIdentification,
         new("somedata", DocumentContentType.Pdf));
     private readonly Document AddressProof = Document.Create(
-        DocumentType.AddressProof,
+        Domain.PatronAggregate.DocumentType.AddressProof,
         new("somedata", DocumentContentType.Pdf));
 
     [Fact]
@@ -120,7 +118,7 @@ public class PatronTests : TestBase
     {
 
         //Arrange
-        string expectedExceptionMessage = $"Document of type {DocumentType.PersonalIdentification.Name} is mandatory.";
+        string expectedExceptionMessage = $"Document of type {Domain.PatronAggregate.DocumentType.PersonalIdentification.Name} is mandatory.";
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
@@ -157,7 +155,7 @@ public class PatronTests : TestBase
     {
 
         //Arrange
-        string expectedExceptionMessage = $"Document of type {DocumentType.PersonalIdentification.Name} is mandatory.";
+        string expectedExceptionMessage = $"Document of type {Domain.PatronAggregate.DocumentType.PersonalIdentification.Name} is mandatory.";
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
@@ -194,7 +192,7 @@ public class PatronTests : TestBase
     {
 
         //Arrange
-        string expectedExceptionMessage = $"Document of type {DocumentType.AcademicsIdentification.Name} is mandatory for a research patron.";
+        string expectedExceptionMessage = $"Document of type {Domain.PatronAggregate.DocumentType.AcademicsIdentification.Name} is mandatory for a research patron.";
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
@@ -231,7 +229,7 @@ public class PatronTests : TestBase
     {
 
         //Arrange
-        string expectedExceptionMessage = $"Document of type {DocumentType.AddressProof.Name} is mandatory.";
+        string expectedExceptionMessage = $"Document of type {Domain.PatronAggregate.DocumentType.AddressProof.Name} is mandatory.";
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
@@ -268,7 +266,7 @@ public class PatronTests : TestBase
     {
 
         //Arrange
-        string expectedExceptionMessage = $"Document of type {DocumentType.AddressProof.Name} is mandatory.";
+        string expectedExceptionMessage = $"Document of type {Domain.PatronAggregate.DocumentType.AddressProof.Name} is mandatory.";
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);

@@ -1,6 +1,4 @@
-﻿using LMS.Modules.Membership.Domain.PatronAggregate;
-
-namespace LMS.Modules.Membership.UnitTests.DomainTests;
+﻿namespace LMS.Modules.Membership.UnitTests.DomainTests;
 
 public class DocumentTypeTests
 {
@@ -8,8 +6,8 @@ public class DocumentTypeTests
     public void New_ShouldReturn_PersonalIdentification()
     {
         //Arrange
-        DocumentType documentType1 = DocumentType.PersonalIdentification;
-        DocumentType documentType2 = DocumentType.PersonalIdentification;
+        Domain.PatronAggregate.DocumentType documentType1 = Domain.PatronAggregate.DocumentType.PersonalIdentification;
+        Domain.PatronAggregate.DocumentType documentType2 = Domain.PatronAggregate.DocumentType.PersonalIdentification;
 
         //Assert
         Assert.Equal(documentType1, documentType2);
@@ -20,8 +18,8 @@ public class DocumentTypeTests
     public void New_ShouldReturn_AcademicsIdentification()
     {
         //Arrange
-        DocumentType documentType1 = DocumentType.AcademicsIdentification;
-        DocumentType documentType2 = DocumentType.AcademicsIdentification;
+        Domain.PatronAggregate.DocumentType documentType1 = Domain.PatronAggregate.DocumentType.AcademicsIdentification;
+        Domain.PatronAggregate.DocumentType documentType2 = Domain.PatronAggregate.DocumentType.AcademicsIdentification;
 
         //Assert
         Assert.Equal(documentType1, documentType2);
@@ -31,8 +29,8 @@ public class DocumentTypeTests
     public void New_ShouldReturn_AddressProof()
     {
         //Arrange
-        DocumentType documentType1 = DocumentType.AddressProof;
-        DocumentType documentType2 = DocumentType.AddressProof;
+        Domain.PatronAggregate.DocumentType documentType1 = Domain.PatronAggregate.DocumentType.AddressProof;
+        Domain.PatronAggregate.DocumentType documentType2 = Domain.PatronAggregate.DocumentType.AddressProof;
 
         //Assert
         Assert.Equal(documentType1, documentType2);

@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\LMS.Modules.Membership.Domain\LMS.Modules.Membership.Domain.csproj" />
+    <ProjectReference Include="..\..\src\LMS.Modules.Membership.Infrastructure\LMS.Modules.Membership.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

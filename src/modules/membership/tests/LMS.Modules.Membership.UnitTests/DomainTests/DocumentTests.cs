@@ -1,6 +1,4 @@
-﻿using LMS.Modules.Membership.Domain.PatronAggregate;
-
-namespace LMS.Modules.Membership.UnitTests.DomainTests;
+﻿namespace LMS.Modules.Membership.UnitTests.DomainTests;
 
 public class DocumentTests
 {
@@ -8,7 +6,7 @@ public class DocumentTests
     public void Create_ShouldReturn_PdfDocumentInstance()
     {
         //Arrange
-        DocumentType documentType = DocumentType.PersonalIdentification;
+        Domain.PatronAggregate.DocumentType documentType = Domain.PatronAggregate.DocumentType.PersonalIdentification;
         string sampleData = "This is sample text";
         DocumentContentType contentType = DocumentContentType.Pdf;
 

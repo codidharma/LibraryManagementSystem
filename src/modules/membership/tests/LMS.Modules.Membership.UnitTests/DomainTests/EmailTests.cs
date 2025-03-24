@@ -1,6 +1,4 @@
-﻿using LMS.Modules.Membership.Domain.PatronAggregate;
-using LMS.Modules.Membership.Domain.PatronAggregate.Exceptions;
-using LMS.Modules.Membership.UnitTests.Base;
+﻿using LMS.Modules.Membership.UnitTests.Base;
 
 namespace LMS.Modules.Membership.UnitTests.DomainTests;
 
