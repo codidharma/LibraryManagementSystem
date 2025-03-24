@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using LMS.Common.Domain;
 
-namespace LMS.Modules.Membership.Domain;
+namespace LMS.Modules.Membership.Domain.PatronAggregate;
 
 public sealed class Document : Entity
 {

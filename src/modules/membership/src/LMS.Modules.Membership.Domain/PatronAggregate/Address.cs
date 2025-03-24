@@ -1,7 +1,7 @@
 ﻿using LMS.Common.Domain;
-using LMS.Modules.Membership.Domain.Exceptions;
+using LMS.Modules.Membership.Domain.PatronAggregate.Exceptions;
 
-namespace LMS.Modules.Membership.Domain;
+namespace LMS.Modules.Membership.Domain.PatronAggregate;
 
 public sealed class Address : Entity
 {
@@ -42,7 +42,7 @@ public sealed class Address : Entity
                    string country,
                    string zipCode)
     {
-        Address address = new Address(street, city, state, country, zipCode);
+        var address = new Address(street, city, state, country, zipCode);
         return address;
     }
 }

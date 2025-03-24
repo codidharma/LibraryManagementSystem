@@ -1,6 +1,6 @@
 ﻿using LMS.Common.Domain;
 
-namespace LMS.Modules.Membership.Domain;
+namespace LMS.Modules.Membership.Domain.PatronAggregate;
 
 public sealed record DocumentType : Enumeration
 {

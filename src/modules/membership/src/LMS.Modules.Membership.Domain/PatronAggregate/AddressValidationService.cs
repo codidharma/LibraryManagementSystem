@@ -1,4 +1,4 @@
-﻿namespace LMS.Modules.Membership.Domain;
+﻿namespace LMS.Modules.Membership.Domain.PatronAggregate;
 
 public sealed class AddressValidationService
 {

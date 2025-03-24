@@ -1,8 +1,8 @@
 ﻿using LMS.Common.Domain;
-using LMS.Modules.Membership.Domain.Exceptions;
+using LMS.Modules.Membership.Domain.PatronAggregate.Exceptions;
 
 
-namespace LMS.Modules.Membership.Domain;
+namespace LMS.Modules.Membership.Domain.PatronAggregate;
 
 public sealed record DateOfBirth : ValueObject
 {
