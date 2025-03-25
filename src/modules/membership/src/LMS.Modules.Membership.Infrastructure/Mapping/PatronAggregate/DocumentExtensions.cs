@@ -12,14 +12,14 @@ internal static class DocumentExtensions
             Id = document.Id.Value,
             Content = document.Content.Value,
             ContentType = document.Content.ContentType.ToString(),
-            DocumentType = new() { Name = document.DocumentType.Name, Id = document.DocumentType.Id }
+            DocumentType = document.DocumentType.Name
         };
     }
 
     public static Document ToDomainModel(this DocumentDao dao)
     {
         Domain.PatronAggregate.DocumentType documentType = Domain.PatronAggregate.
-            DocumentType.FromName<Domain.PatronAggregate.DocumentType>(dao.DocumentType.Name);
+            DocumentType.FromName<Domain.PatronAggregate.DocumentType>(dao.DocumentType);
 
         DocumentContentType documentContentType = DocumentContentType.FromName<DocumentContentType>(dao.ContentType);
         DocumentContent documentContent = new(dao.Content, documentContentType);

@@ -45,8 +45,7 @@ public class PatronMappingTests : TestBase
         Assert.Equal(address.State, dao.Address.State);
         Assert.Equal(address.Country, dao.Address.Country);
         Assert.Equal(address.ZipCode, dao.Address.ZipCode);
-        Assert.Equal(patronType.Name, dao.PatronType.Name);
-        Assert.Equal(patronType.Id, dao.PatronType.Id);
+        Assert.Equal(patronType.Name, dao.PatronType);
         Assert.Equal(onboardingDocuments.Count, dao.IdentityDocuments.Count);
     }
 
@@ -58,7 +57,7 @@ public class PatronMappingTests : TestBase
         string name = Faker.Person.FullName;
         DateTime dateOfBirth = Faker.Person.DateOfBirth;
         string gender = Faker.Person.Gender.ToString();
-        PatronTypeDao patronType = new() { Name = "Regular", Id = 1 };
+        string patronType = "Regular";
         AddressDao address = new()
         {
             Id = Guid.NewGuid(),
@@ -77,14 +76,14 @@ public class PatronMappingTests : TestBase
                 Id = Guid.NewGuid(),
                 Content = content,
                 ContentType = contentType,
-                DocumentType = new(){ Name = "PersonalId", Id = 1}
+                DocumentType = "PersonalId"
             },
             new()
             {
                 Id = Guid.NewGuid(),
                 Content = content,
                 ContentType = contentType,
-                DocumentType = new(){ Name = "AddressProof", Id = 3}
+                DocumentType = "AddressProof"
             }
             ];
 
@@ -107,8 +106,7 @@ public class PatronMappingTests : TestBase
         Assert.Equal(dao.Name, domainModel.Name.Value);
         Assert.Equal(dao.Gender, domainModel.Gender.Value);
         Assert.Equal(dao.DateOfBirth, domainModel.DateOfBirth.Value);
-        Assert.Equal(dao.PatronType.Name, domainModel.PatronType.Name);
-        Assert.Equal(dao.PatronType.Id, domainModel.PatronType.Id);
+        Assert.Equal(dao.PatronType, domainModel.PatronType.Name);
         Assert.Equal(dao.Address.Street, domainModel.Address.Street);
         Assert.Equal(dao.Address.City, domainModel.Address.City);
         Assert.Equal(dao.Address.State, domainModel.Address.State);

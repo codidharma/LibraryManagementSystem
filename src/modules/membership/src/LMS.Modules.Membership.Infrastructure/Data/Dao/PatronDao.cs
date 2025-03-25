@@ -7,13 +7,7 @@ internal sealed class PatronDao
     public string Gender { get; init; }
     public DateTime DateOfBirth { get; init; }
     public AddressDao Address { get; init; }
-    public PatronTypeDao PatronType { get; init; }
+    public string PatronType { get; init; }
     public List<DocumentDao> IdentityDocuments { get; init; }
 
-}
-
-internal sealed class PatronTypeDao
-{
-    public string Name { get; init; }
-    public int Id { get; init; }
 }

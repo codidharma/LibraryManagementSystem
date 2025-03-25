@@ -15,11 +15,7 @@ internal static class PatronExtensions
             Gender = patron.Gender.Value,
             DateOfBirth = patron.DateOfBirth.Value,
             Address = patron.Address.ToDao(),
-            PatronType = new()
-            {
-                Id = patron.PatronType.Id,
-                Name = patron.PatronType.Name
-            },
+            PatronType = patron.PatronType.Name,
             IdentityDocuments = patron.IdentityDocuments.Select(doc => doc.ToDao()).ToList()
 
         };
@@ -30,7 +26,7 @@ internal static class PatronExtensions
         Name name = new(dao.Name);
         Gender gender = new(dao.Gender);
         DateOfBirth dateOfBirth = new(dao.DateOfBirth);
-        PatronType patronType = Enumeration.FromName<PatronType>(dao.PatronType.Name);
+        PatronType patronType = Enumeration.FromName<PatronType>(dao.PatronType);
         Address address = dao.Address.ToDomainModel();
         List<Document> identityDocuments = dao.IdentityDocuments
             .Select(idoc => idoc.ToDomainModel()).ToList();
