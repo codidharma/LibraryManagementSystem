@@ -18,6 +18,7 @@ public class DocumentMappingTests : TestBase
         DocumentDao dao = document.ToDao();
 
         //Assert
+        Assert.Equal(document.Id.Value, dao.Id);
         Assert.Equal(content.Value, dao.Content);
         Assert.Equal(content.ContentType.ToString(), dao.ContentType);
         Assert.Equal(documentType.Name, dao.DocumentType.Name);
@@ -34,12 +35,19 @@ public class DocumentMappingTests : TestBase
         int documentTypeId = 1;
 
         Infrastructure.Data.Dao.DocumentType documentType = new() { Name = documentTypeName, Id = documentTypeId };
-        DocumentDao documentDao = new() { Content = content, ContentType = contentType, DocumentType = documentType };
+        DocumentDao documentDao = new()
+        {
+            Id = Guid.NewGuid(),
+            Content = content,
+            ContentType = contentType,
+            DocumentType = documentType
+        };
 
         //Act
         Document domainModel = documentDao.ToDomainModel();
 
         //Assert
+        Assert.Equal(documentDao.Id, domainModel.Id.Value);
         Assert.Equal(content, domainModel.Content.Value);
         Assert.Equal(contentType, domainModel.Content.ContentType.Name);
         Assert.Equal(documentTypeName, domainModel.DocumentType.Name);

@@ -2,6 +2,9 @@
   <ItemGroup>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
   </ItemGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="LMS.Modules.Membership.UnitTests"/>
+	</ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\LMS.Modules.Membership.Domain\LMS.Modules.Membership.Domain.csproj" />

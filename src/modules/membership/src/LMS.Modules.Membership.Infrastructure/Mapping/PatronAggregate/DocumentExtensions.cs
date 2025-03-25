@@ -9,6 +9,7 @@ public static class DocumentExtensions
     {
         return new DocumentDao
         {
+            Id = document.Id.Value,
             Content = document.Content.Value,
             ContentType = document.Content.ContentType.ToString(),
             DocumentType = new() { Name = document.DocumentType.Name, Id = document.DocumentType.Id }
@@ -23,6 +24,8 @@ public static class DocumentExtensions
         DocumentContentType documentContentType = DocumentContentType.FromName<DocumentContentType>(dao.ContentType);
         DocumentContent documentContent = new(dao.Content, documentContentType);
         Document document = Document.Create(documentType, documentContent);
+        document.SetEntityId(dao.Id);
         return document;
     }
+
 }

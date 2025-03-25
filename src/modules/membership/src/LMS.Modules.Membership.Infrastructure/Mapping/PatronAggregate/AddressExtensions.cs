@@ -9,6 +9,7 @@ public static class AddressExtensions
     {
         return new AddressDao
         {
+            Id = address.Id.Value,
             Street = address.Street,
             City = address.City,
             State = address.State,
@@ -20,6 +21,7 @@ public static class AddressExtensions
     public static Address ToDomainModel(this AddressDao dao)
     {
         Address address = Address.Create(dao.Street, dao.City, dao.State, dao.Country, dao.ZipCode);
+        address.SetEntityId(dao.Id);
         return address;
     }
 }

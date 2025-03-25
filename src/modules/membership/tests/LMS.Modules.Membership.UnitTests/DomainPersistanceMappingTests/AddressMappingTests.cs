@@ -22,6 +22,7 @@ public class AddressMappingTests : TestBase
         AddressDao dao = address.ToDao();
 
         //Assert
+        Assert.Equal(address.Id.Value, dao.Id);
         Assert.Equal(street, dao.Street);
         Assert.Equal(city, dao.City);
         Assert.Equal(state, dao.State);
@@ -41,6 +42,7 @@ public class AddressMappingTests : TestBase
 
         AddressDao addressDao = new()
         {
+            Id = Guid.NewGuid(),
             Street = street,
             City = city,
             State = state,
@@ -52,6 +54,7 @@ public class AddressMappingTests : TestBase
         Address domainModel = addressDao.ToDomainModel();
 
         //Assert
+        Assert.Equal(addressDao.Id, domainModel.Id.Value);
         Assert.Equal(street, domainModel.Street);
         Assert.Equal(city, domainModel.City);
         Assert.Equal(state, domainModel.State);

@@ -2,6 +2,7 @@
 
 public class DocumentDao
 {
+    public Guid Id { get; init; }
     public string Content { get; init; }
     public string ContentType { get; init; }
     public DocumentType DocumentType { get; init; }

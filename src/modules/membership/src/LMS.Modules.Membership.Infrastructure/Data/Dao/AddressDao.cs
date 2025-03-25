@@ -2,6 +2,7 @@
 
 public class AddressDao
 {
+    public Guid Id { get; init; }
     public string Street { get; init; }
     public string City { get; init; }
     public string State { get; init; }
