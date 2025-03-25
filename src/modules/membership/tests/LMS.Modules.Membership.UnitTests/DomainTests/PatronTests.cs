@@ -27,13 +27,14 @@ public class PatronTests : TestBase
             Faker.Address.State(),
             Faker.Address.Country(),
             "412105");
+        Email email = new(Faker.Person.Email);
 
         PatronType patronType = PatronType.Regular;
         List<Document> onboardingDocuments = [PersonalIdentification, AddressProof];
 
 
         //Act
-        Patron regularPatron = Patron.Create(name, gender, dateOfBirth, address, patronType, onboardingDocuments);
+        Patron regularPatron = Patron.Create(name, gender, dateOfBirth, email, address, patronType, onboardingDocuments);
 
         //Assert
         Assert.NotNull(regularPatron);
@@ -41,6 +42,7 @@ public class PatronTests : TestBase
         Assert.Equal(dateOfBirth, regularPatron.DateOfBirth);
         Assert.Equal(address, regularPatron.Address);
         Assert.Equal(patronType, regularPatron.PatronType);
+        Assert.Equal(email, regularPatron.Email);
         Assert.IsType<EntityId>(regularPatron.Id);
     }
 
@@ -51,6 +53,7 @@ public class PatronTests : TestBase
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
+        Email email = new(Faker.Person.Email);
         Address address = Address.Create(
             Faker.Address.StreetName(),
             Faker.Address.City(),
@@ -66,6 +69,7 @@ public class PatronTests : TestBase
             name,
             gender,
             dateOfBirth,
+            email,
             address,
             patronType,
             onboardingDocuments);
@@ -74,6 +78,7 @@ public class PatronTests : TestBase
         Assert.NotNull(regularPatron);
         Assert.Equal(name, regularPatron.Name);
         Assert.Equal(dateOfBirth, regularPatron.DateOfBirth);
+        Assert.Equal(email, regularPatron.Email);
         Assert.Equal(address, regularPatron.Address);
         Assert.Equal(patronType, regularPatron.PatronType);
         Assert.IsType<EntityId>(regularPatron.Id);
@@ -87,6 +92,7 @@ public class PatronTests : TestBase
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
+        Email email = new(Faker.Person.Email);
         Address address = Address.Create(Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
@@ -104,6 +110,7 @@ public class PatronTests : TestBase
             name,
             gender,
             dateOfBirth,
+            email,
             address,
             patronType,
             onboardingDocuments);
@@ -122,6 +129,7 @@ public class PatronTests : TestBase
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
+        Email email = new(Faker.Person.Email);
         Address address = Address.Create(Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
@@ -140,6 +148,7 @@ public class PatronTests : TestBase
             name,
             gender,
             dateOfBirth,
+            email,
             address,
             patronType,
             onboardingDocuments);
@@ -159,6 +168,7 @@ public class PatronTests : TestBase
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
+        Email email = new(Faker.Person.Email);
         Address address = Address.Create(Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
@@ -177,6 +187,7 @@ public class PatronTests : TestBase
             name,
             gender,
             dateOfBirth,
+            email,
             address,
             patronType,
             onboardingDocuments);
@@ -196,6 +207,7 @@ public class PatronTests : TestBase
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
+        Email email = new(Faker.Person.Email);
         Address address = Address.Create(Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
@@ -214,6 +226,7 @@ public class PatronTests : TestBase
             name,
             gender,
             dateOfBirth,
+            email,
             address,
             patronType,
             onboardingDocuments);
@@ -233,6 +246,7 @@ public class PatronTests : TestBase
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
+        Email email = new(Faker.Person.Email);
         Address address = Address.Create(Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
@@ -251,6 +265,7 @@ public class PatronTests : TestBase
             name,
             gender,
             dateOfBirth,
+            email,
             address,
             patronType,
             onboardingDocuments);
@@ -270,6 +285,7 @@ public class PatronTests : TestBase
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
+        Email email = new(Faker.Person.Email);
         Address address = Address.Create(Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
@@ -288,6 +304,7 @@ public class PatronTests : TestBase
             name,
             gender,
             dateOfBirth,
+            email,
             address,
             patronType,
             onboardingDocuments);

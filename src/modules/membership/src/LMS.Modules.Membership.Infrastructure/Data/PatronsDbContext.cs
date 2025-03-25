@@ -7,11 +7,14 @@ namespace LMS.Modules.Membership.Infrastructure.Data;
 internal sealed class PatronsDbContext(DbContextOptions<PatronsDbContext> options) : DbContext(options)
 {
     internal DbSet<AddressDao> Addresses { get; set; }
+    internal DbSet<DocumentDao> Documents { get; set; }
+    internal DbSet<PatronDao> Patrons { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("patrons");
         modelBuilder.ApplyConfiguration(new AddressConfiguration());
         modelBuilder.ApplyConfiguration(new DocumentConfiguration());
+        modelBuilder.ApplyConfiguration(new PatronConfiguration());
     }
 }

@@ -19,6 +19,7 @@ public class PatronMappingTests : TestBase
         Name name = new(Faker.Person.FullName);
         Gender gender = new(Faker.Person.Gender.ToString());
         DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
+        Email email = new(Faker.Person.Email);
         Address address = Address.Create(
             Faker.Address.StreetName(),
             Faker.Address.City(),
@@ -31,7 +32,14 @@ public class PatronMappingTests : TestBase
 
 
         //Act
-        Patron regularPatron = Patron.Create(name, gender, dateOfBirth, address, patronType, onboardingDocuments);
+        Patron regularPatron = Patron.Create(
+            name,
+            gender,
+            dateOfBirth,
+            email,
+            address,
+            patronType,
+            onboardingDocuments);
         //Act
         PatronDao dao = regularPatron.ToDao();
 
@@ -40,6 +48,7 @@ public class PatronMappingTests : TestBase
         Assert.Equal(name.Value, dao.Name);
         Assert.Equal(gender.Value, dao.Gender);
         Assert.Equal(dateOfBirth.Value, dao.DateOfBirth);
+        Assert.Equal(email.Value, dao.Email);
         Assert.Equal(address.Street, dao.Address.Street);
         Assert.Equal(address.City, dao.Address.City);
         Assert.Equal(address.State, dao.Address.State);
@@ -56,6 +65,7 @@ public class PatronMappingTests : TestBase
 
         string name = Faker.Person.FullName;
         DateTime dateOfBirth = Faker.Person.DateOfBirth;
+        string email = Faker.Person.Email;
         string gender = Faker.Person.Gender.ToString();
         string patronType = "Regular";
         AddressDao address = new()
@@ -92,6 +102,7 @@ public class PatronMappingTests : TestBase
             Id = Guid.NewGuid(),
             Address = address,
             DateOfBirth = dateOfBirth,
+            Email = email,
             Name = name,
             Gender = gender,
             PatronType = patronType,
@@ -106,6 +117,7 @@ public class PatronMappingTests : TestBase
         Assert.Equal(dao.Name, domainModel.Name.Value);
         Assert.Equal(dao.Gender, domainModel.Gender.Value);
         Assert.Equal(dao.DateOfBirth, domainModel.DateOfBirth.Value);
+        Assert.Equal(dao.Email, domainModel.Email.Value);
         Assert.Equal(dao.PatronType, domainModel.PatronType.Name);
         Assert.Equal(dao.Address.Street, domainModel.Address.Street);
         Assert.Equal(dao.Address.City, domainModel.Address.City);

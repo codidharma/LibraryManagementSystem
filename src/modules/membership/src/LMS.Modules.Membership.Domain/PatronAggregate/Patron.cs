@@ -10,6 +10,8 @@ public sealed class Patron : Entity
     public Name Name { get; }
     public Gender Gender { get; }
     public DateOfBirth DateOfBirth { get; }
+
+    public Email Email { get; }
     public Address Address { get; }
 
     public PatronType PatronType { get; }
@@ -20,6 +22,7 @@ public sealed class Patron : Entity
         Name name,
         Gender gender,
         DateOfBirth dateOfBirth,
+        Email email,
         Address address,
         PatronType patronType,
         List<Document> identityDocuments)
@@ -27,6 +30,7 @@ public sealed class Patron : Entity
         Name = name;
         Gender = gender;
         DateOfBirth = dateOfBirth;
+        Email = email;
         Address = address;
         PatronType = patronType;
         IdentityDocuments = identityDocuments;
@@ -36,6 +40,7 @@ public sealed class Patron : Entity
         Name name,
         Gender gender,
         DateOfBirth dateOfBirth,
+        Email email,
         Address address,
         PatronType patronType,
         List<Document> identityDocuments)
@@ -63,7 +68,7 @@ public sealed class Patron : Entity
             throw new MissingAcademicsIdentificationException($"Document of type {DocumentType.AcademicsIdentification.Name} is mandatory for a research patron.");
         }
 
-        Patron regularPatron = new(name, gender, dateOfBirth, address, patronType, identityDocuments);
+        Patron regularPatron = new(name, gender, dateOfBirth, email, address, patronType, identityDocuments);
 
         return regularPatron;
     }
