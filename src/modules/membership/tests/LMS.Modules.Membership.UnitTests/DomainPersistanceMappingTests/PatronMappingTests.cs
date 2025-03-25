@@ -26,7 +26,7 @@ public class PatronMappingTests : TestBase
             Faker.Address.State(),
             Faker.Address.Country(),
             "412105");
-
+        AccessId accessId = new(Guid.NewGuid());
         PatronType patronType = PatronType.Regular;
         List<Document> onboardingDocuments = [PersonalIdentification, AddressProof];
 
@@ -39,12 +39,14 @@ public class PatronMappingTests : TestBase
             email,
             address,
             patronType,
-            onboardingDocuments);
+            onboardingDocuments,
+            accessId);
         //Act
         PatronDao dao = regularPatron.ToDao();
 
         //Assert
         Assert.Equal(regularPatron.Id.Value, dao.Id);
+        Assert.Equal(regularPatron.AccessId.Value, dao.AccessId);
         Assert.Equal(name.Value, dao.Name);
         Assert.Equal(gender.Value, dao.Gender);
         Assert.Equal(dateOfBirth.Value, dao.DateOfBirth);
@@ -114,6 +116,7 @@ public class PatronMappingTests : TestBase
 
         //Assert
         Assert.Equal(dao.Id, domainModel.Id.Value);
+        Assert.Equal(dao.AccessId, domainModel.AccessId.Value);
         Assert.Equal(dao.Name, domainModel.Name.Value);
         Assert.Equal(dao.Gender, domainModel.Gender.Value);
         Assert.Equal(dao.DateOfBirth, domainModel.DateOfBirth.Value);

@@ -28,13 +28,21 @@ public class PatronTests : TestBase
             Faker.Address.Country(),
             "412105");
         Email email = new(Faker.Person.Email);
-
+        AccessId accessId = new(Guid.NewGuid());
         PatronType patronType = PatronType.Regular;
         List<Document> onboardingDocuments = [PersonalIdentification, AddressProof];
 
 
         //Act
-        Patron regularPatron = Patron.Create(name, gender, dateOfBirth, email, address, patronType, onboardingDocuments);
+        Patron regularPatron = Patron.Create(
+            name,
+            gender,
+            dateOfBirth,
+            email,
+            address,
+            patronType,
+            onboardingDocuments,
+            accessId);
 
         //Assert
         Assert.NotNull(regularPatron);
@@ -43,6 +51,7 @@ public class PatronTests : TestBase
         Assert.Equal(address, regularPatron.Address);
         Assert.Equal(patronType, regularPatron.PatronType);
         Assert.Equal(email, regularPatron.Email);
+        Assert.Equal(accessId, regularPatron.AccessId);
         Assert.IsType<EntityId>(regularPatron.Id);
     }
 
@@ -61,7 +70,7 @@ public class PatronTests : TestBase
             Faker.Address.Country(),
             "412105");
         List<Document> onboardingDocuments = [PersonalIdentification, AcademicsIdentification, AddressProof];
-
+        AccessId accessId = new(Guid.NewGuid());
         PatronType patronType = PatronType.Research;
 
         //Act
@@ -72,7 +81,8 @@ public class PatronTests : TestBase
             email,
             address,
             patronType,
-            onboardingDocuments);
+            onboardingDocuments,
+            accessId);
 
         //Assert
         Assert.NotNull(regularPatron);
@@ -81,6 +91,7 @@ public class PatronTests : TestBase
         Assert.Equal(email, regularPatron.Email);
         Assert.Equal(address, regularPatron.Address);
         Assert.Equal(patronType, regularPatron.PatronType);
+        Assert.Equal(accessId, regularPatron.AccessId);
         Assert.IsType<EntityId>(regularPatron.Id);
     }
 
@@ -99,7 +110,7 @@ public class PatronTests : TestBase
             Faker.Address.Country(),
             Faker.Address.ZipCode());
         PatronType patronType = PatronType.Regular;
-
+        AccessId accessId = new(Guid.NewGuid());
         Patron regularPatron;
         List<Document> onboardingDocuments = [PersonalIdentification];
 
@@ -113,7 +124,8 @@ public class PatronTests : TestBase
             email,
             address,
             patronType,
-            onboardingDocuments);
+            onboardingDocuments,
+            accessId);
         };
 
         NotAllowedAddressException exception = Assert.Throws<NotAllowedAddressException>(action);
@@ -138,7 +150,7 @@ public class PatronTests : TestBase
 
         PatronType patronType = PatronType.Regular;
         List<Document> onboardingDocuments = [];
-
+        AccessId accessId = new(Guid.NewGuid());
         Patron patron;
 
         //Assert
@@ -151,7 +163,8 @@ public class PatronTests : TestBase
             email,
             address,
             patronType,
-            onboardingDocuments);
+            onboardingDocuments,
+            accessId);
         };
 
         //Assert
@@ -174,7 +187,7 @@ public class PatronTests : TestBase
             Faker.Address.State(),
             Faker.Address.Country(),
             "412105");
-
+        AccessId accessId = new(Guid.NewGuid());
         PatronType patronType = PatronType.Research;
         List<Document> onboardingDocuments = [];
 
@@ -190,7 +203,8 @@ public class PatronTests : TestBase
             email,
             address,
             patronType,
-            onboardingDocuments);
+            onboardingDocuments,
+            accessId);
         };
 
         //Assert
@@ -216,7 +230,7 @@ public class PatronTests : TestBase
 
         PatronType patronType = PatronType.Research;
         List<Document> onboardingDocuments = [PersonalIdentification, AddressProof];
-
+        AccessId accessId = new(Guid.NewGuid());
         Patron patron;
 
         //Assert
@@ -229,7 +243,8 @@ public class PatronTests : TestBase
             email,
             address,
             patronType,
-            onboardingDocuments);
+            onboardingDocuments,
+            accessId);
         };
 
         //Assert
@@ -255,7 +270,7 @@ public class PatronTests : TestBase
 
         PatronType patronType = PatronType.Regular;
         List<Document> onboardingDocuments = [PersonalIdentification];
-
+        AccessId accessId = new(Guid.NewGuid());
         Patron patron;
 
         //Assert
@@ -268,7 +283,8 @@ public class PatronTests : TestBase
             email,
             address,
             patronType,
-            onboardingDocuments);
+            onboardingDocuments,
+            accessId);
         };
 
         //Assert
@@ -294,7 +310,7 @@ public class PatronTests : TestBase
 
         PatronType patronType = PatronType.Regular;
         List<Document> onboardingDocuments = [PersonalIdentification, AcademicsIdentification];
-
+        AccessId accessId = new(Guid.NewGuid());
         Patron patron;
 
         //Assert
@@ -307,7 +323,8 @@ public class PatronTests : TestBase
             email,
             address,
             patronType,
-            onboardingDocuments);
+            onboardingDocuments,
+            accessId);
         };
 
         //Assert

@@ -2,8 +2,7 @@
 
 namespace LMS.Modules.Membership.Domain.PatronAggregate;
 
-public sealed record PatronId(Guid Id) : ValueObject
+public sealed record AccessId(Guid id) : ValueObject
 {
-    public Guid Value { get; } = Id;
-
+    public Guid Value { get; } = id;
 }

@@ -18,7 +18,9 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<PatronDao>
         builder.Property(p => p.Name).HasColumnName("name").HasMaxLength(300);
         builder.Property(p => p.Gender).HasColumnName("gender").HasMaxLength(20);
         builder.Property(p => p.DateOfBirth).HasColumnName("date_of_birth");
-        //Add missing properties
-
+        builder.Property(p => p.Email).HasColumnName("email").HasMaxLength(300);
+        builder.HasIndex(p => p.Email).IsUnique();
+        builder.HasOne<AddressDao>().WithOne();
+        builder.HasMany<DocumentDao>().WithOne();
     }
 }

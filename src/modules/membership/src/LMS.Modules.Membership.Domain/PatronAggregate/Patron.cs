@@ -17,6 +17,7 @@ public sealed class Patron : Entity
     public PatronType PatronType { get; }
 
     public List<Document> IdentityDocuments { get; }
+    public AccessId AccessId { get; }
 
     private Patron(
         Name name,
@@ -25,7 +26,8 @@ public sealed class Patron : Entity
         Email email,
         Address address,
         PatronType patronType,
-        List<Document> identityDocuments)
+        List<Document> identityDocuments,
+        AccessId accessId)
     {
         Name = name;
         Gender = gender;
@@ -34,6 +36,7 @@ public sealed class Patron : Entity
         Address = address;
         PatronType = patronType;
         IdentityDocuments = identityDocuments;
+        AccessId = accessId;
     }
 
     public static Patron Create(
@@ -43,7 +46,8 @@ public sealed class Patron : Entity
         Email email,
         Address address,
         PatronType patronType,
-        List<Document> identityDocuments)
+        List<Document> identityDocuments,
+        AccessId accessId)
     {
         AddressValidationService addressValidationService = new();
         bool isAddressAllowed = addressValidationService.Validate(address);
@@ -63,12 +67,21 @@ public sealed class Patron : Entity
             throw new MissingAddressProofException($"Document of type {DocumentType.AddressProof.Name} is mandatory.");
         }
 
-        if (patronType.Equals(PatronType.Research) && !IsAcademicsIdentificationDocumentAvailable(identityDocuments))
+        if (patronType.Equals(PatronType.Research)
+            && !IsAcademicsIdentificationDocumentAvailable(identityDocuments))
         {
             throw new MissingAcademicsIdentificationException($"Document of type {DocumentType.AcademicsIdentification.Name} is mandatory for a research patron.");
         }
 
-        Patron regularPatron = new(name, gender, dateOfBirth, email, address, patronType, identityDocuments);
+        Patron regularPatron = new(
+            name,
+            gender,
+            dateOfBirth,
+            email,
+            address,
+            patronType,
+            identityDocuments,
+            accessId);
 
         return regularPatron;
     }

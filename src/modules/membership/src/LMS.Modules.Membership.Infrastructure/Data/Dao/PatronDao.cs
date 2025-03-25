@@ -3,6 +3,7 @@
 internal sealed class PatronDao
 {
     public Guid Id { get; init; }
+    public Guid AccessId { get; init; }
     public string Name { get; init; }
     public string Gender { get; init; }
     public DateTime DateOfBirth { get; init; }
