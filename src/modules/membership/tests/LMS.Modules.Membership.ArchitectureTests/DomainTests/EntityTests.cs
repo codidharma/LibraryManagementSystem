@@ -45,7 +45,7 @@ public class EntityTests : TestBase
     }
 
     [Fact]
-    public void Entities_ShouldHave_ParameterlessPrivateConstructor()
+    public void Entities_ShouldNotHave_ParameterlessPrivateConstructor()
     {
         IEnumerable<Type> entityTypes = Types
             .InAssembly(DomainAssembly)
@@ -59,7 +59,7 @@ public class EntityTests : TestBase
         {
             ConstructorInfo[] infos = entityType.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance);
 
-            if (!infos.Any(x => x.IsPrivate && x.GetParameters().Length == 0))
+            if (infos.Any(x => x.IsPrivate && x.GetParameters().Length == 0))
             {
                 failingTypes.Add(entityType);
             }

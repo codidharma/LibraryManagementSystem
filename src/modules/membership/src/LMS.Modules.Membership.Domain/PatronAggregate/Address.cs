@@ -12,8 +12,6 @@ public sealed class Address : Entity
     public string State { get; }
     public string Country { get; }
     public string ZipCode { get; }
-
-    private Address() { }
     private Address(string street,
                    string city,
                    string state,

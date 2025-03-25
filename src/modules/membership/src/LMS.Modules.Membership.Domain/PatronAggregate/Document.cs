@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using LMS.Common.Domain;
+﻿using LMS.Common.Domain;
 
 namespace LMS.Modules.Membership.Domain.PatronAggregate;
 
@@ -8,9 +7,6 @@ public sealed class Document : Entity
     public DocumentType DocumentType { get; }
     public DocumentContent Content { get; }
 
-    [ExcludeFromCodeCoverage]
-    private Document()
-    { }
     private Document(DocumentType documentType, DocumentContent content)
     {
         DocumentType = documentType;

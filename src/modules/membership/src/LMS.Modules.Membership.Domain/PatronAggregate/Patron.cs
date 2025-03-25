@@ -16,7 +16,6 @@ public sealed class Patron : Entity
 
     public List<Document> IdentityDocuments { get; }
 
-    private Patron() { }
     private Patron(
         Name name,
         Gender gender,
