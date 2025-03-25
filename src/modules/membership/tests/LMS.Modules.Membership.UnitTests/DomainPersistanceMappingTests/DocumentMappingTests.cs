@@ -34,7 +34,7 @@ public class DocumentMappingTests : TestBase
         string documentTypeName = "PersonalId";
         int documentTypeId = 1;
 
-        Infrastructure.Data.Dao.DocumentType documentType = new() { Name = documentTypeName, Id = documentTypeId };
+        Infrastructure.Data.Dao.DocumentTypeDao documentType = new() { Name = documentTypeName, Id = documentTypeId };
         DocumentDao documentDao = new()
         {
             Id = Guid.NewGuid(),

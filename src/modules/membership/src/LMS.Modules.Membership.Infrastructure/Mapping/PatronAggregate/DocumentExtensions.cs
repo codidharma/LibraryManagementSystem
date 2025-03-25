@@ -3,7 +3,7 @@ using LMS.Modules.Membership.Infrastructure.Data.Dao;
 
 namespace LMS.Modules.Membership.Infrastructure.Mapping.PatronAggregate;
 
-public static class DocumentExtensions
+internal static class DocumentExtensions
 {
     public static DocumentDao ToDao(this Document document)
     {

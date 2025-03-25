@@ -3,7 +3,7 @@ using LMS.Modules.Membership.Infrastructure.Data.Dao;
 
 namespace LMS.Modules.Membership.Infrastructure.Mapping.PatronAggregate;
 
-public static class AddressExtensions
+internal static class AddressExtensions
 {
     public static AddressDao ToDao(this Address address)
     {

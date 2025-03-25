@@ -1,6 +1,6 @@
 ﻿namespace LMS.Modules.Membership.Infrastructure.Data.Dao;
 
-public class AddressDao
+internal sealed class AddressDao
 {
     public Guid Id { get; init; }
     public string Street { get; init; }
