@@ -15,12 +15,15 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<PatronDao>
             .HasCheckConstraint("ck_patrons_patron_type", $"[patron_type] in ('{PatronType.Regular.Name}', '{PatronType.Research.Name}')");
         });
         builder.HasKey(p => p.Id);
+        builder.Property(p => p.Id).HasColumnName("id");
+        builder.Property(p => p.AccessId).HasColumnName("access_id");
         builder.Property(p => p.Name).HasColumnName("name").HasMaxLength(300);
         builder.Property(p => p.Gender).HasColumnName("gender").HasMaxLength(20);
         builder.Property(p => p.DateOfBirth).HasColumnName("date_of_birth");
         builder.Property(p => p.Email).HasColumnName("email").HasMaxLength(300);
+        builder.HasIndex(p => p.AccessId).IsUnique();
         builder.HasIndex(p => p.Email).IsUnique();
-        builder.HasOne<AddressDao>().WithOne();
-        builder.HasMany<DocumentDao>().WithOne();
+        builder.HasOne(p => p.Address).WithOne().IsRequired();
+        builder.HasMany(p => p.IdentityDocuments).WithOne().IsRequired();
     }
 }
