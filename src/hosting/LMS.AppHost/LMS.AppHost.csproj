@@ -12,8 +12,4 @@
     <PackageReference Include="Aspire.Hosting.AppHost" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\modules\membership\src\LMS.Modules.Membership.API\LMS.Modules.Membership.API.csproj" />
-  </ItemGroup>
-
 </Project>

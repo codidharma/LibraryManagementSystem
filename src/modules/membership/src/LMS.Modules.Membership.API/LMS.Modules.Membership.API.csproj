@@ -1,19 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
-  </ItemGroup>
-  <ItemGroup>
-	  <InternalsVisibleTo Include="LMS.Modules.Membership.ArchitectureTests" />
-	  <InternalsVisibleTo Include="LMS.Modules.Membership.UnitTests" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\common\LMS.Common.Domain\LMS.Common.Domain.csproj" />
-    <ProjectReference Include="..\..\..\..\hosting\LMS.ServiceDefaults\LMS.ServiceDefaults.csproj" />
-  </ItemGroup>
 
 </Project>

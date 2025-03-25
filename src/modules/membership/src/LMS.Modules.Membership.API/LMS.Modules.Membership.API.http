@@ -1,6 +1,0 @@
-@LMS.Modules.Membership.API_HostAddress = http://localhost:5103
-
-GET {{LMS.Modules.Membership.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
