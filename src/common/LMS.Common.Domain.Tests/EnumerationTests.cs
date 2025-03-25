@@ -12,6 +12,10 @@ public class EnumerationTests
         TestEnumeration enum2 = TestEnumeration.Test1;
 
         //Assert
+        Assert.True(enum1.Id > 0);
+        Assert.False(string.IsNullOrWhiteSpace(enum1.Name));
+        Assert.True(enum2.Id > 0);
+        Assert.False(string.IsNullOrWhiteSpace(enum2.Name));
         Assert.True(enum1.Equals(enum2));
         Assert.True(enum1 == enum2);
     }
