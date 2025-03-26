@@ -3,7 +3,7 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
   </ItemGroup>
 	<ItemGroup>
-		<InternalsVisibleTo Include="LMS.Modules.Membership.UnitTests"/>
+		<InternalsVisibleTo Include="LMS.Modules.Membership.UnitTests" />
 	</ItemGroup>
 
   <ItemGroup>

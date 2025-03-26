@@ -22,5 +22,6 @@ internal sealed class DocumentConfiguration : IEntityTypeConfiguration<DocumentD
         builder.Property(d => d.ContentType).HasColumnName("content_type");
         builder.Property(d => d.Content).HasColumnName("content");
         builder.Property(d => d.DocumentType).HasColumnName("document_type");
+        builder.Property<Guid>("PatronDaoId").HasColumnName("patron_id");
     }
 }

@@ -16,5 +16,6 @@ internal class AddressConfiguration : IEntityTypeConfiguration<AddressDao>
         builder.Property(a => a.State).HasColumnName("state").HasMaxLength(20);
         builder.Property(a => a.Country).HasColumnName("country").HasMaxLength(20);
         builder.Property(a => a.ZipCode).HasColumnName("zip_code").HasMaxLength(15);
+        builder.Property<Guid>("PatronDaoId").HasColumnName("patron_id");
     }
 }
