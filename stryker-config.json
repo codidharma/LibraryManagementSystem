@@ -13,7 +13,10 @@
       "!**/LMS.ServiceDefaults/Extensions.cs",
       "!**/*/Program.cs",
       "!**/LMS.Modules.Membership.Infrastructure/Data/EntityConfigurations/*",
-      "!**/LMS.Modules.Membership.Infrastructure/Data/PatronsDbContext.cs"
+      "!**/LMS.Modules.Membership.Infrastructure/Data/PatronsDbContext.cs",
+      "!**/Migrations/*.cs",
+      "!**/*Module.cs",
+      "!**/*DbContext.cs"
 
     ],
     "solution": "./LMS.sln",
