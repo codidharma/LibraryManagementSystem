@@ -1,7 +1,7 @@
 ﻿using LMS.Modules.Membership.Domain.PatronAggregate;
 using LMS.Modules.Membership.Infrastructure.Data.Dao;
 
-namespace LMS.Modules.Membership.Infrastructure.Mapping.PatronAggregate;
+namespace LMS.Modules.Membership.Infrastructure.Mappings.PatronAggregate;
 
 internal static class DocumentExtensions
 {

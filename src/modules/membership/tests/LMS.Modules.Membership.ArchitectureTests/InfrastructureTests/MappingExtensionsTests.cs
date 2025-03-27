@@ -4,7 +4,7 @@ namespace LMS.Modules.Membership.ArchitectureTests.InfrastructureTests;
 
 public class MappingExtensionsTests : TestBase
 {
-    private const string MappingExtensionsNamespacePrefix = "LMS.Modules.Membership.Infrastructure.Mapping";
+    private const string MappingExtensionsNamespacePrefix = "LMS.Modules.Membership.Infrastructure.Mappings";
 
     [Fact]
     public void MappingExtensions_ShouldBe_NonPublicStaticClasses()
