@@ -34,3 +34,12 @@ jobs:
     
     - name: Test
       run: dotnet test --no-restore --verbosity normal
+
+    - name: Install dependencies
+      run: dotnet restore
+
+    - name: Install local tools
+      run: dotnet tool restore
+    
+    - name: Run mutation Tests
+      run: dotnet stryker -s LMS.sln -f stryker-config.json --break 80 --dashboard-api-key ${{secrets.STRYKER_DASHBOARD_KEY}}
