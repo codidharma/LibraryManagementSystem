@@ -25,12 +25,13 @@
     "disable-bail": false,
     "disable-mix-mutants": false,
     "thresholds": {
-      "high": 80,
-      "low": 60,
-      "break": 0
+      "high": 90,
+      "low": 85,
+      "break": 80
     },
     "verbosity": "info",
     "reporters": [
+      "Markdown",
       "Progress",
       "Html"
     ]

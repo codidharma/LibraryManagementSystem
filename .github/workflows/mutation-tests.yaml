@@ -1,14 +1,8 @@
-name: LMS CI Pipeline
+name: LMS Mutation Testing Pipeline
 
 on:
-    push:
-        branches:
-            - main
-        paths-ignore:
-            - '**/docs'
-
-env:
-    DOTNET_VERSION: '9.0.x'
+  schedule:
+    - cron: '0 1 * * *'
 
 jobs:
   build-and-test:
@@ -28,9 +22,9 @@ jobs:
 
     - name: Install dependencies
       run: dotnet restore
-      
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
+
+    - name: Install local tools
+      run: dotnet tool restore
     
-    - name: Test
-      run: dotnet test --no-restore --verbosity normal
+    - name: Run mutation Tests
+      run: dotnet stryker -s LMS.sln -f stryker-config.json --break 80
