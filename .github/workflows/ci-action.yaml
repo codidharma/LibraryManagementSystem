@@ -34,4 +34,10 @@ jobs:
     
     - name: Test
       run: dotnet test --no-restore --verbosity normal
+
+    - name: Install local tools
+      run: dotnet tool restore
+    
+    - name: Run Mutation Tests
+      run: dotnet stryker -s .\LMS.sln -f .\stryker-config.json
     
