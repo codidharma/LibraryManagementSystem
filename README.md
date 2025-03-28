@@ -1,3 +1,7 @@
+![Build and Test Pipeline](https://github.com/codidharma/LibraryManagementSystem/actions/workflows/ci-action.yaml/badge.svg)
+![Mutation Test Pipeline](https://github.com/codidharma/LibraryManagementSystem/actions/workflows/mutation-tests.yaml/badge.svg)
+
+
 # :construction: Work in Progress :construction:
 
 This repository is under active development.
