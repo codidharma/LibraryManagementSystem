@@ -1,8 +1,8 @@
 {
   "stryker-config": {
     "project-info": {
-      "name": "Library Management System Mutation",
-      "version": "1.0"
+      "name": "github.com/codidharma/LibraryManagementSystem",
+      "version": "main"
     },
     "concurrency": 8,
     "mutation-level": "Standard",
