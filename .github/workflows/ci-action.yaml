@@ -39,5 +39,5 @@ jobs:
       run: dotnet tool restore
     
     - name: Run Mutation Tests
-      run: dotnet stryker -s .\LMS.sln -f .\stryker-config.json
+      run: dotnet stryker -s .\LMS.sln -f stryker-config.json
     
