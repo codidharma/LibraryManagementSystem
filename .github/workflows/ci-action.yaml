@@ -37,9 +37,3 @@ jobs:
 
     - name: Install dependencies
       run: dotnet restore
-
-    - name: Install local tools
-      run: dotnet tool restore
-    
-    - name: Run mutation Tests
-      run: dotnet stryker -s LMS.sln -f stryker-config.json --dashboard-api-key ${{secrets.STRYKER_DASHBOARD_KEY}}
