@@ -1,4 +1,4 @@
-﻿namespace LMS.Common.Domain.Tests;
+﻿namespace LMS.Common.Domain.Tests.EnumerationTests;
 
 public record TestEnumeration : Enumeration
 {

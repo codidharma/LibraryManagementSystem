@@ -1,6 +1,6 @@
 ﻿using System.Dynamic;
 
-namespace LMS.Common.Domain.Tests;
+namespace LMS.Common.Domain.Tests.EnumerationTests;
 
 public class EnumerationTests
 {

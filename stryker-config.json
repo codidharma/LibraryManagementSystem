@@ -16,7 +16,8 @@
       "!**/LMS.Modules.Membership.Infrastructure/Data/PatronsDbContext.cs",
       "!**/Migrations/*.cs",
       "!**/*Module.cs",
-      "!**/*DbContext.cs"
+      "!**/*DbContext.cs",
+      "!**/*.Registrations/*"
 
     ],
     "solution": "./LMS.sln",
