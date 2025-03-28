@@ -3,9 +3,9 @@ name: LMS CI Pipeline
 on:
     push:
         branches:
-            - "main"
-        paths:
-            - "**/src"
+            - main
+        paths-ignore:
+            - '**/docs'
 
 env:
     DOTNET_VERSION: '9.0.x'
