@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LMS.Modules.Membership.API\LMS.Modules.Membership.API.csproj" />
+    <ProjectReference Include="..\LMS.Modules.Membership.Application\LMS.Modules.Membership.Application.csproj" />
+    <ProjectReference Include="..\LMS.Modules.Membership.Domain\LMS.Modules.Membership.Domain.csproj" />
+    <ProjectReference Include="..\LMS.Modules.Membership.Infrastructure\LMS.Modules.Membership.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

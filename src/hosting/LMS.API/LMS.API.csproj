@@ -1,4 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+	<ItemGroup>
+		<InternalsVisibleTo Include="LMS.Modulith.ArchitectureTests"/>
+	</ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
@@ -9,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\modules\membership\src\LMS.Modules.Membership.Infrastructure\LMS.Modules.Membership.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\modules\membership\src\LMS.Modules.Membership.Registrations\LMS.Modules.Membership.Registrations.csproj" />
     <ProjectReference Include="..\LMS.ServiceDefaults\LMS.ServiceDefaults.csproj" />
   </ItemGroup>
 

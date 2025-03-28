@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LMS.Modules.Membership.Infrastructure.Data;
 
-public sealed class MembershipDbContext(DbContextOptions<MembershipDbContext> options) : DbContext(options)
+internal sealed class MembershipDbContext(DbContextOptions<MembershipDbContext> options) : DbContext(options)
 {
     internal DbSet<AddressDao> Addresses { get; set; }
     internal DbSet<DocumentDao> Documents { get; set; }
