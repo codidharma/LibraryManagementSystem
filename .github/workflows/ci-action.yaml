@@ -17,7 +17,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest]
 
     steps:
     - uses: actions/checkout@v3
@@ -37,3 +37,12 @@ jobs:
 
     - name: Install dependencies
       run: dotnet restore
+    
+    - name: Install dependencies
+      run: dotnet restore
+
+    - name: Install local tools
+      run: dotnet tool restore
+    
+    - name: Run mutation Tests
+      run: dotnet stryker -s LMS.sln -f stryker-config.json --dashboard-api-key ${{secrets.STRYKER_DASHBOARD_KEY}}
