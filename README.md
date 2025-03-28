@@ -1,5 +1,6 @@
 ![Build and Test Pipeline](https://github.com/codidharma/LibraryManagementSystem/actions/workflows/ci-action.yaml/badge.svg)
-![Mutation Test Pipeline](https://github.com/codidharma/LibraryManagementSystem/actions/workflows/mutation-tests.yaml/badge.svg)
+
+[![LMS CodeQL Pipeline](https://github.com/codidharma/LibraryManagementSystem/actions/workflows/code-ql.yaml/badge.svg)](https://github.com/codidharma/LibraryManagementSystem/actions/workflows/code-ql.yaml)
 
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fcodidharma%2FLibraryManagementSystem%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/codidharma/LibraryManagementSystem/main)
 

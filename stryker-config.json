@@ -31,9 +31,10 @@
     },
     "verbosity": "info",
     "reporters": [
-      "Markdown",
-      "Progress",
-      "Html"
+      "markdown",
+      "progress",
+      "html",
+      "dashboard"
     ]
   }
 }
