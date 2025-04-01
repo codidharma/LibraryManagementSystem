@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace LMS.Modules.Membership.Application.Patron.OnboardRegularPatron;
+namespace LMS.Modules.Membership.Application.Patrons.OnboardRegularPatron;
 
 public sealed class OnboardRegularPatronCommandValidator : AbstractValidator<OnboardRegularPatronCommand>
 {

@@ -6,7 +6,7 @@ using LMS.Modules.Membership.Application.Common.Identity;
 using LMS.Modules.Membership.Domain.PatronAggregate;
 using Microsoft.Extensions.Logging;
 
-namespace LMS.Modules.Membership.Application.Patron.OnboardRegularPatron;
+namespace LMS.Modules.Membership.Application.Patrons.OnboardRegularPatron;
 
 public sealed class OnboardRegularPatronCommandHandler : ICommandHandler<OnboardRegularPatronCommand, Guid>
 {
@@ -68,7 +68,7 @@ public sealed class OnboardRegularPatronCommandHandler : ICommandHandler<Onboard
             idenityDocuments.Add(doc);
         }
 
-        Domain.PatronAggregate.Patron patron = Domain.PatronAggregate.Patron.Create(
+        Patron patron = Patron.Create(
             name: new Name(command.Name),
             gender: new Gender(command.Gender),
             dateOfBirth: new DateOfBirth(command.DateOfBirth),

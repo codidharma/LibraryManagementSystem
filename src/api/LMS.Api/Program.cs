@@ -1,3 +1,4 @@
+using LMS.Common.Api;
 using LMS.Modules.Membership.Registrations;
 using LMS.ServiceDefaults;
 
@@ -19,6 +20,7 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+app.MapEndpoints();
 
 app.UseHttpsRedirection();
 

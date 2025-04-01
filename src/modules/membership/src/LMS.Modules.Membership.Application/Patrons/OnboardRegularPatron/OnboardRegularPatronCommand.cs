@@ -1,4 +1,4 @@
-﻿namespace LMS.Modules.Membership.Application.Patron.OnboardRegularPatron;
+﻿namespace LMS.Modules.Membership.Application.Patrons.OnboardRegularPatron;
 
 public class OnboardRegularPatronCommand
 {
