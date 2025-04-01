@@ -9,11 +9,6 @@ public abstract class Entity
         Id = new(Guid.NewGuid());
     }
 
-    public void SetEntityId(Guid id)
-    {
-        Id = new(id);
-    }
-
     public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents;
 
     protected void Raise(DomainEvent domainEvent)
