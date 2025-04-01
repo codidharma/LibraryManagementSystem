@@ -6,16 +6,17 @@ public sealed class Document : Entity
 {
     public DocumentType DocumentType { get; }
     public DocumentContent Content { get; }
-
-    private Document(DocumentType documentType, DocumentContent content)
+    public DocumentContentType ContentType { get; }
+    private Document(DocumentType documentType, DocumentContent content, DocumentContentType contentType)
     {
         DocumentType = documentType;
         Content = content;
+        ContentType = contentType;
     }
 
-    public static Document Create(DocumentType documentType, DocumentContent content)
+    public static Document Create(DocumentType documentType, DocumentContent content, DocumentContentType contentType)
     {
-        return new Document(documentType, content);
+        return new Document(documentType, content, contentType);
     }
 
 }

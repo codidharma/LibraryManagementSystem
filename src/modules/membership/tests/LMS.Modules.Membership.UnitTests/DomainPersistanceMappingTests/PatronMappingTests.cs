@@ -7,10 +7,10 @@ public class PatronMappingTests : TestBase
 {
     private readonly Document PersonalIdentification = Document.Create(
         Domain.PatronAggregate.DocumentType.PersonalIdentification,
-        new("somedata", DocumentContentType.Pdf));
+        new("somedata"), DocumentContentType.Pdf);
     private readonly Document AddressProof = Document.Create(
         Domain.PatronAggregate.DocumentType.AddressProof,
-        new("somedata", DocumentContentType.Pdf));
+        new("somedata"), DocumentContentType.Pdf);
 
     [Fact]
     public void ToDao_ShouldReturn_DataAccessObject()

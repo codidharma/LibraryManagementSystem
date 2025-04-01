@@ -7,15 +7,13 @@ namespace LMS.Modules.Membership.Domain.PatronAggregate;
 public sealed record DocumentContent : ValueObject
 {
     public string Value { get; }
-    public DocumentContentType ContentType { get; }
-    public DocumentContent(string value, DocumentContentType contentType)
+    public DocumentContent(string value)
     {
         if (!IsValidBase64String(value))
         {
             throw new InvalidValueException($"The value provided is not a valid base64 string.");
         }
         Value = value;
-        ContentType = contentType;
     }
 
     private static bool IsValidBase64String(string value)

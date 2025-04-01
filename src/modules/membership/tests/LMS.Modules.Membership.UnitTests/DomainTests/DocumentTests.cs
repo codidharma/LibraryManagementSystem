@@ -12,10 +12,10 @@ public class DocumentTests
 
 
 
-        DocumentContent content = new(sampleData, contentType);
+        DocumentContent content = new(sampleData);
 
         //Act
-        Document document = Document.Create(documentType, content);
+        Document document = Document.Create(documentType, content, contentType);
 
         //Assert
         Assert.Equal(documentType, document.DocumentType);

@@ -11,8 +11,8 @@ public class DocumentMappingTests : TestBase
         Domain.PatronAggregate.DocumentType documentType = Domain.PatronAggregate.DocumentType.PersonalIdentification;
         string sampleData = "This is sample text";
         DocumentContentType contentType = DocumentContentType.Pdf;
-        DocumentContent content = new(sampleData, contentType);
-        Document document = Document.Create(documentType, content);
+        DocumentContent content = new(sampleData);
+        Document document = Document.Create(documentType, content, contentType);
 
         //Act
         DocumentDao dao = document.ToDao();
@@ -20,7 +20,7 @@ public class DocumentMappingTests : TestBase
         //Assert
         Assert.Equal(document.Id.Value, dao.Id);
         Assert.Equal(content.Value, dao.Content);
-        Assert.Equal(content.ContentType.ToString(), dao.ContentType);
+        Assert.Equal(document.ContentType.Name, dao.ContentType);
         Assert.Equal(documentType.Name, dao.DocumentType);
     }
 
@@ -46,7 +46,7 @@ public class DocumentMappingTests : TestBase
         //Assert
         Assert.Equal(documentDao.Id, domainModel.Id.Value);
         Assert.Equal(content, domainModel.Content.Value);
-        Assert.Equal(contentType, domainModel.Content.ContentType.Name);
+        Assert.Equal(contentType, domainModel.ContentType.Name);
         Assert.Equal(documentTypeName, domainModel.DocumentType.Name);
 
     }

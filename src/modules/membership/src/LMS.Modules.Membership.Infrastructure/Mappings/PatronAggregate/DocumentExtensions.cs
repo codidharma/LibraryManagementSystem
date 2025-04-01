@@ -11,7 +11,7 @@ internal static class DocumentExtensions
         {
             Id = document.Id.Value,
             Content = document.Content.Value,
-            ContentType = document.Content.ContentType.ToString(),
+            ContentType = document.ContentType.Name,
             DocumentType = document.DocumentType.Name
         };
     }
@@ -22,8 +22,8 @@ internal static class DocumentExtensions
             DocumentType.FromName<Domain.PatronAggregate.DocumentType>(dao.DocumentType);
 
         DocumentContentType documentContentType = DocumentContentType.FromName<DocumentContentType>(dao.ContentType);
-        DocumentContent documentContent = new(dao.Content, documentContentType);
-        Document document = Document.Create(documentType, documentContent);
+        DocumentContent documentContent = new(dao.Content);
+        Document document = Document.Create(documentType, documentContent, documentContentType);
         document.SetEntityId(dao.Id);
         return document;
     }
