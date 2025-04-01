@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\hosting\LMS.API\LMS.API.csproj" />
+    <ProjectReference Include="..\..\api\LMS.API\LMS.API.csproj" />
     <ProjectReference Include="..\..\modules\membership\src\LMS.Modules.Membership.Registrations\LMS.Modules.Membership.Registrations.csproj" />
   </ItemGroup>
 

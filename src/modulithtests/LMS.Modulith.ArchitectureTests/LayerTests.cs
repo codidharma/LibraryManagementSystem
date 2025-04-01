@@ -17,7 +17,7 @@ public class LayerTests
             ];
 
         TestResult result = Types
-            .InAssembly(API.AssemblyReference.HostingApiAssembly)
+            .InAssembly(Api.AssemblyReference.HostingApiAssembly)
             .ShouldNot()
             .HaveDependencyOnAll(notAllowedAssemblies)
             .GetResult();

@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace LMS.API;
+namespace LMS.Api;
 
 internal static class AssemblyReference
 {

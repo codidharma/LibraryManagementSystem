@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LMS.API\LMS.API.csproj" />
+    <ProjectReference Include="..\..\api\LMS.Api\LMS.Api.csproj" />
   </ItemGroup>
 
 </Project>
