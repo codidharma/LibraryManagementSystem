@@ -1,1 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\common\src\LMS.Common.Application\LMS.Common.Application.csproj" />
+    <ProjectReference Include="..\LMS.Modules.Membership.Domain\LMS.Modules.Membership.Domain.csproj" />
+  </ItemGroup>
+</Project>
