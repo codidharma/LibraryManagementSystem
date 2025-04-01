@@ -13,8 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LMS.Common.Domain\LMS.Common.Domain.csproj" />
+    <ProjectReference Include="..\..\src\LMS.Common.Domain\LMS.Common.Domain.csproj" />
   </ItemGroup>
+
+
 
   <ItemGroup>
     <Using Include="Xunit" />

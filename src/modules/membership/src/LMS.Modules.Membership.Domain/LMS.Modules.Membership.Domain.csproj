@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\common\LMS.Common.Domain\LMS.Common.Domain.csproj" />
+    <ProjectReference Include="..\..\..\..\common\src\LMS.Common.Domain\LMS.Common.Domain.csproj" />
   </ItemGroup>
-
 </Project>

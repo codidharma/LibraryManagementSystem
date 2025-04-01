@@ -5,6 +5,7 @@
   <!--Testing Packages-->
   <ItemGroup>
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="9.1.0" />
+    <PackageVersion Include="Aspire.Hosting.Testing" Version="9.1.0" />
     <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.1.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.3" />

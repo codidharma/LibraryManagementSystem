@@ -1,6 +1,1 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\common\LMS.Common.Application\LMS.Common.Application.csproj" />
-  </ItemGroup>
-
-</Project>
+﻿<Project Sdk="Microsoft.NET.Sdk" />
