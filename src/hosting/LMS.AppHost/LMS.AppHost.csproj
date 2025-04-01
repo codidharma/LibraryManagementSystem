@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\api\LMS.Api\LMS.Api.csproj" />
+    <ProjectReference Include="..\LMS.MigrationServices\LMS.MigrationServices.csproj" />
   </ItemGroup>
 
 </Project>

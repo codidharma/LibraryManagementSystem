@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <UserSecretsId>dotnet-LMS.MigrationServices-a7770c4e-bd70-491f-b704-f1d4f5317e3b</UserSecretsId>
+  </PropertyGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="LMS.ArchitectureTests" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+	<PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\modules\membership\src\LMS.Modules.Membership.Infrastructure\LMS.Modules.Membership.Infrastructure.csproj" />
+    <ProjectReference Include="..\LMS.ServiceDefaults\LMS.ServiceDefaults.csproj" />
+  </ItemGroup>
+</Project>

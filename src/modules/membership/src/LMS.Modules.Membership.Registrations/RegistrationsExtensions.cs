@@ -24,7 +24,7 @@ public static class RegistrationsExtensions
     {
         services.AddDbContext<MembershipDbContext>(options =>
         {
-            options.UseNpgsql("lms_db");
+            options.UseNpgsql("lmsdb");
         });
 
         services.AddScoped<IPatronRepository, PatronRepository>();

@@ -5,6 +5,7 @@
 	<ItemGroup>
 		<InternalsVisibleTo Include="LMS.Modules.Membership.UnitTests" />
 		<InternalsVisibleTo Include="LMS.Modules.Membership.Registrations" />
+		<InternalsVisibleTo Include="LMS.MigrationServices"/>
 	</ItemGroup>
 
   <ItemGroup>
