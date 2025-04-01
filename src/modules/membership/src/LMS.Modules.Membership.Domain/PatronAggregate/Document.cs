@@ -7,6 +7,8 @@ public sealed class Document : Entity
     public DocumentType DocumentType { get; }
     public DocumentContent Content { get; }
     public DocumentContentType ContentType { get; }
+
+    private Document() { }
     private Document(DocumentType documentType, DocumentContent content, DocumentContentType contentType)
     {
         DocumentType = documentType;
@@ -18,5 +20,4 @@ public sealed class Document : Entity
     {
         return new Document(documentType, content, contentType);
     }
-
 }

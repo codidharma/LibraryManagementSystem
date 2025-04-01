@@ -20,6 +20,7 @@ public sealed class Patron : Entity
     public List<Document> IdentityDocuments { get; }
     public AccessId AccessId { get; }
 
+    private Patron() { }
     private Patron(
         Name name,
         Gender gender,

@@ -4,11 +4,15 @@
   </ItemGroup>
 	<ItemGroup>
 		<InternalsVisibleTo Include="LMS.Modules.Membership.UnitTests" />
-		<InternalsVisibleTo Include="LMS.Modules.Membership.Registrations"/>
+		<InternalsVisibleTo Include="LMS.Modules.Membership.Registrations" />
 	</ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\LMS.Modules.Membership.Domain\LMS.Modules.Membership.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 </Project>

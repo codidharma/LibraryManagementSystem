@@ -1,4 +1,4 @@
-﻿using LMS.Modules.Membership.Infrastructure.Data.Dao;
+﻿using LMS.Modules.Membership.Domain.PatronAggregate;
 using LMS.Modules.Membership.Infrastructure.Data.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,9 +6,9 @@ namespace LMS.Modules.Membership.Infrastructure.Data;
 
 internal sealed class MembershipDbContext(DbContextOptions<MembershipDbContext> options) : DbContext(options)
 {
-    internal DbSet<AddressDao> Addresses { get; set; }
-    internal DbSet<DocumentDao> Documents { get; set; }
-    internal DbSet<PatronDao> Patrons { get; set; }
+    internal DbSet<Address> Addresses { get; set; }
+    internal DbSet<Document> Documents { get; set; }
+    internal DbSet<Patron> Patrons { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

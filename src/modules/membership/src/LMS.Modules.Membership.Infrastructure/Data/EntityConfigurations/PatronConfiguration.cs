@@ -1,26 +1,39 @@
 ﻿using LMS.Modules.Membership.Domain.PatronAggregate;
-using LMS.Modules.Membership.Infrastructure.Data.Dao;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LMS.Modules.Membership.Infrastructure.Data.EntityConfigurations;
 
-internal sealed class PatronConfiguration : IEntityTypeConfiguration<PatronDao>
+internal sealed class PatronConfiguration : IEntityTypeConfiguration<Patron>
 {
-    public void Configure(EntityTypeBuilder<PatronDao> builder)
+    public void Configure(EntityTypeBuilder<Patron> builder)
     {
         builder.ToTable("patrons", t =>
         {
             t
             .HasCheckConstraint("ck_patrons_patron_type", $"[patron_type] in ('{PatronType.Regular.Name}', '{PatronType.Research.Name}')");
         });
+        builder.Ignore(p => p.DomainEvents);
         builder.HasKey(p => p.Id);
-        builder.Property(p => p.Id).HasColumnName("id");
-        builder.Property(p => p.AccessId).HasColumnName("access_id");
-        builder.Property(p => p.Name).HasColumnName("name").HasMaxLength(300);
-        builder.Property(p => p.Gender).HasColumnName("gender").HasMaxLength(20);
-        builder.Property(p => p.DateOfBirth).HasColumnName("date_of_birth");
-        builder.Property(p => p.Email).HasColumnName("email").HasMaxLength(300);
+
+        builder.Property(p => p.Id)
+            .HasConversion(id => id.Value, id => new(id))
+            .HasColumnName("id");
+        builder.Property(p => p.AccessId)
+            .HasConversion(a => a.Value, a => new(a))
+            .HasColumnName("access_id");
+        builder.Property(p => p.Name)
+            .HasConversion(n => n.Value, n => new(n))
+            .HasColumnName("name").HasMaxLength(300);
+        builder.Property(p => p.Gender)
+            .HasConversion(g => g.Value, g => new(g))
+            .HasColumnName("gender").HasMaxLength(20);
+        builder.Property(p => p.DateOfBirth)
+            .HasConversion(d => d.Value, d => new(d))
+            .HasColumnName("date_of_birth");
+        builder.Property(p => p.Email)
+            .HasConversion(e => e.Value, e => new(e))
+            .HasColumnName("email").HasMaxLength(300);
         builder.HasIndex(p => p.AccessId).IsUnique();
         builder.HasIndex(p => p.Email).IsUnique();
         builder.HasOne(p => p.Address).WithOne().IsRequired();
