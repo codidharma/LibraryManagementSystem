@@ -1,6 +1,6 @@
 ﻿namespace LMS.Modules.Membership.Api.Patrons.OnboardRegularPatron;
 
-internal class Request
+internal sealed class Request
 {
     public string Name { get; set; }
     public string Email { get; set; }
@@ -11,7 +11,7 @@ internal class Request
 
 }
 
-internal class Address
+internal sealed class Address
 {
     public string StreetName { get; set; }
     public string City { get; set; }
@@ -20,7 +20,7 @@ internal class Address
     public string ZipCode { get; set; }
 }
 
-internal class Document
+internal sealed class Document
 {
     public string DocumentType { get; set; }
     public string ContentType { get; set; }

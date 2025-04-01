@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Routing;
 
 namespace LMS.Modules.Membership.Api.Patrons.OnboardRegularPatron;
 
-internal sealed class OnboardRegularpatronEnpoint : IEndpoint
+internal sealed class OnboardRegularPatronEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
