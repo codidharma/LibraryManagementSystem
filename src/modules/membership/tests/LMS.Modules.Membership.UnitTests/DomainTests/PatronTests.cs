@@ -2,131 +2,84 @@
 
 namespace LMS.Modules.Membership.UnitTests.DomainTests;
 
-public class PatronTests : TestBase
+public class PatronTests : PatronTestBase
 {
-    private readonly Document PersonalIdentification = Document.Create(
-        Domain.PatronAggregate.DocumentType.PersonalIdentification,
-        new("somedata", DocumentContentType.Pdf));
-    private readonly Document AcademicsIdentification = Document.Create(
-        Domain.PatronAggregate.DocumentType.AcademicsIdentification,
-        new("somedata", DocumentContentType.Pdf));
-    private readonly Document AddressProof = Document.Create(
-        Domain.PatronAggregate.DocumentType.AddressProof,
-        new("somedata", DocumentContentType.Pdf));
-
     [Fact]
     public void Create_Should_ReturnRegularPatron()
     {
-        //Arrange
-        Name name = new(Faker.Person.FullName);
-        Gender gender = new(Faker.Person.Gender.ToString());
-        DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
-        Address address = Address.Create(
-            Faker.Address.StreetName(),
-            Faker.Address.City(),
-            Faker.Address.State(),
-            Faker.Address.Country(),
-            "412105");
-        Email email = new(Faker.Person.Email);
-        AccessId accessId = new(Guid.NewGuid());
-        PatronType patronType = PatronType.Regular;
-        List<Document> onboardingDocuments = [PersonalIdentification, AddressProof];
-
-
         //Act
         Patron regularPatron = Patron.Create(
-            name,
-            gender,
-            dateOfBirth,
-            email,
-            address,
-            patronType,
-            onboardingDocuments,
-            accessId);
+            Name,
+            Gender,
+            DateOfBirth,
+            Email,
+            Address,
+            RegularPatronType,
+            RegularPatronOnboardingDocuments,
+            AccessId);
 
         //Assert
         Assert.NotNull(regularPatron);
-        Assert.Equal(name, regularPatron.Name);
-        Assert.Equal(dateOfBirth, regularPatron.DateOfBirth);
-        Assert.Equal(address, regularPatron.Address);
-        Assert.Equal(patronType, regularPatron.PatronType);
-        Assert.Equal(email, regularPatron.Email);
-        Assert.Equal(accessId, regularPatron.AccessId);
+        Assert.Equal(Name, regularPatron.Name);
+        Assert.Equal(DateOfBirth, regularPatron.DateOfBirth);
+        Assert.Equal(Address, regularPatron.Address);
+        Assert.Equal(RegularPatronType, regularPatron.PatronType);
+        Assert.Equal(Email, regularPatron.Email);
+        Assert.Equal(AccessId, regularPatron.AccessId);
         Assert.IsType<EntityId>(regularPatron.Id);
     }
 
     [Fact]
     public void Create_Should_ReturnReSearchPatron()
     {
-        //Arrange
-        Name name = new(Faker.Person.FullName);
-        Gender gender = new(Faker.Person.Gender.ToString());
-        DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
-        Email email = new(Faker.Person.Email);
-        Address address = Address.Create(
-            Faker.Address.StreetName(),
-            Faker.Address.City(),
-            Faker.Address.State(),
-            Faker.Address.Country(),
-            "412105");
-        List<Document> onboardingDocuments = [PersonalIdentification, AcademicsIdentification, AddressProof];
-        AccessId accessId = new(Guid.NewGuid());
-        PatronType patronType = PatronType.Research;
-
         //Act
-        Patron regularPatron = Patron.Create(
-            name,
-            gender,
-            dateOfBirth,
-            email,
-            address,
-            patronType,
-            onboardingDocuments,
-            accessId);
+        Patron researchPatron = Patron.Create(
+            Name,
+            Gender,
+            DateOfBirth,
+            Email,
+            Address,
+            ResearchPatronType,
+            ResearchPatronOnboardingDocuments,
+            AccessId);
 
         //Assert
-        Assert.NotNull(regularPatron);
-        Assert.Equal(name, regularPatron.Name);
-        Assert.Equal(dateOfBirth, regularPatron.DateOfBirth);
-        Assert.Equal(email, regularPatron.Email);
-        Assert.Equal(address, regularPatron.Address);
-        Assert.Equal(patronType, regularPatron.PatronType);
-        Assert.Equal(accessId, regularPatron.AccessId);
-        Assert.IsType<EntityId>(regularPatron.Id);
+        Assert.NotNull(researchPatron);
+        Assert.Equal(Name, researchPatron.Name);
+        Assert.Equal(DateOfBirth, researchPatron.DateOfBirth);
+        Assert.Equal(Email, researchPatron.Email);
+        Assert.Equal(Address, researchPatron.Address);
+        Assert.Equal(ResearchPatronType, researchPatron.PatronType);
+        Assert.Equal(AccessId, researchPatron.AccessId);
+        Assert.IsType<EntityId>(researchPatron.Id);
     }
 
     [Fact]
     public void ForNonAllowedZipCodes_Create_Should_Throw_NotAllowedAddressException()
     {
         //Arrange
+        Patron regularPatron;
         string expectedExceptionMessage = $"The value for property {nameof(Address.ZipCode)} is not allowed.";
-        Name name = new(Faker.Person.FullName);
-        Gender gender = new(Faker.Person.Gender.ToString());
-        DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
-        Email email = new(Faker.Person.Email);
-        Address address = Address.Create(Faker.Address.StreetName(),
+        Address address = Address.Create(
+            Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
             Faker.Address.Country(),
             Faker.Address.ZipCode());
-        PatronType patronType = PatronType.Regular;
-        AccessId accessId = new(Guid.NewGuid());
-        Patron regularPatron;
-        List<Document> onboardingDocuments = [PersonalIdentification];
 
         //Act
         Action action = () =>
-        {
-            regularPatron = Patron.Create(
-            name,
-            gender,
-            dateOfBirth,
-            email,
-            address,
-            patronType,
-            onboardingDocuments,
-            accessId);
-        };
+            {
+                regularPatron = Patron.Create(
+                Name,
+                Gender,
+                DateOfBirth,
+                Email,
+                address,
+                RegularPatronType,
+                RegularPatronOnboardingDocuments,
+                AccessId);
+            };
 
         NotAllowedAddressException exception = Assert.Throws<NotAllowedAddressException>(action);
         Assert.Equal(expectedExceptionMessage, exception.Message);
@@ -137,34 +90,21 @@ public class PatronTests : TestBase
     {
 
         //Arrange
-        string expectedExceptionMessage = $"Document of type {Domain.PatronAggregate.DocumentType.PersonalIdentification.Name} is mandatory.";
-        Name name = new(Faker.Person.FullName);
-        Gender gender = new(Faker.Person.Gender.ToString());
-        DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
-        Email email = new(Faker.Person.Email);
-        Address address = Address.Create(Faker.Address.StreetName(),
-            Faker.Address.City(),
-            Faker.Address.State(),
-            Faker.Address.Country(),
-            "412105");
-
-        PatronType patronType = PatronType.Regular;
-        List<Document> onboardingDocuments = [];
-        AccessId accessId = new(Guid.NewGuid());
         Patron patron;
+        string expectedExceptionMessage = $"Document of type {Domain.PatronAggregate.DocumentType.PersonalIdentification.Name} is mandatory.";
 
         //Assert
         Action action = () =>
         {
             patron = Patron.Create(
-            name,
-            gender,
-            dateOfBirth,
-            email,
-            address,
-            patronType,
-            onboardingDocuments,
-            accessId);
+            Name,
+            Gender,
+            DateOfBirth,
+            Email,
+            Address,
+            RegularPatronType,
+            [],
+            AccessId);
         };
 
         //Assert
@@ -177,34 +117,21 @@ public class PatronTests : TestBase
     {
 
         //Arrange
-        string expectedExceptionMessage = $"Document of type {Domain.PatronAggregate.DocumentType.PersonalIdentification.Name} is mandatory.";
-        Name name = new(Faker.Person.FullName);
-        Gender gender = new(Faker.Person.Gender.ToString());
-        DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
-        Email email = new(Faker.Person.Email);
-        Address address = Address.Create(Faker.Address.StreetName(),
-            Faker.Address.City(),
-            Faker.Address.State(),
-            Faker.Address.Country(),
-            "412105");
-        AccessId accessId = new(Guid.NewGuid());
-        PatronType patronType = PatronType.Research;
-        List<Document> onboardingDocuments = [];
-
         Patron patron;
+        string expectedExceptionMessage = $"Document of type {Domain.PatronAggregate.DocumentType.PersonalIdentification.Name} is mandatory.";
 
         //Assert
         Action action = () =>
         {
             patron = Patron.Create(
-            name,
-            gender,
-            dateOfBirth,
-            email,
-            address,
-            patronType,
-            onboardingDocuments,
-            accessId);
+            Name,
+            Gender,
+            DateOfBirth,
+            Email,
+            Address,
+            ResearchPatronType,
+            [],
+            AccessId);
         };
 
         //Assert
@@ -218,33 +145,20 @@ public class PatronTests : TestBase
 
         //Arrange
         string expectedExceptionMessage = $"Document of type {Domain.PatronAggregate.DocumentType.AcademicsIdentification.Name} is mandatory for a research patron.";
-        Name name = new(Faker.Person.FullName);
-        Gender gender = new(Faker.Person.Gender.ToString());
-        DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
-        Email email = new(Faker.Person.Email);
-        Address address = Address.Create(Faker.Address.StreetName(),
-            Faker.Address.City(),
-            Faker.Address.State(),
-            Faker.Address.Country(),
-            "412105");
-
-        PatronType patronType = PatronType.Research;
-        List<Document> onboardingDocuments = [PersonalIdentification, AddressProof];
-        AccessId accessId = new(Guid.NewGuid());
         Patron patron;
 
         //Assert
         Action action = () =>
         {
             patron = Patron.Create(
-            name,
-            gender,
-            dateOfBirth,
-            email,
-            address,
-            patronType,
-            onboardingDocuments,
-            accessId);
+            Name,
+            Gender,
+            DateOfBirth,
+            Email,
+            Address,
+            ResearchPatronType,
+            ResearchPatronMissingAcademicsDocuments,
+            AccessId);
         };
 
         //Assert
@@ -258,33 +172,20 @@ public class PatronTests : TestBase
 
         //Arrange
         string expectedExceptionMessage = $"Document of type {Domain.PatronAggregate.DocumentType.AddressProof.Name} is mandatory.";
-        Name name = new(Faker.Person.FullName);
-        Gender gender = new(Faker.Person.Gender.ToString());
-        DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
-        Email email = new(Faker.Person.Email);
-        Address address = Address.Create(Faker.Address.StreetName(),
-            Faker.Address.City(),
-            Faker.Address.State(),
-            Faker.Address.Country(),
-            "412105");
-
-        PatronType patronType = PatronType.Regular;
-        List<Document> onboardingDocuments = [PersonalIdentification];
-        AccessId accessId = new(Guid.NewGuid());
         Patron patron;
 
         //Assert
         Action action = () =>
         {
             patron = Patron.Create(
-            name,
-            gender,
-            dateOfBirth,
-            email,
-            address,
-            patronType,
-            onboardingDocuments,
-            accessId);
+            Name,
+            Gender,
+            DateOfBirth,
+            Email,
+            Address,
+            RegularPatronType,
+            PersonalIdentificationDocuments,
+            AccessId);
         };
 
         //Assert
@@ -298,33 +199,20 @@ public class PatronTests : TestBase
 
         //Arrange
         string expectedExceptionMessage = $"Document of type {Domain.PatronAggregate.DocumentType.AddressProof.Name} is mandatory.";
-        Name name = new(Faker.Person.FullName);
-        Gender gender = new(Faker.Person.Gender.ToString());
-        DateOfBirth dateOfBirth = new(Faker.Person.DateOfBirth);
-        Email email = new(Faker.Person.Email);
-        Address address = Address.Create(Faker.Address.StreetName(),
-            Faker.Address.City(),
-            Faker.Address.State(),
-            Faker.Address.Country(),
-            "412105");
-
-        PatronType patronType = PatronType.Regular;
-        List<Document> onboardingDocuments = [PersonalIdentification, AcademicsIdentification];
-        AccessId accessId = new(Guid.NewGuid());
         Patron patron;
 
         //Assert
         Action action = () =>
         {
             patron = Patron.Create(
-            name,
-            gender,
-            dateOfBirth,
-            email,
-            address,
-            patronType,
-            onboardingDocuments,
-            accessId);
+            Name,
+            Gender,
+            DateOfBirth,
+            Email,
+            Address,
+            ResearchPatronType,
+            ResearchPatronMissingAddressProofDocuments,
+            AccessId);
         };
 
         //Assert
