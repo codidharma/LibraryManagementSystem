@@ -102,9 +102,9 @@ namespace LMS.Modules.Membership.Infrastructure.Data.Migrations
 
                     b.ToTable("documents", "membership", t =>
                         {
-                            t.HasCheckConstraint("ck_document_content_type", "[content_type] IN ('application/pdf', 'application/jpg', 'application/jpeg')");
+                            t.HasCheckConstraint("ck_document_content_type", "content_type IN ('application/pdf', 'application/jpg', 'application/jpeg')");
 
-                            t.HasCheckConstraint("ck_document_document_type", "[document_type] IN ('PersonalId', 'AcademicsId','AddressProof')");
+                            t.HasCheckConstraint("ck_document_document_type", "document_type IN ('PersonalId', 'AcademicsId','AddressProof')");
                         });
                 });
 
@@ -140,6 +140,12 @@ namespace LMS.Modules.Membership.Infrastructure.Data.Migrations
                         .HasColumnType("character varying(300)")
                         .HasColumnName("name");
 
+                    b.Property<string>("PatronType")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("patron_type");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AccessId")
@@ -150,7 +156,7 @@ namespace LMS.Modules.Membership.Infrastructure.Data.Migrations
 
                     b.ToTable("patrons", "membership", t =>
                         {
-                            t.HasCheckConstraint("ck_patrons_patron_type", "[patron_type] in ('Regular', 'Research')");
+                            t.HasCheckConstraint("ck_patrons_patron_type", "patron_type in ('Regular', 'Research')");
                         });
                 });
 

@@ -21,7 +21,7 @@ internal sealed class MembershipMigrationWorker : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        using Activity? activity = _activitySource.StartActivity("Migrating membership dataase.", ActivityKind.Client);
+        using Activity? activity = _activitySource.StartActivity("Migrating membership database.", ActivityKind.Client);
         try
         {
             using IServiceScope scope = _serviceProvider.CreateScope();

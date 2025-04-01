@@ -13,9 +13,9 @@ internal sealed class DocumentConfiguration : IEntityTypeConfiguration<Document>
         {
             t
             .HasCheckConstraint("ck_document_content_type",
-            $"[content_type] IN ('{DocumentContentType.Pdf.Name}', '{DocumentContentType.Jpg.Name}', '{DocumentContentType.Jpeg.Name}')");
+            $"content_type IN ('{DocumentContentType.Pdf.Name}', '{DocumentContentType.Jpg.Name}', '{DocumentContentType.Jpeg.Name}')");
             t.HasCheckConstraint("ck_document_document_type",
-                $"[document_type] IN ('{DocumentType.PersonalIdentification.Name}', '{DocumentType.AcademicsIdentification.Name}','{DocumentType.AddressProof.Name}')");
+                $"document_type IN ('{DocumentType.PersonalIdentification.Name}', '{DocumentType.AcademicsIdentification.Name}','{DocumentType.AddressProof.Name}')");
         });
         builder.Ignore(d => d.DomainEvents);
         builder.HasKey(d => d.Id);

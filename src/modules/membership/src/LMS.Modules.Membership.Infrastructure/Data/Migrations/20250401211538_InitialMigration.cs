@@ -24,12 +24,13 @@ namespace LMS.Modules.Membership.Infrastructure.Data.Migrations
                     gender = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     date_of_birth = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     email = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    patron_type = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     access_id = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_patrons", x => x.id);
-                    table.CheckConstraint("ck_patrons_patron_type", "[patron_type] in ('Regular', 'Research')");
+                    table.CheckConstraint("ck_patrons_patron_type", "patron_type in ('Regular', 'Research')");
                 });
 
             migrationBuilder.CreateTable(
@@ -71,8 +72,8 @@ namespace LMS.Modules.Membership.Infrastructure.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_documents", x => x.id);
-                    table.CheckConstraint("ck_document_content_type", "[content_type] IN ('application/pdf', 'application/jpg', 'application/jpeg')");
-                    table.CheckConstraint("ck_document_document_type", "[document_type] IN ('PersonalId', 'AcademicsId','AddressProof')");
+                    table.CheckConstraint("ck_document_content_type", "content_type IN ('application/pdf', 'application/jpg', 'application/jpeg')");
+                    table.CheckConstraint("ck_document_document_type", "document_type IN ('PersonalId', 'AcademicsId','AddressProof')");
                     table.ForeignKey(
                         name: "FK_documents_patrons_patron_id",
                         column: x => x.patron_id,

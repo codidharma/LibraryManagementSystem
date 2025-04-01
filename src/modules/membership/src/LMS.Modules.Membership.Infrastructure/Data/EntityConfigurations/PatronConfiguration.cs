@@ -1,4 +1,5 @@
-﻿using LMS.Modules.Membership.Domain.PatronAggregate;
+﻿using LMS.Common.Domain;
+using LMS.Modules.Membership.Domain.PatronAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,7 +12,7 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<Patron>
         builder.ToTable("patrons", t =>
         {
             t
-            .HasCheckConstraint("ck_patrons_patron_type", $"[patron_type] in ('{PatronType.Regular.Name}', '{PatronType.Research.Name}')");
+            .HasCheckConstraint("ck_patrons_patron_type", $"patron_type in ('{PatronType.Regular.Name}', '{PatronType.Research.Name}')");
         });
         builder.Ignore(p => p.DomainEvents);
         builder.HasKey(p => p.Id);
@@ -34,6 +35,10 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<Patron>
         builder.Property(p => p.Email)
             .HasConversion(e => e.Value, e => new(e))
             .HasColumnName("email").HasMaxLength(300);
+        builder.Property(p => p.PatronType)
+            .HasConversion(pt => pt.Name, pt => Enumeration.FromName<PatronType>(pt))
+            .HasColumnName("patron_type")
+            .HasMaxLength(20);
         builder.HasIndex(p => p.AccessId).IsUnique();
         builder.HasIndex(p => p.Email).IsUnique();
         builder.HasOne(p => p.Address).WithOne().IsRequired();
