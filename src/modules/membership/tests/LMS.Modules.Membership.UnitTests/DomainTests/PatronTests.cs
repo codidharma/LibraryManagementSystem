@@ -1,4 +1,5 @@
-﻿using LMS.Modules.Membership.UnitTests.Base;
+﻿using LMS.Modules.Membership.Domain.PatronAggregate.DomainEvents;
+using LMS.Modules.Membership.UnitTests.Base;
 
 namespace LMS.Modules.Membership.UnitTests.DomainTests;
 
@@ -218,5 +219,55 @@ public class PatronTests : PatronTestBase
         //Assert
         MissingAddressProofException exception = Assert.Throws<MissingAddressProofException>(action);
         Assert.Equal(expectedExceptionMessage, exception.Message);
+    }
+
+    [Fact]
+    public void CreatingRegularPatron_Raises_PatronCreatedDomainEvent()
+    {
+        //Arrange
+        string expectedPatronType = PatronType.Regular.Name;
+        //Act
+        Patron regularPatron = Patron.Create(
+            Name,
+            Gender,
+            DateOfBirth,
+            Email,
+            Address,
+            RegularPatronType,
+            RegularPatronOnboardingDocuments,
+            AccessId
+            );
+
+        Assert.NotEmpty(regularPatron.DomainEvents);
+        PatronCreatedDomainEvent domainEvent = (PatronCreatedDomainEvent)regularPatron
+            .DomainEvents.FirstOrDefault(e => e is PatronCreatedDomainEvent);
+        Assert.NotNull(domainEvent);
+        Assert.Equal(expectedPatronType, domainEvent.PatronType);
+
+    }
+
+    [Fact]
+    public void CreatingResearchPatron_Raises_PatronCreatedDomainEvent()
+    {
+        //Arrange
+        string expectedPatronType = PatronType.Research.Name;
+        //Act
+        Patron regularPatron = Patron.Create(
+            Name,
+            Gender,
+            DateOfBirth,
+            Email,
+            Address,
+            ResearchPatronType,
+            ResearchPatronOnboardingDocuments,
+            AccessId
+            );
+
+        Assert.NotEmpty(regularPatron.DomainEvents);
+        PatronCreatedDomainEvent domainEvent = (PatronCreatedDomainEvent)regularPatron
+            .DomainEvents.FirstOrDefault(e => e is PatronCreatedDomainEvent);
+        Assert.NotNull(domainEvent);
+        Assert.Equal(expectedPatronType, domainEvent.PatronType);
+
     }
 }

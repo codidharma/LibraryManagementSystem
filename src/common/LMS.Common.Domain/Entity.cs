@@ -2,6 +2,7 @@
 
 public abstract class Entity
 {
+    private readonly List<DomainEvent> _domainEvents = [];
     public EntityId Id { get; private set; }
     protected Entity()
     {
@@ -11,5 +12,12 @@ public abstract class Entity
     public void SetEntityId(Guid id)
     {
         Id = new(id);
+    }
+
+    public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents;
+
+    protected void Raise(DomainEvent domainEvent)
+    {
+        _domainEvents.Add(domainEvent);
     }
 }

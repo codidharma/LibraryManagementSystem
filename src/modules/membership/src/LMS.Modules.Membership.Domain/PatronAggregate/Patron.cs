@@ -1,4 +1,5 @@
 ﻿using LMS.Common.Domain;
+using LMS.Modules.Membership.Domain.PatronAggregate.DomainEvents;
 using LMS.Modules.Membership.Domain.PatronAggregate.Exceptions;
 
 
@@ -73,7 +74,7 @@ public sealed class Patron : Entity
             throw new MissingAcademicsIdentificationException($"Document of type {DocumentType.AcademicsIdentification.Name} is mandatory for a research patron.");
         }
 
-        Patron regularPatron = new(
+        Patron patron = new(
             name,
             gender,
             dateOfBirth,
@@ -83,7 +84,10 @@ public sealed class Patron : Entity
             identityDocuments,
             accessId);
 
-        return regularPatron;
+        PatronCreatedDomainEvent patronCreatedDomainEvent = new(Guid.NewGuid(), DateTime.UtcNow, patronType.Name);
+        patron.Raise(patronCreatedDomainEvent);
+
+        return patron;
     }
 
     private static bool IsPersonalIdentificationDocumentAvailable(List<Document> identityDocuments)
