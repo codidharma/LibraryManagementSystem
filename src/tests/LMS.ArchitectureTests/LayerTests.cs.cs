@@ -1,8 +1,7 @@
 ﻿using LMS.Modules.Membership.Registrations;
 using NetArchTest.Rules;
 
-
-namespace LMS.Modulith.ArchitectureTests;
+namespace LMS.ArchitectureTests;
 
 public class LayerTests
 {

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 	<ItemGroup>
-		<InternalsVisibleTo Include="LMS.Modulith.ArchitectureTests"/>
-		<InternalsVisibleTo Include="LMS.Modulith.IntegrationTests"/>
+		<InternalsVisibleTo Include="LMS.ArchitectureTests"/>
+		<InternalsVisibleTo Include="LMS.IntegrationTests"/>
 	</ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
