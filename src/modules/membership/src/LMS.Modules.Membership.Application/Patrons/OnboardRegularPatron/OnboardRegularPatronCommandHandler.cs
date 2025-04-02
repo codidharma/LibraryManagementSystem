@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
-using LMS.Common.Application;
+using LMS.Common.Application.Handlers;
 using LMS.Common.Domain;
 using LMS.Modules.Membership.Application.Common.Identity;
 using LMS.Modules.Membership.Domain.PatronAggregate;

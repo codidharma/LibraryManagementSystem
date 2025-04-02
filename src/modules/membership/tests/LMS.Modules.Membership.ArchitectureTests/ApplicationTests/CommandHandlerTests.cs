@@ -1,4 +1,5 @@
-﻿using LMS.Common.Application;
+﻿using LMS.Common.Application.Dispatchers;
+using LMS.Common.Application.Handlers;
 using LMS.Modules.Membership.ArchitectureTests.Base;
 
 namespace LMS.Modules.Membership.ArchitectureTests.ApplicationTests;

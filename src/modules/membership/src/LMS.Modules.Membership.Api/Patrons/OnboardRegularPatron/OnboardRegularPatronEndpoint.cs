@@ -1,4 +1,5 @@
 ﻿
+using LMS.Common.Application.Dispatchers;
 using LMS.Modules.Membership.Application.Patrons.OnboardRegularPatron;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;

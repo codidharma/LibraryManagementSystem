@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using LMS.Common.Api;
+using LMS.Common.Application.Handlers;
 using LMS.Modules.Membership.Application.Common.Identity;
 using LMS.Modules.Membership.Domain.PatronAggregate;
 using LMS.Modules.Membership.Infrastructure.Data;
@@ -33,8 +34,10 @@ public static class RegistrationsExtensions
 
     private static void AddApplication(this IServiceCollection services)
     {
+
         //Automatically register all the validators
         services.AddValidatorsFromAssembly(AssemblyReferences.ApplicationAssembly);
+        services.AddHandlersFromAssemblies(AssemblyReferences.ApplicationAssembly);
     }
 
     private static void AddApi(this IServiceCollection services)

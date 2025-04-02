@@ -1,4 +1,4 @@
-﻿namespace LMS.Common.Application;
+﻿namespace LMS.Common.Application.Handlers;
 
 public interface ICommandHandler<in TCommand, TCommandResult>
 {
