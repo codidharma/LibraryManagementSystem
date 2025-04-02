@@ -31,7 +31,7 @@ internal sealed class OnboardRegularPatronEndpoint : IEndpoint
                 {
                     Content = d.Content,
                     ContentType = d.ContentType,
-                    DocumentType = d.ContentType
+                    DocumentType = d.DocumentType
                 }).ToList()
             };
 

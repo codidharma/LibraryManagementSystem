@@ -1,0 +1,28 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+POST https://localhost:7145/membership/onboarding/regularpatron
+Content-Type: application/json
+{
+  "name": "Mandar Dharmadhikari",
+  "email": "mandar@gmail.com",
+  "gender": "Male",
+  "dateOfBirth": "1990-07-03",
+  "address": {
+    "streetName": "202 Indraprastha, Moshi Alandi Road",
+    "city": "Pune",
+    "state": "Maharashtra",
+    "country": "India",
+    "zipCode": "412105"
+  },
+  "identityDocuments": [
+    {
+      "documentType": "PersonalId",
+      "contentType": "application/pdf",
+      "content": "somedata"
+    },
+    {
+      "documentType": "AddressProof",
+      "contentType": "application/pdf",
+      "content": "somedata"
+    }
+  ]
+}
