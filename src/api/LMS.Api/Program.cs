@@ -2,6 +2,7 @@ using LMS.Common.Api;
 using LMS.Common.Application.Dispatchers;
 using LMS.Modules.Membership.Registrations;
 using LMS.ServiceDefaults;
+using Scalar.AspNetCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -15,12 +16,11 @@ builder.Services.RegisterMembershipModule();
 
 WebApplication app = builder.Build();
 
-app.MapDefaultEndpoints();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference();
 }
 app.MapEndpoints();
 
