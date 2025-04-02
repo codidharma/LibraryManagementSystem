@@ -8,25 +8,27 @@ using LMS.Modules.Membership.Infrastructure.Data;
 using LMS.Modules.Membership.Infrastructure.Data.Repositories;
 using LMS.Modules.Membership.Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LMS.Modules.Membership.Registrations;
 
 public static class RegistrationsExtensions
 {
-    public static IServiceCollection RegisterMembershipModule(this IServiceCollection services)
+    public static IServiceCollection RegisterMembershipModule(this IServiceCollection services, IConfiguration configuration)
     {
         AddApi(services);
         AddApplication(services);
-        AddInfrastructure(services);
+        AddInfrastructure(services, configuration);
         return services;
     }
 
-    private static void AddInfrastructure(this IServiceCollection services)
+    private static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<MembershipDbContext>(options =>
         {
-            options.UseNpgsql("lmsdb");
+            options.UseNpgsql(configuration.GetConnectionString("lmsdb")
+                ?? throw new InvalidOperationException("Connection string 'lmsdb' not found."));
         });
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<MembershipDbContext>());
         services.AddScoped<IPatronRepository, PatronRepository>();

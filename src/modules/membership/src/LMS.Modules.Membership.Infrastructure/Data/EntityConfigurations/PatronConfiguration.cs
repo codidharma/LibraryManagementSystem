@@ -30,7 +30,8 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<Patron>
             .HasConversion(g => g.Value, g => new(g))
             .HasColumnName("gender").HasMaxLength(20);
         builder.Property(p => p.DateOfBirth)
-            .HasConversion(d => d.Value, d => new(d))
+            .HasConversion(d => d.Value.Kind == DateTimeKind.Utc ? d.Value : DateTime.SpecifyKind(d.Value, DateTimeKind.Utc),
+            d => d.Kind == DateTimeKind.Utc ? new(d) : new(DateTime.SpecifyKind(d, DateTimeKind.Utc)))
             .HasColumnName("date_of_birth");
         builder.Property(p => p.Email)
             .HasConversion(e => e.Value, e => new(e))

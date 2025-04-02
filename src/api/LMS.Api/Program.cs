@@ -12,7 +12,8 @@ builder.AddServiceDefaults();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddDispatchers();
-builder.Services.RegisterMembershipModule();
+IConfiguration configuration = builder.Configuration;
+builder.Services.RegisterMembershipModule(configuration);
 
 WebApplication app = builder.Build();
 
