@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using LMS.Common.Application.Data;
 using LMS.Common.Application.Handlers;
 using LMS.Common.Domain;
 using LMS.Modules.Membership.Application.Common.Identity;
@@ -14,18 +15,21 @@ public sealed class OnboardRegularPatronCommandHandler : ICommandHandler<Onboard
     private readonly IValidator<OnboardRegularPatronCommand> _validator;
     private readonly IIdentityService _identityService;
     private readonly IPatronRepository _patronRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
 
     public OnboardRegularPatronCommandHandler(
         ILogger<OnboardRegularPatronCommandHandler> logger,
         IValidator<OnboardRegularPatronCommand> validator,
         IIdentityService identityService,
-        IPatronRepository patronRepository)
+        IPatronRepository patronRepository,
+        IUnitOfWork unitOfWork)
     {
         _logger = logger;
         _validator = validator;
         _identityService = identityService;
         _patronRepository = patronRepository;
+        _unitOfWork = unitOfWork;
     }
     public async Task<Guid> HandleAsync(OnboardRegularPatronCommand command, CancellationToken cancellationToken)
     {
@@ -79,8 +83,10 @@ public sealed class OnboardRegularPatronCommandHandler : ICommandHandler<Onboard
             accessId: new AccessId(accessId));
 
         _patronRepository.Add(patron);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         _logger.LogInformation("Finished the process for onboarding regular patron");
+
         return patron.Id.Value;
 
     }

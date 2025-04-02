@@ -1,10 +1,11 @@
-﻿using LMS.Modules.Membership.Domain.PatronAggregate;
+﻿using LMS.Common.Application.Data;
+using LMS.Modules.Membership.Domain.PatronAggregate;
 using LMS.Modules.Membership.Infrastructure.Data.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace LMS.Modules.Membership.Infrastructure.Data;
 
-internal sealed class MembershipDbContext(DbContextOptions<MembershipDbContext> options) : DbContext(options)
+internal sealed class MembershipDbContext(DbContextOptions<MembershipDbContext> options) : DbContext(options), IUnitOfWork
 {
     internal DbSet<Address> Addresses { get; set; }
     internal DbSet<Document> Documents { get; set; }
