@@ -16,6 +16,7 @@ public class PatronTestBase : TestBase
     protected readonly Gender Gender = new(Faker.Person.Gender.ToString());
     protected readonly DateOfBirth DateOfBirth = new(Faker.Person.DateOfBirth);
     protected readonly Address Address = Address.Create(
+        Faker.Address.BuildingNumber(),
         Faker.Address.StreetName(),
         Faker.Address.City(),
         Faker.Address.State(),

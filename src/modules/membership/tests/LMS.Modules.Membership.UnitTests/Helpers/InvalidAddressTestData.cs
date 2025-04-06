@@ -10,6 +10,7 @@ public class InvalidAddressTestData : IEnumerable<object[]>
     {
         yield return new object[]
         {
+            _faker.Address.BuildingNumber(),
             _faker.Address.StreetName(),
             _faker.Address.City(),
             _faker.Address.State(),
@@ -19,6 +20,7 @@ public class InvalidAddressTestData : IEnumerable<object[]>
 
         yield return new object[]
         {
+            string.Empty,
             string.Empty,
             string.Empty,
             string.Empty,

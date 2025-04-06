@@ -13,6 +13,7 @@ internal sealed class Request
 
 internal sealed class Address
 {
+    public string BuildingNumber { get; set; }
     public string StreetName { get; set; }
     public string City { get; set; }
     public string State { get; set; }

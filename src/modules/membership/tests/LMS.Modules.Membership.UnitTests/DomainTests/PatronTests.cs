@@ -61,7 +61,7 @@ public class PatronTests : PatronTestBase
         //Arrange
         Patron regularPatron;
         string expectedExceptionMessage = $"The value for property {nameof(Address.ZipCode)} is not allowed.";
-        Address address = Address.Create(
+        Address address = Address.Create(Faker.Address.BuildingNumber(),
             Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),

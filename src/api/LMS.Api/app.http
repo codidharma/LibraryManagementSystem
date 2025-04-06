@@ -7,6 +7,7 @@ Content-Type: application/json
   "gender": "Male",
   "dateOfBirth": "1990-07-03",
   "address": {
+    "buildingNumber": "B1",
     "streetName": "202 Indraprastha, Moshi Alandi Road",
     "city": "Pune",
     "state": "Maharashtra",

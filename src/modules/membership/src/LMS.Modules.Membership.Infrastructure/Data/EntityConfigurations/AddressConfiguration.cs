@@ -15,6 +15,7 @@ internal class AddressConfiguration : IEntityTypeConfiguration<Address>
         builder.Property(a => a.Id)
             .HasConversion(id => id.Value, id => new(id))
             .HasColumnName("id");
+        builder.Property(a => a.BuildingNumber).HasColumnName("building_number").HasMaxLength(20);
         builder.Property(a => a.Street).HasColumnName("street").HasMaxLength(300);
         builder.Property(a => a.City).HasColumnName("city").HasMaxLength(20);
         builder.Property(a => a.State).HasColumnName("state").HasMaxLength(20);

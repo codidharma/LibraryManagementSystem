@@ -54,6 +54,7 @@ public sealed class OnboardRegularPatronCommandHandler : ICommandHandler<Onboard
         Guid accessId = await _identityService.RegisterPatronAsync(command.Name, command.Email, cancellationToken);
 
         Domain.PatronAggregate.Address address = Domain.PatronAggregate.Address.Create(
+            buildingNumber: command.Address.BuildingNumber,
             street: command.Address.StreetName,
             city: command.Address.City,
             state: command.Address.State,

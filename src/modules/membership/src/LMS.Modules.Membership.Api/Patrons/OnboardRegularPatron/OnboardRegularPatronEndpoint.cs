@@ -21,6 +21,7 @@ internal sealed class OnboardRegularPatronEndpoint : IEndpoint
                 DateOfBirth = request.DateOfBirth,
                 Address = new()
                 {
+                    BuildingNumber = request.Address.BuildingNumber,
                     StreetName = request.Address.StreetName,
                     City = request.Address.City,
                     State = request.Address.State,
