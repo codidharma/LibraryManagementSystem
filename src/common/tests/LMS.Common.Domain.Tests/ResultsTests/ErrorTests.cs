@@ -102,7 +102,7 @@ public class ErrorTests
     }
 
     [Fact]
-    public void None_ShouldReturn_FailureErrorTypeInstance()
+    public void None_ShouldReturn_NoneErrorTypeInstance()
     {
         //Act
         Error error = Error.None;
@@ -110,7 +110,7 @@ public class ErrorTests
         //Assert
         Assert.Empty(error.Code);
         Assert.Empty(error.Description);
-        Assert.Equal(ErrorType.Failure, error.ErrorType);
+        Assert.Equal(ErrorType.None, error.ErrorType);
     }
 
     [Fact]
