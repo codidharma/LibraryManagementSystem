@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" />
 	<PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
   </ItemGroup>
 
   <ItemGroup>

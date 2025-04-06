@@ -13,7 +13,7 @@ internal sealed class MembershipDbContext(DbContextOptions<MembershipDbContext> 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.HasDefaultSchema("membership");
+        modelBuilder.HasDefaultSchema(Schema.Name);
         modelBuilder.ApplyConfiguration(new AddressConfiguration());
         modelBuilder.ApplyConfiguration(new DocumentConfiguration());
         modelBuilder.ApplyConfiguration(new PatronConfiguration());

@@ -8,6 +8,7 @@ using LMS.Modules.Membership.Infrastructure.Data;
 using LMS.Modules.Membership.Infrastructure.Data.Repositories;
 using LMS.Modules.Membership.Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -28,7 +29,8 @@ public static class RegistrationsExtensions
         services.AddDbContext<MembershipDbContext>(options =>
         {
             options.UseNpgsql(configuration.GetConnectionString("lmsdb")
-                ?? throw new InvalidOperationException("Connection string 'lmsdb' not found."));
+                ?? throw new InvalidOperationException("Connection string 'lmsdb' not found."),
+                npgSqlOptions => npgSqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schema.Name));
         });
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<MembershipDbContext>());
         services.AddScoped<IPatronRepository, PatronRepository>();
