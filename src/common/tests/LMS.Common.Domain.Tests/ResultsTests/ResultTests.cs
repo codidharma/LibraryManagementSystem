@@ -74,4 +74,34 @@ public class ResultTests
         Assert.False(result.IsSuccess);
         Assert.Equal(error, result.Error);
     }
+
+    [Fact]
+    public void SuccessForGenericResult_ShouldReturn_SuccessResultInstance()
+    {
+        //Arrange
+        string expectedValue = "result";
+        // Act
+        Result<string> result = Result.Success<string>(expectedValue);
+
+        //Assert
+        Assert.True(result.IsSuccess);
+        Assert.False(result.IsFailure);
+        Assert.Equal(Error.None, result.Error);
+        Assert.Equal(expectedValue, result.Value);
+    }
+
+    [Fact]
+    public void FailureForGenericResult_ShouldReturn_FailureResultInstance()
+    {
+        //Arrange
+        Error error = Error.NullValue("Field x can not be null.");
+
+        // Act
+        Result<string> result = Result.Failure<string>(error);
+
+        //Assert
+        Assert.True(result.IsFailure);
+        Assert.False(result.IsSuccess);
+        Assert.Equal(error, result.Error);
+    }
 }
