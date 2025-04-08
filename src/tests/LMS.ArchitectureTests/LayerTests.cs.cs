@@ -23,4 +23,23 @@ public class LayerTests
 
         Assert.True(result.IsSuccessful);
     }
+
+    [Fact]
+    public void MigrationServices_ShouldNotRefrence_MembershipModules_Directly()
+    {
+        string?[] notAllowedAssemblies = [
+            AssemblyReferences.DomainAssembly.GetName().Name,
+            AssemblyReferences.ApiAssembly.GetName().Name,
+            AssemblyReferences.ApplicationAssembly.GetName().Name,
+            AssemblyReferences.InfrastructureAssembly.GetName().Name
+            ];
+
+        TestResult result = Types
+            .InAssembly(MigrationServices.AssemblyReference.Assembly)
+            .ShouldNot()
+            .HaveDependencyOnAll(notAllowedAssemblies)
+            .GetResult();
+
+        Assert.True(result.IsSuccessful);
+    }
 }
