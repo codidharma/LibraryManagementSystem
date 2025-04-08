@@ -102,6 +102,22 @@ public class ErrorTests
     }
 
     [Fact]
+    public void InvalidDomain_ShouldReturn_InvalidDomainErrorTypeInsatnce()
+    {
+        //Arrange
+        string code = "Error.InvalidDomain";
+        string description = "Entity with id x already exists.";
+
+        //Act
+        Error error = Error.InvalidDomain(code, description);
+
+        //Assert
+        Assert.Equal(code, error.Code);
+        Assert.Equal(description, error.Description);
+        Assert.Equal(ErrorType.InvalidDomain, error.ErrorType);
+    }
+
+    [Fact]
     public void None_ShouldReturn_NoneErrorTypeInstance()
     {
         //Act
