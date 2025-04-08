@@ -53,13 +53,14 @@ public sealed class OnboardRegularPatronCommandHandler : ICommandHandler<Onboard
 
         Guid accessId = await _identityService.RegisterPatronAsync(command.Name, command.Email, cancellationToken);
 
-        Domain.PatronAggregate.Address address = Domain.PatronAggregate.Address.Create(
+        Result<Domain.PatronAggregate.Address> addressResult = Domain.PatronAggregate.Address.Create(
             buildingNumber: command.Address.BuildingNumber,
             street: command.Address.StreetName,
             city: command.Address.City,
             state: command.Address.State,
             country: command.Address.Country,
             zipCode: command.Address.ZipCode);
+
 
         List<Domain.PatronAggregate.Document> idenityDocuments = [];
 
@@ -78,7 +79,7 @@ public sealed class OnboardRegularPatronCommandHandler : ICommandHandler<Onboard
             gender: new Gender(command.Gender),
             dateOfBirth: new DateOfBirth(command.DateOfBirth),
             email: new Email(command.Email),
-            address: address,
+            address: addressResult.Value,
             patronType: PatronType.Regular,
             identityDocuments: idenityDocuments,
             accessId: new AccessId(accessId));

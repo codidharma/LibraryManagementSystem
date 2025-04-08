@@ -66,7 +66,7 @@ public class PatronTests : PatronTestBase
             Faker.Address.City(),
             Faker.Address.State(),
             Faker.Address.Country(),
-            Faker.Address.ZipCode());
+            Faker.Address.ZipCode()).Value;
 
         //Act
         Action action = () =>

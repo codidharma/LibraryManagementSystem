@@ -17,7 +17,7 @@ public class AddressTests : TestBase
         string zipCode = Faker.Address.ZipCode();
 
         //Act
-        Address address = Address.Create(buildingNumber, street, city, state, country, zipCode);
+        Address address = Address.Create(buildingNumber, street, city, state, country, zipCode).Value;
 
         //Assert
         Assert.Equal(street, address.Street);
@@ -30,7 +30,7 @@ public class AddressTests : TestBase
 
     [Theory]
     [ClassData(typeof(InvalidAddressTestData))]
-    public void ForInvalidParameters_Constructor_ShouldThrow_InvalidValueException(string buildingNumber,
+    public void ForInvalidParameters_Create_ShouldReturn_InvalidDomainError(string buildingNumber,
         string street,
         string city,
         string state,
@@ -38,15 +38,21 @@ public class AddressTests : TestBase
         string zipCode)
     {
         //Arrange
-        string expectdExceptionMessage = $"Address should be composed of non null, empty of whitespace values for {nameof(Address.BuildingNumber)}, {nameof(Address.Street)}, {nameof(Address.City)}, {nameof(Address.State)} {nameof(Address.Country)} and {nameof(Address.ZipCode)}";
-        Address address;
+        string expectdErrorDescription = $"Address should be composed of non null, empty of whitespace values for {nameof(Address.BuildingNumber)}, {nameof(Address.Street)}, {nameof(Address.City)}, {nameof(Address.State)} {nameof(Address.Country)} and {nameof(Address.ZipCode)}";
+        string expectedErrorCode = "Membership.InvalidValueError";
 
         //Act
-        Action action = () => { address = Address.Create(buildingNumber, street, city, state, country, zipCode); };
+        Result<Address> addressResult = Address.Create(buildingNumber, street, city, state, country, zipCode);
 
         //Assert
-        InvalidValueException exception = Assert.Throws<InvalidValueException>(action);
-        Assert.Equal(expectdExceptionMessage, exception.Message);
+        Assert.True(addressResult.IsFailure);
+        Assert.False(addressResult.IsSuccess);
+
+        Error error = addressResult.Error;
+
+        Assert.Equal(ErrorType.InvalidDomain, error.ErrorType);
+        Assert.Equal(expectdErrorDescription, error.Description);
+        Assert.Equal(expectedErrorCode, error.Code);
 
     }
 }

@@ -21,7 +21,7 @@ public class PatronTestBase : TestBase
         Faker.Address.City(),
         Faker.Address.State(),
         Faker.Address.Country(),
-        "412105");
+        "412105").Value;
     protected readonly Email Email = new(Faker.Person.Email);
     protected readonly AccessId AccessId = new(Guid.NewGuid());
     protected readonly PatronType RegularPatronType = PatronType.Regular;

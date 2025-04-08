@@ -14,7 +14,7 @@ public class AddressValidationServiceTests : TestBase
             Faker.Address.City(),
             Faker.Address.State(),
             Faker.Address.Country(),
-            Faker.Address.ZipCode());
+            Faker.Address.ZipCode()).Value;
 
         //Act
         AddressValidationService addressValidationService = new();
@@ -35,7 +35,7 @@ public class AddressValidationServiceTests : TestBase
             Faker.Address.City(),
             Faker.Address.State(),
             Faker.Address.Country(),
-            zipCode);
+            zipCode).Value;
 
         //Act
         AddressValidationService addressValidationService = new();
