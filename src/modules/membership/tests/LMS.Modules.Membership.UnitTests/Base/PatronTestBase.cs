@@ -12,8 +12,8 @@ public class PatronTestBase : TestBase
         Domain.PatronAggregate.DocumentType.AddressProof,
         new("somedata"), DocumentContentType.Pdf);
 
-    protected readonly Name Name = new(Faker.Person.FullName);
-    protected readonly Gender Gender = new(Faker.Person.Gender.ToString());
+    protected readonly Name Name = Name.Create(Faker.Person.FullName).Value;
+    protected readonly Gender Gender = Gender.Create(Faker.Person.Gender.ToString()).Value;
     protected readonly DateOfBirth DateOfBirth = new(Faker.Person.DateOfBirth);
     protected readonly Address Address = Address.Create(
         Faker.Address.BuildingNumber(),
@@ -22,7 +22,7 @@ public class PatronTestBase : TestBase
         Faker.Address.State(),
         Faker.Address.Country(),
         "412105").Value;
-    protected readonly Email Email = new(Faker.Person.Email);
+    protected readonly Email Email = Email.Create(Faker.Person.Email).Value;
     protected readonly AccessId AccessId = new(Guid.NewGuid());
     protected readonly PatronType RegularPatronType = PatronType.Regular;
     protected readonly PatronType ResearchPatronType = PatronType.Research;

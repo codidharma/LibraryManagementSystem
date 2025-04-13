@@ -5,33 +5,41 @@ namespace LMS.Modules.Membership.UnitTests.DomainTests;
 public class NameTests : TestBase
 {
     [Fact]
-    public void Constructor_Returns_NameInstance()
+    public void Create_ShouldReturn_NameResult()
     {
         //Arrange
         string fullName = Faker.Person.FullName;
 
         //Act
-        Name name = new(fullName);
+        Result<Name> nameResult = Name.Create(fullName);
 
         //Assert
+        Assert.True(nameResult.IsSuccess);
+        Assert.False(nameResult.IsFailure);
+
+        Name name = nameResult.Value;
         Assert.Equal(fullName, name.Value);
     }
 
     [Theory]
     [InlineData("")]
     [InlineData(" ")]
-    public void InvalidNameValue_Should_ThrowInvalidValueException(string nameValue)
+    public void InvalidNameValue_ShouldReturn_FailureResult(string fullName)
     {
         //Arrange
-        string expectedExceptionMessage = "Name can not be null, empty or whitespace string.";
-        Name name;
-
-        //Act
-        Action action = () => { name = new(nameValue); };
+        string expectedErrorMessage = "Name can not be null, empty or whitespace string.";
+        string expectedErrorCode = "Membership.InvalidDomainValue";
+        //Arrange
+        Result<Name> nameResult = Name.Create(fullName);
 
         //Assert
-        InvalidValueException exception = Assert.Throws<InvalidValueException>(action);
-        Assert.Equal(expectedExceptionMessage, exception.Message);
+        Assert.True(nameResult.IsFailure);
+        Assert.False(nameResult.IsSuccess);
+        Error error = nameResult.Error;
 
+        Assert.Equal(expectedErrorMessage, error.Description);
+        Assert.Equal(expectedErrorCode, error.Code);
+        Assert.Equal(ErrorType.InvalidDomain, error.ErrorType);
     }
+
 }

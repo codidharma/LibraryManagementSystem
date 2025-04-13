@@ -5,32 +5,41 @@ namespace LMS.Modules.Membership.UnitTests.DomainTests;
 public class GenderTests : TestBase
 {
     [Fact]
-    public void Constructor_Should_ReturnGender()
+    public void Create_ShouldReturn_SuccessResult()
     {
         //Arrange
         string genderValue = Faker.Person.Gender.ToString();
 
         //Act
-        Gender gender = new(genderValue);
+        Result<Gender> genderResult = Gender.Create(genderValue);
 
         //Assert
+        Assert.True(genderResult.IsSuccess);
+        Assert.False(genderResult.IsFailure);
+        Gender gender = genderResult.Value;
         Assert.Equal(genderValue, gender.Value);
     }
 
     [Theory]
     [InlineData("")]
     [InlineData(" ")]
-    public void InvalidGender_Throws_InvalidValueException(string genderValue)
+    public void ForInvalidGenderValue_Create_ShouldReturn_FailureResut(string genderValue)
     {
         //Arrange
-        string expectedExceptionMessage = "Gender value cannot be null, empty or whitespace string.";
-        Gender gender;
+        string expectedErrorMessage = "Gender value cannot be null, empty or whitespace string.";
+        string expectedErrorCode = "Membership.InvalidDomainValue";
 
         //Act
-        Action action = () => { gender = new(genderValue); };
+        Result<Gender> genderResult = Gender.Create(genderValue);
 
         //Assert
-        InvalidValueException exception = Assert.Throws<InvalidValueException>(action);
-        Assert.Equal(expectedExceptionMessage, exception.Message);
+        Assert.True(genderResult.IsFailure);
+        Assert.False(genderResult.IsSuccess);
+
+        Error error = genderResult.Error;
+        Assert.Equal(expectedErrorMessage, error.Description);
+        Assert.Equal(expectedErrorCode, error.Code);
+        Assert.Equal(ErrorType.InvalidDomain, error.ErrorType);
+
     }
 }

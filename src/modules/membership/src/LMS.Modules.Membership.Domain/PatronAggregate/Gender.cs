@@ -1,17 +1,26 @@
 ﻿using LMS.Common.Domain;
-using LMS.Modules.Membership.Domain.PatronAggregate.Exceptions;
 
 namespace LMS.Modules.Membership.Domain.PatronAggregate;
 
 public sealed record Gender : ValueObject
 {
     public string Value { get; }
-    public Gender(string value)
+    private Gender(string value)
+    {
+        Value = value;
+    }
+
+    public static Result<Gender> Create(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
         {
-            throw new InvalidValueException("Gender value cannot be null, empty or whitespace string.");
+            Error error = Error.InvalidDomain(
+                "Membership.InvalidDomainValue",
+                "Gender value cannot be null, empty or whitespace string.");
+
+            return Result.Failure<Gender>(error);
         }
-        Value = value;
+        Gender gender = new(value);
+        return Result.Success<Gender>(gender);
     }
 }

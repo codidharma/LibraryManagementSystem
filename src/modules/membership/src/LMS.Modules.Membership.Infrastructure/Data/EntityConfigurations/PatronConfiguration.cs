@@ -24,17 +24,17 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<Patron>
             .HasConversion(a => a.Value, a => new(a))
             .HasColumnName("access_id");
         builder.Property(p => p.Name)
-            .HasConversion(n => n.Value, n => new(n))
+            .HasConversion(n => n.Value, n => Name.Create(n).Value)
             .HasColumnName("name").HasMaxLength(300);
         builder.Property(p => p.Gender)
-            .HasConversion(g => g.Value, g => new(g))
+            .HasConversion(g => g.Value, g => Gender.Create(g).Value)
             .HasColumnName("gender").HasMaxLength(20);
         builder.Property(p => p.DateOfBirth)
             .HasConversion(d => d.Value.Kind == DateTimeKind.Utc ? d.Value : DateTime.SpecifyKind(d.Value, DateTimeKind.Utc),
             d => d.Kind == DateTimeKind.Utc ? new(d) : new(DateTime.SpecifyKind(d, DateTimeKind.Utc)))
             .HasColumnName("date_of_birth");
         builder.Property(p => p.Email)
-            .HasConversion(e => e.Value, e => new(e))
+            .HasConversion(e => e.Value, e => Email.Create(e).Value)
             .HasColumnName("email").HasMaxLength(300);
         builder.Property(p => p.PatronType)
             .HasConversion(pt => pt.Name, pt => Enumeration.FromName<PatronType>(pt))

@@ -5,15 +5,19 @@ namespace LMS.Modules.Membership.UnitTests.DomainTests;
 public class EmailTests : TestBase
 {
     [Fact]
-    public void Constructor_ShouldReturn_EmailInstance()
+    public void Crate_ShouldReturn_SuccessResult()
     {
         //Arrange
         string emailValue = Faker.Person.Email;
 
-        //Assert
-        Email email = new(emailValue);
+        //Act
+        Result<Email> emailResult = Email.Create(emailValue);
 
         //Assert
+        Assert.True(emailResult.IsSuccess);
+        Assert.False(emailResult.IsFailure);
+
+        Email email = emailResult.Value;
         Assert.Equal(emailValue, email.Value);
     }
 
@@ -21,17 +25,23 @@ public class EmailTests : TestBase
     [InlineData("")]
     [InlineData(" ")]
     [InlineData("abc@")]
-    public void InvalidEmail_Throws_InvalidValueException(string emailValue)
+    public void ForInvalidEmailValue_Create_ShouldReturn_FailureResult(string emailValue)
     {
         //Arrange
-        string expectedExceptionMessage = "Email should be in format abc@pqr.com.";
-        Email email;
+        string expectedErrorMessage = "Email should be in format abc@pqr.com.";
+        string expectedErrorCode = "Membership.InvalidDomainValue";
 
         //Act
-        Action action = () => { email = new(emailValue); };
+        Result<Email> emailResult = Email.Create(emailValue);
 
         //Assert
-        InvalidValueException exception = Assert.Throws<InvalidValueException>(action);
-        Assert.Equal(expectedExceptionMessage, exception.Message);
+        Assert.True(emailResult.IsFailure);
+        Assert.False(emailResult.IsSuccess);
+
+        Error error = emailResult.Error;
+
+        Assert.Equal(expectedErrorMessage, error.Description);
+        Assert.Equal(expectedErrorCode, error.Code);
+        Assert.Equal(ErrorType.InvalidDomain, error.ErrorType);
     }
 }

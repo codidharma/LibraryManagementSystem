@@ -74,11 +74,15 @@ public sealed class OnboardRegularPatronCommandHandler : ICommandHandler<Onboard
             idenityDocuments.Add(doc);
         }
 
+        Result<Name> nameResult = Name.Create(command.Name);
+        Result<Gender> genderResult = Gender.Create(command.Gender);
+        Result<Email> emailResult = Email.Create(command.Email);
+
         Patron patron = Patron.Create(
-            name: new Name(command.Name),
-            gender: new Gender(command.Gender),
+            name: nameResult.Value,
+            gender: genderResult.Value,
             dateOfBirth: new DateOfBirth(command.DateOfBirth),
-            email: new Email(command.Email),
+            email: emailResult.Value,
             address: addressResult.Value,
             patronType: PatronType.Regular,
             identityDocuments: idenityDocuments,
