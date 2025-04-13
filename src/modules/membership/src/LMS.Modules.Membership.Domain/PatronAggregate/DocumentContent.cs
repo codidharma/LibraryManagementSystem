@@ -1,5 +1,4 @@
 ﻿using LMS.Common.Domain;
-using LMS.Modules.Membership.Domain.PatronAggregate.Exceptions;
 
 
 namespace LMS.Modules.Membership.Domain.PatronAggregate;
@@ -7,13 +6,24 @@ namespace LMS.Modules.Membership.Domain.PatronAggregate;
 public sealed record DocumentContent : ValueObject
 {
     public string Value { get; }
-    public DocumentContent(string value)
+    private DocumentContent(string value)
+    {
+        Value = value;
+    }
+
+    public static Result<DocumentContent> Create(string value)
     {
         if (!IsValidBase64String(value))
         {
-            throw new InvalidValueException($"The value provided is not a valid base64 string.");
+            Error error = Error.InvalidDomain(
+                "Membership.InvalidDomainValue",
+                "The value provided is not a valid base64 string.");
+
+            return Result.Failure<DocumentContent>(error);
         }
-        Value = value;
+
+        DocumentContent documentContent = new(value);
+        return Result.Success(documentContent);
     }
 
     private static bool IsValidBase64String(string value)

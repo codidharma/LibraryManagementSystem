@@ -66,9 +66,12 @@ public sealed class OnboardRegularPatronCommandHandler : ICommandHandler<Onboard
 
         foreach (Document document in command.IdentityDocuments)
         {
+            Result<DocumentContent> documentContentResult =
+                DocumentContent.Create(document.Content);
+
             Domain.PatronAggregate.Document doc = Domain.PatronAggregate.Document.Create(
                 documentType: Enumeration.FromName<DocumentType>(document.DocumentType),
-                content: new DocumentContent(document.Content),
+                content: documentContentResult.Value,
                 contentType: Enumeration.FromName<DocumentContentType>(document.ContentType));
 
             idenityDocuments.Add(doc);
@@ -77,16 +80,17 @@ public sealed class OnboardRegularPatronCommandHandler : ICommandHandler<Onboard
         Result<Name> nameResult = Name.Create(command.Name);
         Result<Gender> genderResult = Gender.Create(command.Gender);
         Result<Email> emailResult = Email.Create(command.Email);
-
+        Result<DateOfBirth> dobResult = DateOfBirth.Create(command.DateOfBirth);
+        Result<AccessId> accessIdResult = AccessId.Create(accessId);
         Patron patron = Patron.Create(
             name: nameResult.Value,
             gender: genderResult.Value,
-            dateOfBirth: new DateOfBirth(command.DateOfBirth),
+            dateOfBirth: dobResult.Value,
             email: emailResult.Value,
             address: addressResult.Value,
             patronType: PatronType.Regular,
             identityDocuments: idenityDocuments,
-            accessId: new AccessId(accessId));
+            accessId: accessIdResult.Value);
 
         _patronRepository.Add(patron);
         await _unitOfWork.SaveChangesAsync(cancellationToken);

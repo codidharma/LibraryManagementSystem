@@ -1,5 +1,4 @@
 ﻿using LMS.Common.Domain;
-using LMS.Modules.Membership.Domain.PatronAggregate.Exceptions;
 
 
 namespace LMS.Modules.Membership.Domain.PatronAggregate;
@@ -7,13 +6,25 @@ namespace LMS.Modules.Membership.Domain.PatronAggregate;
 public sealed record DateOfBirth : ValueObject
 {
     public DateTime Value { get; }
-    public DateOfBirth(DateTime value)
+    private DateOfBirth(DateTime value)
+    {
+        Value = value;
+    }
+
+    public static Result<DateOfBirth> Create(DateTime value)
     {
         if (IsDateOfBirthInFutureorToday(value))
         {
-            throw new InvalidValueException("Date of birth cannot be in future or today.");
+            Error error = Error.InvalidDomain(
+                "Membership.InvalidDomainValue",
+                "Date of birth cannot be in future or today.");
+
+            return Result.Failure<DateOfBirth>(error);
         }
-        Value = value;
+
+        DateOfBirth dateOfBirth = new(value);
+
+        return Result.Success(dateOfBirth);
     }
 
     private static bool IsDateOfBirthInFutureorToday(DateTime value)

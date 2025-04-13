@@ -26,7 +26,7 @@ internal sealed class DocumentConfiguration : IEntityTypeConfiguration<Document>
             .HasConversion(dt => dt.Name, dt => Enumeration.FromName<DocumentType>(dt))
             .HasColumnName("document_type");
         builder.Property(d => d.Content)
-            .HasConversion(c => c.Value, c => new(c))
+            .HasConversion(c => c.Value, c => DocumentContent.Create(c).Value)
             .HasColumnName("content");
         builder.Property(d => d.ContentType)
             .HasConversion(ct => ct.Name, ct => Enumeration.FromName<DocumentContentType>(ct))

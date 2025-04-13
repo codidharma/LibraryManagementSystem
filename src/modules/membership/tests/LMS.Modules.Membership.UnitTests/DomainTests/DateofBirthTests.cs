@@ -5,49 +5,65 @@ namespace LMS.Modules.Membership.UnitTests.DomainTests;
 public class DateofBirthTests : TestBase
 {
     [Fact]
-    public void Constructor_ShouldReturn_Value()
+    public void Create_ShouldReturn_SuccessResult()
     {
         //Arrange
         DateTime dateOfBirthValue = Faker.Person.DateOfBirth;
 
         //Act
-        DateOfBirth dateOfBirth = new(dateOfBirthValue);
+        Result<DateOfBirth> dobResult = DateOfBirth.Create(dateOfBirthValue);
 
         //Assert
+        Assert.True(dobResult.IsSuccess);
+        Assert.False(dobResult.IsFailure);
+
+        DateOfBirth dateOfBirth = dobResult.Value;
+
         Assert.Equal(dateOfBirthValue, dateOfBirth.Value);
     }
 
     [Fact]
-    public void DateOfBirth_ShouldNotBe_InFuture()
+    public void ForFutureDateOfBirth_Create_ShouldReturn_FailureResult()
     {
         //Arrange
         string expectedExceptionMessage = "Date of birth cannot be in future or today.";
+        string expectedErrorCode = "Membership.InvalidDomainValue";
         DateTime futureDateOfBirthValue = DateTime.UtcNow.AddYears(1000);
 
         //Act
-        DateOfBirth dateOfBirth;
-
-        Action action = () => { dateOfBirth = new(futureDateOfBirthValue); };
+        Result<DateOfBirth> dobResult = DateOfBirth.Create(futureDateOfBirthValue);
 
         //Assert
-        InvalidValueException exception = Assert.Throws<InvalidValueException>(action);
-        Assert.Equal(expectedExceptionMessage, exception.Message);
+        Assert.True(dobResult.IsFailure);
+        Assert.False(dobResult.IsSuccess);
+
+        Error error = dobResult.Error;
+
+        Assert.Equal(expectedErrorCode, error.Code);
+        Assert.Equal(expectedExceptionMessage, error.Description);
+        Assert.Equal(ErrorType.InvalidDomain, error.ErrorType);
     }
 
     [Fact]
-    public void DateOfBirth_ShouldNotBe_Today()
+    public void ForTodaysDateOfBirth_Create_ShouldReturn_FailureResult()
     {
         //Arrange
         string expectedExceptionMessage = "Date of birth cannot be in future or today.";
+        string expectedErrorCode = "Membership.InvalidDomainValue";
         DateTime futureDateOfBirthValue = DateTime.Now;
 
         //Act
-        DateOfBirth dateOfBirth;
-
-        Action action = () => { dateOfBirth = new(futureDateOfBirthValue); };
+        Result<DateOfBirth> dobResult = DateOfBirth.Create(futureDateOfBirthValue);
 
         //Assert
-        InvalidValueException exception = Assert.Throws<InvalidValueException>(action);
-        Assert.Equal(expectedExceptionMessage, exception.Message);
+        Assert.True(dobResult.IsFailure);
+        Assert.False(dobResult.IsSuccess);
+
+        Error error = dobResult.Error;
+
+        Assert.Equal(expectedErrorCode, error.Code);
+        Assert.Equal(expectedExceptionMessage, error.Description);
+        Assert.Equal(ErrorType.InvalidDomain, error.ErrorType);
     }
+
 }

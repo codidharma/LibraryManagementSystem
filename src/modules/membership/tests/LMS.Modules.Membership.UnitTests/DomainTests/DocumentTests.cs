@@ -12,7 +12,7 @@ public class DocumentTests
 
 
 
-        DocumentContent content = new(sampleData);
+        DocumentContent content = DocumentContent.Create(sampleData).Value;
 
         //Act
         Document document = Document.Create(documentType, content, contentType);
