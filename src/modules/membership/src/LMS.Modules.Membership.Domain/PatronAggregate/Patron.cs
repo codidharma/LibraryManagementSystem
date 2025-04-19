@@ -13,11 +13,11 @@ public sealed class Patron : Entity
     public DateOfBirth DateOfBirth { get; }
 
     public Email Email { get; }
-    public Address Address { get; }
+    public Address Address { get; private set; }
 
     public PatronType PatronType { get; }
 
-    public List<Document> IdentityDocuments { get; }
+    public List<Document> Documents { get; private set; }
     public AccessId AccessId { get; }
 
     private Patron() { }
@@ -37,8 +37,92 @@ public sealed class Patron : Entity
         Email = email;
         Address = address;
         PatronType = patronType;
-        IdentityDocuments = identityDocuments;
+        Documents = identityDocuments;
         AccessId = accessId;
+    }
+
+    private Patron(
+        Name name,
+        Gender gender,
+        DateOfBirth dateOfBirth,
+        Email email,
+        PatronType patronType)
+    {
+        Name = name;
+        Gender = gender;
+        DateOfBirth = dateOfBirth;
+        Email = email;
+        PatronType = patronType;
+    }
+
+    public static Result<Patron> Create(
+        Name name,
+        Gender gender,
+        DateOfBirth dateOfBirth,
+        Email email,
+        PatronType patronType)
+    {
+        Patron patron = new(
+            name,
+            gender,
+            dateOfBirth,
+            email,
+            patronType);
+
+        return Result.Success(patron);
+    }
+
+    public Result AddAddress(Address address)
+    {
+        Address = address;
+
+        AddressValidationService addressValidationService = new();
+        bool isAddressAllowed = addressValidationService.Validate(address);
+
+        if (!isAddressAllowed)
+        {
+            Error error = Error.InvalidDomain(
+                code: "Membership.InvalidDomainValue",
+                description: $"The value for property {nameof(address.ZipCode)} is not allowed.");
+
+            return Result.Failure(error);
+        }
+
+        return Result.Success();
+    }
+
+    public Result AddDocuments(List<Document> documents)
+    {
+
+        if (!IsPersonalIdentificationDocumentAvailable(documents))
+        {
+            Error error = Error.InvalidDomain(
+                code: "Membership.InvalidDomainValue",
+                description: $"Document of type {DocumentType.PersonalIdentification.Name} is mandatory.");
+
+            return Result.Failure(error);
+        }
+        if (!IsAddressProofDocumentAvailable(documents))
+        {
+            Error error = Error.InvalidDomain(
+                 code: "Membership.InvalidDomainValue",
+                 description: $"Document of type {DocumentType.AddressProof.Name} is mandatory.");
+
+            return Result.Failure(error);
+        }
+        if (PatronType.Equals(PatronType.Research) && !IsAcademicsIdentificationDocumentAvailable(documents))
+        {
+            Error error = Error.InvalidDomain(
+                code: "Membership.InvalidDomainValue",
+                description: $"Document of type {DocumentType.AcademicsIdentification.Name} is mandatory for a research patron.");
+
+            return Result.Failure(error);
+        }
+
+        Documents = documents;
+
+        return Result.Success();
+
     }
 
     public static Patron Create(

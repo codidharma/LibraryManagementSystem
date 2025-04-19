@@ -26,6 +26,21 @@ public class PatronTestBase : TestBase
     protected readonly AccessId AccessId = AccessId.Create(Guid.NewGuid()).Value;
     protected readonly PatronType RegularPatronType = PatronType.Regular;
     protected readonly PatronType ResearchPatronType = PatronType.Research;
+
+    protected readonly Patron RegularPatron = Patron.Create(
+        name: Name.Create(Faker.Person.FullName).Value,
+        gender: Gender.Create(Faker.Person.Gender.ToString()).Value,
+        dateOfBirth: DateOfBirth.Create(Faker.Person.DateOfBirth).Value,
+        email: Email.Create(Faker.Person.Email).Value,
+        patronType: PatronType.Regular).Value;
+
+    protected readonly Patron ResearchPatron = Patron.Create(
+        name: Name.Create(Faker.Person.FullName).Value,
+        gender: Gender.Create(Faker.Person.Gender.ToString()).Value,
+        dateOfBirth: DateOfBirth.Create(Faker.Person.DateOfBirth).Value,
+        email: Email.Create(Faker.Person.Email).Value,
+        patronType: PatronType.Research).Value;
+
     protected readonly List<Document> RegularPatronOnboardingDocuments = [PersonalIdentification, AddressProof];
     protected readonly List<Document> ResearchPatronOnboardingDocuments = [PersonalIdentification, AddressProof, AcademicsIdentification];
     protected readonly List<Document> PersonalIdentificationDocuments = [PersonalIdentification];

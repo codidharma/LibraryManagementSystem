@@ -44,6 +44,6 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<Patron>
         builder.HasIndex(p => p.AccessId).IsUnique();
         builder.HasIndex(p => p.Email).IsUnique();
         builder.HasOne(p => p.Address).WithOne().IsRequired();
-        builder.HasMany(p => p.IdentityDocuments).WithOne().IsRequired();
+        builder.HasMany(p => p.Documents).WithOne().IsRequired();
     }
 }
