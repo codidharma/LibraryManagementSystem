@@ -42,7 +42,9 @@ internal sealed class OnboardRegularPatronEndpoint : IEndpoint
 
             Guid id = await dispatcher.DispatchAsync<OnboardRegularPatronCommand, Guid>(command, default);
 
-            return TypedResults.Created(id.ToString());
+            Response response = new(id);
+
+            return TypedResults.Created<Response>(uri: string.Empty, response);
         })
         .AllowAnonymous()
         .WithTags(Tags.Membership);
