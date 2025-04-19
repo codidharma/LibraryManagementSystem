@@ -1,29 +1,25 @@
 ﻿namespace LMS.Modules.Membership.Api.Patrons.OnboardRegularPatron;
 
-internal sealed class Request
-{
-    public string Name { get; set; }
-    public string Email { get; set; }
-    public string Gender { get; set; }
-    public DateTime DateOfBirth { get; set; }
-    public Address Address { get; set; }
-    public List<Document> IdentityDocuments { get; set; }
+internal sealed record Request(
+    string Name,
+    string Email,
+    string Gender,
+    DateTime DateOfBirth,
+    Address Address,
+    List<Document> IdentityDocuments);
 
-}
+internal sealed record Address(
+    string BuildingNumber,
+    string StreetName,
+    string City,
+    string State,
+    string Country,
+    string ZipCode);
 
-internal sealed class Address
-{
-    public string BuildingNumber { get; set; }
-    public string StreetName { get; set; }
-    public string City { get; set; }
-    public string State { get; set; }
-    public string Country { get; set; }
-    public string ZipCode { get; set; }
-}
 
-internal sealed class Document
-{
-    public string DocumentType { get; set; }
-    public string ContentType { get; set; }
-    public string Content { get; set; }
-}
+internal sealed record Document(
+    string DocumentType,
+    string ContentType,
+    string Content);
+
+

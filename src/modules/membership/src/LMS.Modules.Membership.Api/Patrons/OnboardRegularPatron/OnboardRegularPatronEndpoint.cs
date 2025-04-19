@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
+
 namespace LMS.Modules.Membership.Api.Patrons.OnboardRegularPatron;
 
 internal sealed class OnboardRegularPatronEndpoint : IEndpoint
@@ -13,28 +14,31 @@ internal sealed class OnboardRegularPatronEndpoint : IEndpoint
     {
         app.MapPost("membership/onboarding/regularpatron", async (Request request, ICommandDispatcher dispatcher) =>
         {
-            OnboardRegularPatronCommand command = new()
-            {
-                Name = request.Name,
-                Email = request.Email,
-                Gender = request.Gender,
-                DateOfBirth = request.DateOfBirth,
-                Address = new()
-                {
-                    BuildingNumber = request.Address.BuildingNumber,
-                    StreetName = request.Address.StreetName,
-                    City = request.Address.City,
-                    State = request.Address.State,
-                    Country = request.Address.Country,
-                    ZipCode = request.Address.ZipCode
-                },
-                IdentityDocuments = request.IdentityDocuments.Select(d => new Application.Patrons.OnboardRegularPatron.Document()
-                {
-                    Content = d.Content,
-                    ContentType = d.ContentType,
-                    DocumentType = d.DocumentType
-                }).ToList()
-            };
+            Application.Patrons.OnboardRegularPatron.Address address = new
+                 (
+                     BuildingNumber: request.Address.BuildingNumber,
+                     StreetName: request.Address.StreetName,
+                     City: request.Address.City,
+                     State: request.Address.State,
+                     Country: request.Address.Country,
+                     ZipCode: request.Address.ZipCode
+                 );
+            List<Application.Patrons.OnboardRegularPatron.Document> identityDocuments = request
+            .IdentityDocuments
+            .Select(
+                d => new Application.Patrons.OnboardRegularPatron.Document(
+                    DocumentType: d.DocumentType,
+                    ContentType: d.ContentType,
+                    Content: d.Content)).ToList();
+
+
+            OnboardRegularPatronCommand command = new(
+                Name: request.Name,
+                Email: request.Email,
+                Gender: request.Gender,
+                DateOfBirth: request.DateOfBirth,
+                Address: address,
+                IdentityDocuments: identityDocuments);
 
             Guid id = await dispatcher.DispatchAsync<OnboardRegularPatronCommand, Guid>(command, default);
 
