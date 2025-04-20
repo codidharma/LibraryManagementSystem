@@ -8,6 +8,7 @@ namespace LMS.Modules.Membership.Domain.PatronAggregate;
 
 public sealed class Patron : Entity
 {
+    private readonly List<Document> _documents = [];
     public Name Name { get; }
     public Gender Gender { get; }
     public DateOfBirth DateOfBirth { get; }
@@ -91,6 +92,12 @@ public sealed class Patron : Entity
         return Result.Success();
     }
 
+    public Result AddDocument(Document document)
+    {
+        _documents.Add(document);
+
+        return Result.Success();
+    }
     public Result AddDocuments(List<Document> documents)
     {
 

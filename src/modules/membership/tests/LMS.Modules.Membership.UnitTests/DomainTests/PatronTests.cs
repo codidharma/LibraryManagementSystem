@@ -105,6 +105,20 @@ public class PatronTests : PatronTestBase
     }
 
     [Fact]
+    public void AddDocument_ShouldAdd_DocumentToListOfDocumentsOfPatron()
+    {
+        //Arrange
+        Patron patron = RegularPatron;
+
+        //Act
+        Result addDocumentResult = patron.AddDocument(PersonalIdentification);
+
+        //Assert
+        Assert.True(addDocumentResult.IsSuccess);
+        Assert.False(addDocumentResult.IsFailure);
+    }
+
+    [Fact]
     public void ForRegularPatron_AddDocuments_ShouldReturn_FailureResult_WhenPersonalIdentificationIsNotProvided()
     {
         //Arrange
