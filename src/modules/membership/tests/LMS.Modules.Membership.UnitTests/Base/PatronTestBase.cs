@@ -29,6 +29,8 @@ public class PatronTestBase : TestBase
     protected readonly AccessId AccessId = AccessId.Create(Guid.NewGuid()).Value;
     protected readonly PatronType RegularPatronType = PatronType.Regular;
     protected readonly PatronType ResearchPatronType = PatronType.Research;
+    protected readonly KycStatus KycPending = KycStatus.Pending;
+    protected readonly Status PatronInActive = Status.InActive;
 
     protected readonly Patron RegularPatron = Patron.Create(
         name: Name.Create(Faker.Person.FullName).Value,

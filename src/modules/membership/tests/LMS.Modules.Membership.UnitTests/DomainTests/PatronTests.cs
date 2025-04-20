@@ -26,6 +26,8 @@ public class PatronTests : PatronTestBase
         Assert.Equal(DateOfBirth, regularPatron.DateOfBirth);
         Assert.Equal(RegularPatronType, regularPatron.PatronType);
         Assert.Equal(Email, regularPatron.Email);
+        Assert.Equal(KycPending, regularPatron.KycStatus);
+        Assert.Equal(PatronInActive, regularPatron.Status);
         Assert.IsType<EntityId>(regularPatron.Id);
     }
 

@@ -12,7 +12,16 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<Patron>
         builder.ToTable("patrons", t =>
         {
             t
-            .HasCheckConstraint("ck_patrons_patron_type", $"patron_type in ('{PatronType.Regular.Name}', '{PatronType.Research.Name}')");
+            .HasCheckConstraint(
+                "ck_patrons_patron_type",
+                $"patron_type in ('{PatronType.Regular.Name}', '{PatronType.Research.Name}')");
+            t.HasCheckConstraint(
+                "ck_patrons_kyc_status",
+                $"kyc_status in ('{KycStatus.Pending.Name}', '{KycStatus.InProgress.Name}', '{KycStatus.Completed.Name}', '{KycStatus.Failed.Name}')");
+            t.HasCheckConstraint(
+                "ck_patrons_status",
+                $"status in ('{Status.Active.Name}', '{Status.InActive.Name}')"
+                );
         });
         builder.Ignore(p => p.DomainEvents);
         builder.HasKey(p => p.Id);
@@ -50,6 +59,14 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<Patron>
             address.Property(a => a.Country).HasColumnName("country").HasMaxLength(20);
             address.Property(a => a.ZipCode).HasColumnName("zip_code").HasMaxLength(15);
         });
+        builder.Property(p => p.KycStatus)
+            .HasConversion(ks => ks.Name, ks => Enumeration.FromName<KycStatus>(ks))
+            .HasColumnName("kyc_status")
+            .HasMaxLength(20);
+        builder.Property(p => p.Status)
+            .HasConversion(s => s.Name, s => Enumeration.FromName<Status>(s))
+            .HasColumnName("status")
+            .HasMaxLength(10);
         builder.HasIndex(p => p.AccessId).IsUnique();
         builder.HasIndex(p => p.Email).IsUnique();
         builder.HasMany(p => p.Documents).WithOne().IsRequired();

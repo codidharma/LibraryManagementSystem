@@ -21,6 +21,9 @@ public sealed class Patron : Entity
     public List<Document> Documents { get; private set; }
     public AccessId AccessId { get; }
 
+    public KycStatus KycStatus { get; private set; }
+
+    public Status Status { get; private set; }
     private Patron() { }
     private Patron(
         Name name,
@@ -40,6 +43,8 @@ public sealed class Patron : Entity
         PatronType = patronType;
         Documents = identityDocuments;
         AccessId = accessId;
+        KycStatus = KycStatus.Pending;
+        Status = Status.InActive;
     }
 
     private Patron(
@@ -54,6 +59,8 @@ public sealed class Patron : Entity
         DateOfBirth = dateOfBirth;
         Email = email;
         PatronType = patronType;
+        KycStatus = KycStatus.Pending;
+        Status = Status.InActive;
     }
 
     public static Result<Patron> Create(
