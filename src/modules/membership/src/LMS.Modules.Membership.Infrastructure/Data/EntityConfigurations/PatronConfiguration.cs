@@ -67,6 +67,11 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<Patron>
             .HasConversion(s => s.Name, s => Enumeration.FromName<Status>(s))
             .HasColumnName("status")
             .HasMaxLength(10);
+        builder
+            .Property<DateTime>("created_on");
+
+        builder.Property<DateTime>("modified_on");
+
         builder.HasIndex(p => p.AccessId).IsUnique();
         builder.HasIndex(p => p.Email).IsUnique();
         builder.HasMany(p => p.Documents).WithOne().IsRequired();

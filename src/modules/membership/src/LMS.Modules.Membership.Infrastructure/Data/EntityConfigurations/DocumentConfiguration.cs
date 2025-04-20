@@ -35,6 +35,11 @@ internal sealed class DocumentConfiguration : IEntityTypeConfiguration<Document>
         builder.Property(d => d.ContentType)
             .HasConversion(ct => ct.Name, ct => Enumeration.FromName<DocumentContentType>(ct))
             .HasColumnName("content_type");
+        builder
+            .Property<DateTime>("created_on");
+        builder.Property<DateTime>("modified_on");
+
+
         builder.Property<EntityId>("PatronId").HasColumnName("patron_id");
     }
 }
