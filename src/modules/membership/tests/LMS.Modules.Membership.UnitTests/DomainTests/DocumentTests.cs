@@ -6,16 +6,17 @@ public class DocumentTests
     public void Create_ShouldReturn_PdfDocumentInstance()
     {
         //Arrange
-        Domain.PatronAggregate.DocumentType documentType = Domain.PatronAggregate.DocumentType.PersonalIdentification;
+        Domain.PatronAggregate.DocumentType documentType = DocumentType.PersonalIdentification;
         string sampleData = "This is sample text";
         DocumentContentType contentType = DocumentContentType.Pdf;
+        Name name = Name.Create("IdentityCard.pdf").Value;
 
 
 
         DocumentContent content = DocumentContent.Create(sampleData).Value;
 
         //Act
-        Document document = Document.Create(documentType, content, contentType);
+        Document document = Document.Create(name, documentType, content, contentType);
 
         //Assert
         Assert.Equal(documentType, document.DocumentType);

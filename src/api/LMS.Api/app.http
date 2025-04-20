@@ -16,11 +16,13 @@ Content-Type: application/json
   },
   "identityDocuments": [
     {
+      "name": "IdentityDocument.pdf",
       "documentType": "PersonalId",
       "contentType": "application/pdf",
       "content": "somedata"
     },
     {
+      "name": "AddressProof.pdf",
       "documentType": "AddressProof",
       "contentType": "application/pdf",
       "content": "somedata"

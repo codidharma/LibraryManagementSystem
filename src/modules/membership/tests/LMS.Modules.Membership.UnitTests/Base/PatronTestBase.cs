@@ -3,13 +3,16 @@
 public class PatronTestBase : TestBase
 {
     private static readonly Document PersonalIdentification = Document.Create(
-    Domain.PatronAggregate.DocumentType.PersonalIdentification,
-    DocumentContent.Create("somedata").Value, DocumentContentType.Pdf);
+        Name.Create("IdentityCard.pdf").Value,
+        DocumentType.PersonalIdentification,
+        DocumentContent.Create("somedata").Value, DocumentContentType.Pdf);
     private static readonly Document AcademicsIdentification = Document.Create(
-        Domain.PatronAggregate.DocumentType.AcademicsIdentification,
+        Name.Create("CollegeCard.pdf").Value,
+        DocumentType.AcademicsIdentification,
         DocumentContent.Create("somedata").Value, DocumentContentType.Pdf);
     private static readonly Document AddressProof = Document.Create(
-        Domain.PatronAggregate.DocumentType.AddressProof,
+        Name.Create("AddressProof.pdf").Value,
+        DocumentType.AddressProof,
         DocumentContent.Create("somedata").Value, DocumentContentType.Pdf);
 
     protected readonly Name Name = Name.Create(Faker.Person.FullName).Value;

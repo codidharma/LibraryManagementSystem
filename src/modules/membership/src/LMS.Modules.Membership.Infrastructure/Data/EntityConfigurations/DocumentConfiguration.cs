@@ -22,6 +22,10 @@ internal sealed class DocumentConfiguration : IEntityTypeConfiguration<Document>
         builder.Property(d => d.Id)
             .HasConversion(id => id.Value, id => new(id))
             .HasColumnName("id");
+        builder.Property(d => d.Name)
+            .HasConversion(n => n.Value, n => Name.Create(n).Value)
+            .HasColumnName("name")
+            .HasMaxLength(50);
         builder.Property(d => d.DocumentType)
             .HasConversion(dt => dt.Name, dt => Enumeration.FromName<DocumentType>(dt))
             .HasColumnName("document_type");

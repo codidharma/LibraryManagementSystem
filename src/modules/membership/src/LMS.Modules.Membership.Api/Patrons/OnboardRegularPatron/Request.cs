@@ -18,6 +18,7 @@ internal sealed record Address(
 
 
 internal sealed record Document(
+    string Name,
     string DocumentType,
     string ContentType,
     string Content);

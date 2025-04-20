@@ -27,6 +27,7 @@ internal sealed class OnboardRegularPatronEndpoint : IEndpoint
             .IdentityDocuments
             .Select(
                 d => new Application.Patrons.OnboardRegularPatron.Document(
+                    Name: d.Name,
                     DocumentType: d.DocumentType,
                     ContentType: d.ContentType,
                     Content: d.Content)).ToList();

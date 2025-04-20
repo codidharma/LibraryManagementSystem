@@ -17,6 +17,7 @@ public record Address(
     string ZipCode);
 
 public record Document(
+    string Name,
     string DocumentType,
     string ContentType,
     string Content);
