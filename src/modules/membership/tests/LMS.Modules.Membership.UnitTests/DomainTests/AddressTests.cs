@@ -25,7 +25,6 @@ public class AddressTests : TestBase
         Assert.Equal(state, address.State);
         Assert.Equal(country, address.Country);
         Assert.Equal(zipCode, address.ZipCode);
-        Assert.IsType<EntityId>(address.Id);
     }
 
     [Theory]

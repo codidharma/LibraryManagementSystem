@@ -2,7 +2,7 @@
 
 namespace LMS.Modules.Membership.Domain.PatronAggregate;
 
-public sealed class Address : Entity
+public sealed record Address : ValueObject
 {
     private const string ExceptionMessage = @$"Address should be composed of non null, empty of whitespace values for {nameof(BuildingNumber)}, {nameof(Street)}, {nameof(City)}, {nameof(State)} {nameof(Country)} and {nameof(ZipCode)}";
 

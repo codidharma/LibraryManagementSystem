@@ -41,9 +41,17 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<Patron>
             .HasConversion(pt => pt.Name, pt => Enumeration.FromName<PatronType>(pt))
             .HasColumnName("patron_type")
             .HasMaxLength(20);
+        builder.ComplexProperty(p => p.Address, address =>
+        {
+            address.Property(a => a.BuildingNumber).HasColumnName("building_number").HasMaxLength(20);
+            address.Property(a => a.Street).HasColumnName("street").HasMaxLength(300);
+            address.Property(a => a.City).HasColumnName("city").HasMaxLength(20);
+            address.Property(a => a.State).HasColumnName("state").HasMaxLength(20);
+            address.Property(a => a.Country).HasColumnName("country").HasMaxLength(20);
+            address.Property(a => a.ZipCode).HasColumnName("zip_code").HasMaxLength(15);
+        });
         builder.HasIndex(p => p.AccessId).IsUnique();
         builder.HasIndex(p => p.Email).IsUnique();
-        builder.HasOne(p => p.Address).WithOne().IsRequired();
         builder.HasMany(p => p.Documents).WithOne().IsRequired();
     }
 }
