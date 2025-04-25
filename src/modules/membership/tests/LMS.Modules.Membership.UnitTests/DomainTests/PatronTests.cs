@@ -1,4 +1,5 @@
-﻿using LMS.Modules.Membership.Domain.PatronAggregate.DomainEvents;
+﻿using LMS.Modules.Membership.Application.Patrons.OnboardRegularPatron;
+using LMS.Modules.Membership.Domain.PatronAggregate.DomainEvents;
 using LMS.Modules.Membership.UnitTests.Base;
 
 namespace LMS.Modules.Membership.UnitTests.DomainTests;
@@ -52,6 +53,8 @@ public class PatronTests : PatronTestBase
         Assert.Equal(DateOfBirth, researchPatron.DateOfBirth);
         Assert.Equal(Email, researchPatron.Email);
         Assert.Equal(ResearchPatronType, researchPatron.PatronType);
+        Assert.Equal(KycPending, researchPatron.KycStatus);
+        Assert.Equal(PatronInActive, researchPatron.Status);
         Assert.IsType<EntityId>(researchPatron.Id);
     }
 
@@ -59,7 +62,7 @@ public class PatronTests : PatronTestBase
     public void AddAddress_ShouldAdd_AddressToThePatronInstance()
     {
         //Arrange
-        Address address = Address.Create(Faker.Address.BuildingNumber(),
+        Domain.PatronAggregate.Address address = Domain.PatronAggregate.Address.Create(Faker.Address.BuildingNumber(),
             Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
@@ -74,6 +77,11 @@ public class PatronTests : PatronTestBase
         //Assert
         Assert.True(addAddressResult.IsSuccess);
         Assert.False(addAddressResult.IsFailure);
+
+        Domain.PatronAggregate.Address patronAddress = patron.Address;
+        Assert.Equal(address, patronAddress);
+        Assert.Equal(KycInProgress, patron.KycStatus);
+        Assert.Equal(PatronInActive, patron.Status);
     }
 
     [Fact]
@@ -83,7 +91,7 @@ public class PatronTests : PatronTestBase
         string expectedErrorMessage = $"The value for property {nameof(Address.ZipCode)} is not allowed.";
         string expectedErrorCode = "Membership.InvalidDomainValue";
 
-        Address address = Address.Create(Faker.Address.BuildingNumber(),
+        Domain.PatronAggregate.Address address = Domain.PatronAggregate.Address.Create(Faker.Address.BuildingNumber(),
             Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
@@ -120,6 +128,188 @@ public class PatronTests : PatronTestBase
         Assert.False(addDocumentResult.IsFailure);
     }
 
+    [Fact]
+    public void ForRegularPatron_VerifyDocuments_ShouldReturn_FailureResult_WhenPersonalIdentificationIsNotProvided()
+    {
+        //Arrange
+        string expectedErrorMessage = $"Document of type {Domain.PatronAggregate.DocumentType.PersonalIdentification.Name} is mandatory.";
+        string expectedErrorCode = "Membership.InvalidDomainValue";
+        Patron patron = RegularPatron;
+
+
+        //Act
+        Result addDocumentsResult = patron.VerifyDocuments();
+
+        //Assert
+        Assert.True(addDocumentsResult.IsFailure);
+        Assert.False(addDocumentsResult.IsSuccess);
+
+        Error error = addDocumentsResult.Error;
+
+        Assert.Equal(expectedErrorCode, error.Code);
+        Assert.Equal(expectedErrorMessage, error.Description);
+        Assert.Equal(ErrorType.InvalidDomain, error.ErrorType);
+        Assert.Equal(KycFailed, patron.KycStatus);
+        Assert.Equal(PatronInActive, patron.Status);
+
+    }
+
+    [Fact]
+    public void ForRegularPatron_VerifyDocuments_ShouldReturn_FailureResult_WhenAddressProofIsNotProvided()
+    {
+        //Arrange
+        string expectedErrorMessage = $"Document of type {Domain.PatronAggregate.DocumentType.AddressProof.Name} is mandatory.";
+        string expectedErrorCode = "Membership.InvalidDomainValue";
+        Patron patron = RegularPatron;
+
+
+        //Act
+        foreach (Domain.PatronAggregate.Document document in PersonalIdentificationDocuments)
+        {
+            patron.AddDocument(document);
+        }
+        Result verifyDocumentsResult = patron.VerifyDocuments();
+
+        //Assert
+        Assert.True(verifyDocumentsResult.IsFailure);
+        Assert.False(verifyDocumentsResult.IsSuccess);
+
+        Error error = verifyDocumentsResult.Error;
+
+        Assert.Equal(expectedErrorCode, error.Code);
+        Assert.Equal(expectedErrorMessage, error.Description);
+        Assert.Equal(ErrorType.InvalidDomain, error.ErrorType);
+        Assert.Equal(KycFailed, patron.KycStatus);
+        Assert.Equal(PatronInActive, patron.Status);
+
+    }
+
+    [Fact]
+    public void ForResearchPatron_VerifyDocuments_ShouldReturn_FailureResult_WhenPersonalIdentificationIsNotProvided()
+    {
+        //Arrange
+        string expectedErrorMessage = $"Document of type {Domain.PatronAggregate.DocumentType.PersonalIdentification.Name} is mandatory.";
+        string expectedErrorCode = "Membership.InvalidDomainValue";
+        Patron patron = ResearchPatron;
+
+
+        //Act
+        Result verifyDocumentsResult = patron.VerifyDocuments();
+
+        //Assert
+        Assert.True(verifyDocumentsResult.IsFailure);
+        Assert.False(verifyDocumentsResult.IsSuccess);
+
+        Error error = verifyDocumentsResult.Error;
+
+        Assert.Equal(expectedErrorCode, error.Code);
+        Assert.Equal(expectedErrorMessage, error.Description);
+        Assert.Equal(ErrorType.InvalidDomain, error.ErrorType);
+        Assert.Equal(KycFailed, patron.KycStatus);
+        Assert.Equal(PatronInActive, patron.Status);
+    }
+
+    [Fact]
+    public void ForResearchPatron_VerifyDocuments_ShouldReturn_FailureResult_WhenAddressProofIsNotProvided()
+    {
+        //Arrange
+        string expectedErrorMessage = $"Document of type {Domain.PatronAggregate.DocumentType.AddressProof.Name} is mandatory.";
+        string expectedErrorCode = "Membership.InvalidDomainValue";
+        Patron patron = ResearchPatron;
+
+
+        //Act
+        foreach (Domain.PatronAggregate.Document document in ResearchPatronMissingAddressProofDocuments)
+        {
+            patron.AddDocument(document);
+        }
+        Result verifyDocumentsResult = patron.VerifyDocuments();
+
+        //Assert
+        Assert.True(verifyDocumentsResult.IsFailure);
+        Assert.False(verifyDocumentsResult.IsSuccess);
+
+        Error error = verifyDocumentsResult.Error;
+
+        Assert.Equal(expectedErrorCode, error.Code);
+        Assert.Equal(expectedErrorMessage, error.Description);
+        Assert.Equal(ErrorType.InvalidDomain, error.ErrorType);
+        Assert.Equal(KycFailed, patron.KycStatus);
+        Assert.Equal(PatronInActive, patron.Status);
+    }
+
+    [Fact]
+    public void ForResearchPatron_VerifyDocuments_ShouldReturn_FailureResult_WhenAcademicIdentificationIsNotProvided()
+    {
+        //Arrange
+        string expectedErrorMessage = $"Document of type {DocumentType.AcademicsIdentification.Name} is mandatory for a research patron.";
+        string expectedErrorCode = "Membership.InvalidDomainValue";
+        Patron patron = ResearchPatron;
+
+
+        //Act
+        foreach (Domain.PatronAggregate.Document document in ResearchPatronMissingAcademicsDocuments)
+        {
+            patron.AddDocument(document);
+
+        }
+        Result verifyDocumentsResult = patron.VerifyDocuments();
+
+        //Assert
+        Assert.True(verifyDocumentsResult.IsFailure);
+        Assert.False(verifyDocumentsResult.IsSuccess);
+
+        Error error = verifyDocumentsResult.Error;
+
+        Assert.Equal(expectedErrorCode, error.Code);
+        Assert.Equal(expectedErrorMessage, error.Description);
+        Assert.Equal(ErrorType.InvalidDomain, error.ErrorType);
+        Assert.Equal(KycFailed, patron.KycStatus);
+        Assert.Equal(PatronInActive, patron.Status);
+    }
+
+    [Fact]
+    public void ForRegularPatron_VerifyDocuments_ShouldReturn_SuccessResult_WhenRelevantDocumnentsAreProvided()
+    {
+        //Arrange
+        Patron patron = RegularPatron;
+
+        foreach (Domain.PatronAggregate.Document document in RegularPatronOnboardingDocuments)
+        {
+            patron.AddDocument(document);
+        }
+
+        //Act
+        Result verifyDocumentsResult = patron.VerifyDocuments();
+
+        //Assert
+        Assert.True(verifyDocumentsResult.IsSuccess);
+        Assert.False(verifyDocumentsResult.IsFailure);
+        Assert.Equal(KycCompleted, patron.KycStatus);
+        Assert.Equal(PatronActive, patron.Status);
+    }
+    [Fact]
+    public void ForResearchPatron_VerifyDocuments_ShouldReturn_SuccessResult_WhenRelevantDocumnentsAreProvided()
+    {
+        //Arrange
+        Patron patron = ResearchPatron;
+
+        foreach (Domain.PatronAggregate.Document document in ResearchPatronOnboardingDocuments)
+        {
+            patron.AddDocument(document);
+        }
+
+        //Act
+        Result verifyDocumentsResult = patron.VerifyDocuments();
+
+        //Assert
+        Assert.True(verifyDocumentsResult.IsSuccess);
+        Assert.False(verifyDocumentsResult.IsFailure);
+        Assert.Equal(KycCompleted, patron.KycStatus);
+        Assert.Equal(PatronActive, patron.Status);
+    }
+
+    #region toberemoved
     [Fact]
     public void ForRegularPatron_AddDocuments_ShouldReturn_FailureResult_WhenPersonalIdentificationIsNotProvided()
     {
@@ -234,15 +424,13 @@ public class PatronTests : PatronTestBase
         Assert.Equal(expectedErrorMessage, error.Description);
         Assert.Equal(ErrorType.InvalidDomain, error.ErrorType);
     }
-
-    #region toberemoved
     [Fact]
     public void ForNonAllowedZipCodes_Create_Should_Throw_NotAllowedAddressException()
     {
         //Arrange
         Patron regularPatron;
         string expectedExceptionMessage = $"The value for property {nameof(Address.ZipCode)} is not allowed.";
-        Address address = Address.Create(Faker.Address.BuildingNumber(),
+        Domain.PatronAggregate.Address address = Domain.PatronAggregate.Address.Create(Faker.Address.BuildingNumber(),
             Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
@@ -265,6 +453,7 @@ public class PatronTests : PatronTestBase
 
         NotAllowedAddressException exception = Assert.Throws<NotAllowedAddressException>(action);
         Assert.Equal(expectedExceptionMessage, exception.Message);
+
     }
 
     [Fact]

@@ -95,7 +95,38 @@ public sealed class Patron : Entity
 
             return Result.Failure(error);
         }
+        KycStatus = KycStatus.InProgress;
+        return Result.Success();
+    }
 
+    public Result VerifyDocuments()
+    {
+        if (!IsPersonalIdentificationDocumentAvailable(_documents))
+        {
+            Error error = Error.InvalidDomain(
+                code: "Membership.InvalidDomainValue",
+                description: $"Document of type {DocumentType.PersonalIdentification.Name} is mandatory.");
+            KycStatus = KycStatus.Failed;
+            return Result.Failure(error);
+        }
+        if (!IsAddressProofDocumentAvailable(_documents))
+        {
+            Error error = Error.InvalidDomain(
+                 code: "Membership.InvalidDomainValue",
+                 description: $"Document of type {DocumentType.AddressProof.Name} is mandatory.");
+            KycStatus = KycStatus.Failed;
+            return Result.Failure(error);
+        }
+        if (PatronType.Equals(PatronType.Research) && !IsAcademicsIdentificationDocumentAvailable(_documents))
+        {
+            Error error = Error.InvalidDomain(
+                code: "Membership.InvalidDomainValue",
+                description: $"Document of type {DocumentType.AcademicsIdentification.Name} is mandatory for a research patron.");
+            KycStatus = KycStatus.Failed;
+            return Result.Failure(error);
+        }
+        KycStatus = KycStatus.Completed;
+        Status = Status.Active;
         return Result.Success();
     }
 

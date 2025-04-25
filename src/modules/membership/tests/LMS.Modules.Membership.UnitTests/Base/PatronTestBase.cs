@@ -30,7 +30,11 @@ public class PatronTestBase : TestBase
     protected readonly PatronType RegularPatronType = PatronType.Regular;
     protected readonly PatronType ResearchPatronType = PatronType.Research;
     protected readonly KycStatus KycPending = KycStatus.Pending;
+    protected readonly KycStatus KycInProgress = KycStatus.InProgress;
+    protected readonly KycStatus KycFailed = KycStatus.Failed;
+    protected readonly KycStatus KycCompleted = KycStatus.Completed;
     protected readonly Status PatronInActive = Status.InActive;
+    protected readonly Status PatronActive = Status.Active;
 
     protected readonly Patron RegularPatron = Patron.Create(
         name: Name.Create(Faker.Person.FullName).Value,
