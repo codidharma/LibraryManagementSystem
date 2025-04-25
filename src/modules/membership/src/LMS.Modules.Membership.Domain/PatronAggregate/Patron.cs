@@ -8,7 +8,9 @@ namespace LMS.Modules.Membership.Domain.PatronAggregate;
 
 public sealed class Patron : Entity
 {
+#pragma warning disable IDE0032 // Use auto property
     private readonly List<Document> _documents = [];
+#pragma warning restore IDE0032 // Use auto property
     public Name Name { get; }
     public Gender Gender { get; }
     public DateOfBirth DateOfBirth { get; }
@@ -18,7 +20,7 @@ public sealed class Patron : Entity
 
     public PatronType PatronType { get; }
 
-    public List<Document> Documents { get; private set; }
+    public List<Document> Documents => _documents;
     public AccessId AccessId { get; }
 
     public KycStatus KycStatus { get; private set; }
@@ -41,7 +43,7 @@ public sealed class Patron : Entity
         Email = email;
         Address = address;
         PatronType = patronType;
-        Documents = identityDocuments;
+        _documents = identityDocuments;
         AccessId = accessId;
         KycStatus = KycStatus.Pending;
         Status = Status.InActive;

@@ -82,6 +82,7 @@ public class PatronTests : PatronTestBase
         Assert.Equal(address, patronAddress);
         Assert.Equal(KycInProgress, patron.KycStatus);
         Assert.Equal(PatronInActive, patron.Status);
+
     }
 
     [Fact]
@@ -126,6 +127,7 @@ public class PatronTests : PatronTestBase
         //Assert
         Assert.True(addDocumentResult.IsSuccess);
         Assert.False(addDocumentResult.IsFailure);
+        Assert.Contains(PersonalIdentification, patron.Documents);
     }
 
     [Fact]
@@ -138,13 +140,13 @@ public class PatronTests : PatronTestBase
 
 
         //Act
-        Result addDocumentsResult = patron.VerifyDocuments();
+        Result verifyDocumentsResult = patron.VerifyDocuments();
 
         //Assert
-        Assert.True(addDocumentsResult.IsFailure);
-        Assert.False(addDocumentsResult.IsSuccess);
+        Assert.True(verifyDocumentsResult.IsFailure);
+        Assert.False(verifyDocumentsResult.IsSuccess);
 
-        Error error = addDocumentsResult.Error;
+        Error error = verifyDocumentsResult.Error;
 
         Assert.Equal(expectedErrorCode, error.Code);
         Assert.Equal(expectedErrorMessage, error.Description);
