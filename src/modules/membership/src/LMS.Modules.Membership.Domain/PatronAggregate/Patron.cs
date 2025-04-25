@@ -136,39 +136,6 @@ public sealed class Patron : Entity
 
         return Result.Success();
     }
-    public Result AddDocuments(List<Document> documents)
-    {
-
-        if (!IsPersonalIdentificationDocumentAvailable(documents))
-        {
-            Error error = Error.InvalidDomain(
-                code: "Membership.InvalidDomainValue",
-                description: $"Document of type {DocumentType.PersonalIdentification.Name} is mandatory.");
-
-            return Result.Failure(error);
-        }
-        if (!IsAddressProofDocumentAvailable(documents))
-        {
-            Error error = Error.InvalidDomain(
-                 code: "Membership.InvalidDomainValue",
-                 description: $"Document of type {DocumentType.AddressProof.Name} is mandatory.");
-
-            return Result.Failure(error);
-        }
-        if (PatronType.Equals(PatronType.Research) && !IsAcademicsIdentificationDocumentAvailable(documents))
-        {
-            Error error = Error.InvalidDomain(
-                code: "Membership.InvalidDomainValue",
-                description: $"Document of type {DocumentType.AcademicsIdentification.Name} is mandatory for a research patron.");
-
-            return Result.Failure(error);
-        }
-
-        Documents = documents;
-
-        return Result.Success();
-
-    }
 
     public static Patron Create(
         Name name,
