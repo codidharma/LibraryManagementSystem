@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace LMS.Modules.Membership.Application.Patrons.OnboardingPatron.AddPatron;
 
-internal class AddPatronCommandHandler : ICommandHandler<AddPatronCommand, Guid>
+internal sealed class AddPatronCommandHandler : ICommandHandler<AddPatronCommand, Guid>
 {
     private readonly IPatronRepository _patronRepository;
     private readonly IUnitOfWork _unitOfWork;
