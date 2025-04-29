@@ -5,7 +5,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
+	<ItemGroup>
+		<InternalsVisibleTo Include="LMS.Modules.Membership.UnitTests"/>
+		<InternalsVisibleTo Include="LMS.Modules.Membership.ArchitectureTests"/>
+	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\common\src\LMS.Common.Api\LMS.Common.Api.csproj" />
     <ProjectReference Include="..\..\..\..\common\src\LMS.Common.Application\LMS.Common.Application.csproj" />
