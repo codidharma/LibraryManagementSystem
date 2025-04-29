@@ -1,4 +1,5 @@
 ﻿using LMS.Modules.Membership.Domain.PatronAggregate;
+using Microsoft.EntityFrameworkCore;
 
 namespace LMS.Modules.Membership.Infrastructure.Data.Repositories;
 
@@ -12,5 +13,11 @@ internal sealed class PatronRepository : IPatronRepository
     public void Add(Patron patron)
     {
         _context.Patrons.Add(patron);
+    }
+
+    public async Task<Patron?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        Patron? patron = await _context.Patrons.SingleOrDefaultAsync(p => p.Id.Value == id, cancellationToken);
+        return patron;
     }
 }
