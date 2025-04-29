@@ -6,7 +6,7 @@ using LMS.Common.Domain;
 using LMS.Modules.Membership.Domain.PatronAggregate;
 using Microsoft.Extensions.Logging;
 
-namespace LMS.Modules.Membership.Application.Patrons.OnboardingPatron.AddPatron;
+namespace LMS.Modules.Membership.Application.Patrons.Onboarding.AddPatron;
 
 internal sealed class AddPatronCommandHandler : ICommandHandler<AddPatronCommand, Guid>
 {

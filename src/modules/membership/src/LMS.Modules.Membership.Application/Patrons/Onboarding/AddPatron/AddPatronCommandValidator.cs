@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace LMS.Modules.Membership.Application.Patrons.OnboardingPatron.AddPatron;
+namespace LMS.Modules.Membership.Application.Patrons.Onboarding.AddPatron;
 
 internal sealed class AddPatronCommandValidator : AbstractValidator<AddPatronCommand>
 {
