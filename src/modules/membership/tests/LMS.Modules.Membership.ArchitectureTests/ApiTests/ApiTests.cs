@@ -41,4 +41,42 @@ public class ApiTests : TestBase
         Assert.True(result.IsSuccessful);
     }
 
+    [Fact]
+    public void Requests_ShouldBe_NonPublicSealed()
+    {
+        //Arrange
+        TestResult result = Types
+            .InAssembly(ApiAssembly)
+            .That()
+            .HaveNameEndingWith("Request")
+            .Should()
+            .BeSealed()
+            .And()
+            .NotBePublic()
+            .GetResult();
+
+        //Assert
+        Assert.True(result.IsSuccessful);
+    }
+
+    [Fact]
+    public void MappingExtensions_ShouldBe_NonPublicStaticClasses()
+    {
+        //Act
+        TestResult result = Types
+            .InAssembly(ApiAssembly)
+            .That()
+            .HaveNameEndingWith("MappingExtensions")
+            .Should()
+            .BeStatic()
+            .And()
+            .BeClasses()
+            .And()
+            .NotBePublic()
+            .GetResult();
+
+        //Assert
+        Assert.True(result.IsSuccessful);
+    }
+
 }

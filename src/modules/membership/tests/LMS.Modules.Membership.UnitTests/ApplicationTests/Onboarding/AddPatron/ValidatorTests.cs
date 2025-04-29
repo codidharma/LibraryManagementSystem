@@ -1,4 +1,4 @@
-﻿using FluentValidation.Results;
+﻿using FluentValidation.TestHelper;
 using LMS.Modules.Membership.Application.Patrons.Onboarding.AddPatron;
 using LMS.Modules.Membership.UnitTests.Base;
 
@@ -20,11 +20,11 @@ public class ValidatorTests : TestBase
         AddPatronCommand addPatronCommand = new(name, gender, dateOfBirth, email, patronType);
 
         //Act
-        ValidationResult result = _validator.Validate(addPatronCommand);
+        TestValidationResult<AddPatronCommand> result = _validator.TestValidate(addPatronCommand);
 
         //Assert
         Assert.True(result.IsValid);
-        Assert.Empty(result.Errors);
+        result.ShouldNotHaveAnyValidationErrors();
     }
 
     [Theory]
@@ -41,10 +41,14 @@ public class ValidatorTests : TestBase
 
         //Act
         AddPatronCommand command = new AddPatronCommand(name, gender, dateOfBirth, email, patronType);
-        ValidationResult result = _validator.Validate(command);
+        TestValidationResult<AddPatronCommand> result = _validator.TestValidate(command);
 
         //Arrange
         Assert.False(result.IsValid);
-        Assert.Equal(4, result.Errors.Count);
+        result.ShouldHaveValidationErrorFor(command => command.Name);
+        result.ShouldHaveValidationErrorFor(command => command.Gender);
+        result.ShouldHaveValidationErrorFor(command => command.Email);
+        result.ShouldHaveValidationErrorFor(command => command.PatronType);
+        result.ShouldNotHaveValidationErrorFor(command => command.DateOfBirth);
     }
 }
