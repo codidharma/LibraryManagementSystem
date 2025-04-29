@@ -31,7 +31,8 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<Patron>
             .HasColumnName("id");
         builder.Property(p => p.AccessId)
             .HasConversion(a => a.Value, a => AccessId.Create(a).Value)
-            .HasColumnName("access_id");
+            .HasColumnName("access_id")
+            .IsRequired(false);
         builder.Property(p => p.Name)
             .HasConversion(n => n.Value, n => Name.Create(n).Value)
             .HasColumnName("name").HasMaxLength(300);
@@ -50,7 +51,7 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<Patron>
             .HasConversion(pt => pt.Name, pt => Enumeration.FromName<PatronType>(pt))
             .HasColumnName("patron_type")
             .HasMaxLength(20);
-        builder.ComplexProperty(p => p.Address, address =>
+        builder.OwnsOne(p => p.Address, address =>
         {
             address.Property(a => a.BuildingNumber).HasColumnName("building_number").HasMaxLength(20);
             address.Property(a => a.Street).HasColumnName("street").HasMaxLength(300);
@@ -72,8 +73,7 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<Patron>
 
         builder.Property<DateTime>("modified_on");
 
-        builder.HasIndex(p => p.AccessId).IsUnique();
         builder.HasIndex(p => p.Email).IsUnique();
-        builder.HasMany(p => p.Documents).WithOne().IsRequired();
+        builder.HasMany(p => p.Documents).WithOne();
     }
 }
