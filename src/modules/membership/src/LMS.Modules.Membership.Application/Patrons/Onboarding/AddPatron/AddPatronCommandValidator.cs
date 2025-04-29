@@ -10,5 +10,6 @@ internal sealed class AddPatronCommandValidator : AbstractValidator<AddPatronCom
         RuleFor(command => command.Gender).NotEmpty();
         RuleFor(command => command.DateOfBirth).NotEmpty();
         RuleFor(command => command.Email).NotEmpty();
+        RuleFor(command => command.PatronType).NotEmpty();
     }
 }

@@ -3,6 +3,9 @@
     <PackageReference Include="FluentValidation" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
   </ItemGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="LMS.Modules.Membership.UnitTests"/>
+	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\common\src\LMS.Common.Application\LMS.Common.Application.csproj" />
     <ProjectReference Include="..\LMS.Modules.Membership.Domain\LMS.Modules.Membership.Domain.csproj" />
