@@ -4,10 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LMS.Common.Application.Dispatchers;
 
-public class CommandDispathcer : ICommandDispatcher
+public sealed class CommandDispatcher : ICommandDispatcher
 {
     private readonly IServiceProvider _serviceProvider;
-    public CommandDispathcer(IServiceProvider serviceProvider)
+    public CommandDispatcher(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
 

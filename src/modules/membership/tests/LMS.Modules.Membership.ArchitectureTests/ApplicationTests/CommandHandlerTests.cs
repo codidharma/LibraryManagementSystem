@@ -68,4 +68,19 @@ public class CommandHandlerTests : TestBase
         //Assert
         Assert.True(result.IsSuccessful);
     }
+
+    [Fact]
+    public void QueryHandlers_ShouldBe_Sealed()
+    {
+        TestResult result = Types
+            .InAssembly(ApplicationAssembly)
+            .That()
+            .ImplementInterface(typeof(IQueryHandler<,>))
+            .Should()
+            .BeSealed()
+            .GetResult();
+
+        //Assert
+        Assert.True(result.IsSuccessful);
+    }
 }

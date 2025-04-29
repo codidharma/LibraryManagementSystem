@@ -6,6 +6,7 @@ public static class DispatcherExtensions
 {
     public static void AddDispatchers(this IServiceCollection services)
     {
-        services.AddScoped<ICommandDispatcher, CommandDispathcer>();
+        services.AddScoped<ICommandDispatcher, CommandDispatcher>();
+        services.AddScoped<IQueryDispatcher, QueryDispatcher>();
     }
 }

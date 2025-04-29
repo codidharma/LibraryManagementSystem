@@ -15,7 +15,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\api\LMS.Api\LMS.Api.csproj" />
+    <ProjectReference Include="..\..\common\src\LMS.Common.Application\LMS.Common.Application.csproj" />
     <ProjectReference Include="..\..\hosting\LMS.MigrationServices\LMS.MigrationServices.csproj" />
+    <ProjectReference Include="..\..\modules\membership\src\LMS.Modules.Membership.Application\LMS.Modules.Membership.Application.csproj" />
     <ProjectReference Include="..\..\modules\membership\src\LMS.Modules.Membership.Registrations\LMS.Modules.Membership.Registrations.csproj" />
   </ItemGroup>
 
