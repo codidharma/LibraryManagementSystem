@@ -2,7 +2,7 @@
 
 namespace LMS.Modules.Membership.Application.Patrons.Onboarding.AddPatron;
 
-internal sealed class AddPatronCommandValidator : AbstractValidator<AddPatronCommand>
+public sealed class AddPatronCommandValidator : AbstractValidator<AddPatronCommand>
 {
     public AddPatronCommandValidator()
     {
