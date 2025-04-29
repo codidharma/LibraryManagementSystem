@@ -11,7 +11,8 @@
     "mutate": [
       "!**/LMS.MigrationServices/*",
       "!**/EndpointExtensions.cs",
-      "!**/*CommandHandler.cs",
+      "!**/*Handler.cs",
+      "!**/*Dispatcher.cs",
       "!**/LMS.ServiceDefaults/Extensions.cs",
       "!**/*/Program.cs",
       "!**/LMS.Modules.Membership.Infrastructure/Data/EntityConfigurations/*",
