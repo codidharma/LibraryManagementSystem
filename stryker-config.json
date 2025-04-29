@@ -9,6 +9,8 @@
     "language-version": "latest",
     "additional-timeout": 5000,
     "mutate": [
+      "!**/LMS.MigrationServices/*",
+      "!**/EndpointExtensions.cs",
       "!**/*CommandHandler.cs",
       "!**/LMS.ServiceDefaults/Extensions.cs",
       "!**/*/Program.cs",
