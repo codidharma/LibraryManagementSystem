@@ -9,7 +9,8 @@ public static class ProblemFactory
     {
         if (result.IsSuccess)
         {
-            //Do nthing
+            string exceptionMessage = $"This operation is not supported for {nameof(Result.Success)} result.";
+            throw new InvalidOperationException(exceptionMessage);
         }
         return Microsoft.AspNetCore.Http.Results.Problem(
             title: GetTitle(result.Error),

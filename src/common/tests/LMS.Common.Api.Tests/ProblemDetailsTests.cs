@@ -118,4 +118,21 @@ public class ProblemDetailsTests
         Assert.Equal(type, problemDetails.Type);
         Assert.Empty(problemDetails.Extensions);
     }
+
+    [Fact]
+    public void ForSuccessResult_Create_ShouldThrow_InvalidOperationException()
+    {
+        //Arrange
+        string expectedExceptionMessage = $"This operation is not supported for {nameof(Result.Success)} result.";
+        Result successResult = Result.Success();
+
+        //Act
+        IResult result;
+
+        Action action = () => { result = ProblemFactory.Create(successResult); };
+
+        //Assert
+        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(action);
+        Assert.Equal(expectedExceptionMessage, ex.Message);
+    }
 }
