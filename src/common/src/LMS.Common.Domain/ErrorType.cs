@@ -6,5 +6,6 @@ public enum ErrorType
     Failure,
     NotFound,
     Conflict,
-    InvalidDomain
+    InvalidDomain,
+    Validation
 }

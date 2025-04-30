@@ -144,4 +144,66 @@ public class ErrorTests
         Assert.Equal(description, error.Description);
         Assert.Equal(ErrorType.Failure, error.ErrorType);
     }
+
+    [Fact]
+    public void Validation_ShouldReturn_ValidationErrorTypeInstance()
+    {
+        //Arrange
+        string code = "Generic.Validation";
+        string description = "One or more validation error occured.";
+        List<Error> errors =
+        [
+            Error.NullValue("Field x was null."),
+            Error.NullValue("Field y was null."),
+            Error.NullValue("Field z was null.")
+        ];
+
+        //Act
+        ValidationError validationError = new(errors);
+
+        //Assert
+        Assert.Equal(code, validationError.Code);
+        Assert.Equal(description, validationError.Description);
+        Assert.Equal(ErrorType.Validation, validationError.ErrorType);
+        Assert.Equal(errors, validationError.Errors.ToList());
+    }
+
+    [Fact]
+    public void FromResult_ShouldReturn_ValidationErrorTypeInstance()
+    {
+        //Arrange
+        string code = "Generic.Validation";
+        string description = "One or more validation error occured.";
+        List<Error> errors =
+        [
+            Error.NullValue("Field x was null."),
+            Error.NullValue("Field y was null."),
+            Error.NullValue("Field z was null."),
+            Error.NullValue("Field x was null."),
+            Error.NullValue("Field y was null."),
+            Error.NullValue("Field z was null.")
+        ];
+
+        List<Result> results =
+            [
+            Result.Success(),
+            Result.Failure(errors[0]),
+            Result.Failure<DummyTestType>(errors[1]),
+            Result.Failure(errors[2]),
+            Result.Failure(errors[0]),
+            Result.Failure<DummyTestType>(errors[1]),
+            Result.Failure(errors[2]),
+            Result.Success(new DummyTestType())
+            ];
+
+
+        //Act
+        ValidationError validationError = ValidationError.FromResults(results);
+
+        //Assert
+        Assert.Equal(code, validationError.Code);
+        Assert.Equal(description, validationError.Description);
+        Assert.Equal(ErrorType.Validation, validationError.ErrorType);
+        Assert.Equal(errors, validationError.Errors);
+    }
 }
