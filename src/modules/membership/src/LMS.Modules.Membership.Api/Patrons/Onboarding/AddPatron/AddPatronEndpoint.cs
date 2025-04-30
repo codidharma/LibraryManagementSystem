@@ -10,12 +10,15 @@ internal sealed class AddPatronEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("/membership/onboarding/patron", async (Request request, ICommandDispatcher dispatcher) =>
+        app.MapPost("/membership/onboarding/patron", async (
+            Request request,
+            ICommandDispatcher dispatcher) =>
         {
             AddPatronCommand command = request.ToCommand();
             Guid patronId = await dispatcher.DispatchAsync<AddPatronCommand, Guid>(command, default);
+            Response response = new(patronId);
 
-            return TypedResults.Created(uri: string.Empty, patronId);
+            return TypedResults.Created(uri: string.Empty, response);
         })
         .AllowAnonymous()
         .WithTags(Tags.Membership);
