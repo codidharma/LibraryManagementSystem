@@ -29,3 +29,16 @@ Content-Type: application/json
     }
   ]
 }
+
+###
+POST https://localhost:7145/membership/onboarding/patron
+Content-Type: application/json
+{
+  "name": "Mandar Dharmadhikari",
+  "email": "mandar@gmail.com",
+  "gender": "Male",
+  "dateOfBirth": "1990-07-03",
+  "patronType": "Regular"
+}
+###
+GET https://localhost:7145/membership/onboarding/patron/b7a5cbb9-873a-4ffd-8329-7c8ec554de13

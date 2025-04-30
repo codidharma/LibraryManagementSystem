@@ -1,4 +1,5 @@
-﻿using LMS.Modules.Membership.Domain.PatronAggregate;
+﻿using LMS.Common.Domain;
+using LMS.Modules.Membership.Domain.PatronAggregate;
 using Microsoft.EntityFrameworkCore;
 
 namespace LMS.Modules.Membership.Infrastructure.Data.Repositories;
@@ -17,7 +18,8 @@ internal sealed class PatronRepository : IPatronRepository
 
     public async Task<Patron?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        Patron? patron = await _context.Patrons.SingleOrDefaultAsync(p => p.Id.Value == id, cancellationToken);
+        EntityId patronId = new(id);
+        Patron? patron = await _context.Patrons.SingleOrDefaultAsync(p => p.Id == patronId, cancellationToken);
         return patron;
     }
 }
