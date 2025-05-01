@@ -1,4 +1,5 @@
 ﻿using LMS.Common.Domain;
+using LMS.Modules.Membership.Domain.PatronAggregate.Constants;
 using LMS.Modules.Membership.Domain.PatronAggregate.DomainEvents;
 using LMS.Modules.Membership.Domain.PatronAggregate.Exceptions;
 
@@ -92,7 +93,7 @@ public sealed class Patron : Entity
         if (!isAddressAllowed)
         {
             Error error = Error.InvalidDomain(
-                code: "Membership.InvalidDomainValue",
+                code: ErrorCodes.InvalidDomainValue,
                 description: $"The value for property {nameof(address.ZipCode)} is not allowed.");
 
             return Result.Failure(error);
@@ -106,7 +107,7 @@ public sealed class Patron : Entity
         if (!IsPersonalIdentificationDocumentAvailable(_documents))
         {
             Error error = Error.InvalidDomain(
-                code: "Membership.InvalidDomainValue",
+                code: ErrorCodes.InvalidDomainValue,
                 description: $"Document of type {DocumentType.PersonalIdentification.Name} is mandatory.");
             KycStatus = KycStatus.Failed;
             return Result.Failure(error);
@@ -114,7 +115,7 @@ public sealed class Patron : Entity
         if (!IsAddressProofDocumentAvailable(_documents))
         {
             Error error = Error.InvalidDomain(
-                 code: "Membership.InvalidDomainValue",
+                 code: ErrorCodes.InvalidDomainValue,
                  description: $"Document of type {DocumentType.AddressProof.Name} is mandatory.");
             KycStatus = KycStatus.Failed;
             return Result.Failure(error);
@@ -122,7 +123,7 @@ public sealed class Patron : Entity
         if (PatronType.Equals(PatronType.Research) && !IsAcademicsIdentificationDocumentAvailable(_documents))
         {
             Error error = Error.InvalidDomain(
-                code: "Membership.InvalidDomainValue",
+                code: ErrorCodes.InvalidDomainValue,
                 description: $"Document of type {DocumentType.AcademicsIdentification.Name} is mandatory for a research patron.");
             KycStatus = KycStatus.Failed;
             return Result.Failure(error);
