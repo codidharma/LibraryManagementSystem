@@ -1,4 +1,5 @@
-﻿using LMS.Common.Application.Dispatchers;
+﻿using LMS.Common.Api.Results;
+using LMS.Common.Application.Dispatchers;
 using LMS.Common.Domain;
 using LMS.Modules.Membership.Application.Patrons.Onboarding.GetPatronById;
 using Microsoft.AspNetCore.Builder;
@@ -19,7 +20,7 @@ internal sealed class GetPatronByIdEndpoint : IEndpoint
             .DispatchAsync<Guid, Result<GetPatronByIdQueryResponse>>(id, default);
 
 
-            return TypedResults.Ok(queryResponseResult.Value);
+            return queryResponseResult.Match(Results.Ok, ProblemFactory.Create);
         })
         .AllowAnonymous()
         .WithName(nameof(GetPatronByIdEndpoint))

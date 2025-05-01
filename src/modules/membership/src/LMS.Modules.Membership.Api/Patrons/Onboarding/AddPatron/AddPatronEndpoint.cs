@@ -1,4 +1,6 @@
-﻿using LMS.Common.Application.Dispatchers;
+﻿using LMS.Common.Api.Results;
+using LMS.Common.Application.Dispatchers;
+using LMS.Common.Domain;
 using LMS.Modules.Membership.Application.Patrons.Onboarding.AddPatron;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -15,10 +17,11 @@ internal sealed class AddPatronEndpoint : IEndpoint
             ICommandDispatcher dispatcher) =>
         {
             AddPatronCommand command = request.ToCommand();
-            Guid patronId = await dispatcher.DispatchAsync<AddPatronCommand, Guid>(command, default);
-            Response response = new(patronId);
 
-            return TypedResults.Created(uri: string.Empty, response);
+            Result<Response> addPatronResult = await dispatcher
+            .DispatchAsync<AddPatronCommand, Result<Response>>(command, default);
+
+            return addPatronResult.Match(Results.Ok, ProblemFactory.Create);
         })
         .AllowAnonymous()
         .WithTags(Tags.Membership);
