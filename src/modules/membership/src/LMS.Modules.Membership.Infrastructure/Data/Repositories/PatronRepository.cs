@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace LMS.Modules.Membership.Infrastructure.Data.Repositories;
 
 internal sealed class PatronRepository : IPatronRepository
+
 {
     private readonly MembershipDbContext _context;
     public PatronRepository(MembershipDbContext context)
@@ -21,5 +22,12 @@ internal sealed class PatronRepository : IPatronRepository
         EntityId patronId = new(id);
         Patron? patron = await _context.Patrons.SingleOrDefaultAsync(p => p.Id == patronId, cancellationToken);
         return patron;
+    }
+
+    public async Task<bool> IsPatronEmailAlreadyUsedAsync(Email email, CancellationToken cancellationToken = default)
+    {
+        Patron? patron = await _context.Patrons.SingleOrDefaultAsync(p => p.Email == email, cancellationToken);
+
+        return !(patron is null);
     }
 }

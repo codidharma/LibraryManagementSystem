@@ -4,6 +4,7 @@ using LMS.Common.Application.Data;
 using LMS.Common.Application.Handlers;
 using LMS.Common.Domain;
 using LMS.Modules.Membership.Domain.PatronAggregate;
+using LMS.Modules.Membership.Domain.PatronAggregate.Constants;
 using Microsoft.Extensions.Logging;
 
 namespace LMS.Modules.Membership.Application.Patrons.Onboarding.AddPatron;
@@ -36,9 +37,19 @@ internal sealed class AddPatronCommandHandler : ICommandHandler<AddPatronCommand
 
         _logger.LogInformation("Finished validating the {Command} with status {Status}", nameof(AddPatronCommand), validationResult.IsValid);
 
+        Result<Email> emailResult = Email.Create(command.Email);
+
+        bool isPatronEmailAlreadyUsed = await _patronRepository.IsPatronEmailAlreadyUsedAsync(emailResult.Value, cancellationToken);
+
+        if (isPatronEmailAlreadyUsed)
+        {
+            Error conflictError = Error.Conflict(ErrorCodes.Conflict, "The email provided is already taken.");
+            Result<Response> conflictResult = Result.Failure<Response>(conflictError);
+            return conflictResult;
+        }
+
         Result<Name> nameResult = Name.Create(command.Name);
         Result<Gender> genderResult = Gender.Create(command.Gender);
-        Result<Email> emailResult = Email.Create(command.Email);
         Result<DateOfBirth> dobResult = DateOfBirth.Create(command.DateOfBirth);
         PatronType patronType = Enumeration.FromName<PatronType>(command.PatronType);
 

@@ -4,4 +4,5 @@ public interface IPatronRepository
 {
     void Add(Patron patron);
     Task<Patron?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<bool> IsPatronEmailAlreadyUsedAsync(Email email, CancellationToken cancellationToken = default);
 }
