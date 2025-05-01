@@ -30,4 +30,9 @@ internal sealed class PatronRepository : IPatronRepository
 
         return !(patron is null);
     }
+
+    public void Update(Patron patron)
+    {
+        _context.Update<Patron>(patron);
+    }
 }

@@ -41,4 +41,16 @@ Content-Type: application/json
   "patronType": "Regular"
 }
 ###
-GET https://localhost:7145/membership/onboarding/patron/b7a5cbb9-873a-4ffd-8329-7c8ec554de13
+GET https://localhost:7145/membership/onboarding/patron/968b05dc-3727-499f-85a2-6e1509e8723e
+
+###
+PUT https://localhost:7145/membership/onboarding/patron/0047cef1-7bc6-4933-832e-ddfbdb6cbd3a/address
+Content-Type: application/json
+{
+  "buildingNumber": "B1",
+  "streetName": "202 Indraprastha, Moshi Alandi Road",
+  "city": "Pune",
+  "state": "Maharashtra",
+  "country": "India",
+  "zipCode": "412105"
+}

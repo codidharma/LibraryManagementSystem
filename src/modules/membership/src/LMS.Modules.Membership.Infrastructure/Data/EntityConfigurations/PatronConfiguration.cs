@@ -59,6 +59,8 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<Patron>
             address.Property(a => a.State).HasColumnName("state").HasMaxLength(20);
             address.Property(a => a.Country).HasColumnName("country").HasMaxLength(20);
             address.Property(a => a.ZipCode).HasColumnName("zip_code").HasMaxLength(15);
+            address.Property<DateTime>("created_on");
+            address.Property<DateTime>("modified_on");
         });
         builder.Property(p => p.KycStatus)
             .HasConversion(ks => ks.Name, ks => Enumeration.FromName<KycStatus>(ks))

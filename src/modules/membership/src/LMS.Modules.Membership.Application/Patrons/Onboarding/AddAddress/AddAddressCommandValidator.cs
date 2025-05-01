@@ -2,7 +2,7 @@
 
 namespace LMS.Modules.Membership.Application.Patrons.Onboarding.AddAddress;
 
-internal sealed class AddAddressCommandValidator : AbstractValidator<AddAddressCommand>
+public sealed class AddAddressCommandValidator : AbstractValidator<AddAddressCommand>
 {
     public AddAddressCommandValidator()
     {

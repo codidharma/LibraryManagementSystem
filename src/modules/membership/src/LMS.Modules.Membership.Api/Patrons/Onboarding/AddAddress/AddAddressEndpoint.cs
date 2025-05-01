@@ -13,7 +13,7 @@ internal sealed class AddAddressEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPut("/onboarding/patron/{id:guid}/address", async (
+        app.MapPut("/membership/onboarding/patron/{id:guid}/address", async (
             [FromRoute] Guid id,
             [FromBody] Request request,
             ICommandDispatcher dispatcher) =>
