@@ -1,14 +1,13 @@
 ﻿
 using LMS.Modules.Membership.Api.Patrons.Onboarding.GetPatronById;
 using LMS.Modules.Membership.Application.Patrons.Onboarding.GetPatronById;
-using LMS.Modules.Membership.UnitTests.Base;
 
 namespace LMS.Modules.Membership.UnitTests.ApiTests.Patrons.Onboarding.GetPatronById;
 
 public class MappingTest : TestBase
 {
     [Fact]
-    public void ToDto_ShouldReturn_AddPatronCommand()
+    public void ToDto_ShouldReturn_Response()
     {
         //Arrange
         string name = Faker.Person.FullName;

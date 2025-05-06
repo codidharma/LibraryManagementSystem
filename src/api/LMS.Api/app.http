@@ -44,7 +44,7 @@ Content-Type: application/json
 GET https://localhost:7145/membership/onboarding/patron/968b05dc-3727-499f-85a2-6e1509e8723e
 
 ###
-PUT https://localhost:7145/membership/onboarding/patron/d2846e49-2885-403d-80c0-daaaca24a91a/address
+PUT https://localhost:7145/membership/onboarding/patron/bd3dc359-ebe9-4053-961e-bb080b87bb5e/address
 Content-Type: application/json
 {
   "buildingNumber": "B1",
@@ -54,3 +54,5 @@ Content-Type: application/json
   "country": "India",
   "zipCode": "412105"
 }
+###
+GET https://localhost:7145/membership/onboarding/patron/605965aa-8bfa-46d5-aa52-b53ee31ade6d/address
