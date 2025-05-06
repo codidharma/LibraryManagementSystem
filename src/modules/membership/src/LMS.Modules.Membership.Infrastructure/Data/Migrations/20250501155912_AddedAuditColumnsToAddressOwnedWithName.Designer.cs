@@ -3,6 +3,7 @@ using System;
 using LMS.Modules.Membership.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LMS.Modules.Membership.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(MembershipDbContext))]
-    partial class MembershipDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250501155912_AddedAuditColumnsToAddressOwnedWithName")]
+    partial class AddedAuditColumnsToAddressOwnedWithName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -140,6 +143,12 @@ namespace LMS.Modules.Membership.Infrastructure.Data.Migrations
                             t.HasCheckConstraint("ck_patrons_patron_type", "patron_type in ('Regular', 'Research')");
 
                             t.HasCheckConstraint("ck_patrons_status", "status in ('Active', 'InActive')");
+
+                            t.Property("created_on")
+                                .HasColumnName("Patron_created_on");
+
+                            t.Property("modified_on")
+                                .HasColumnName("Patron_modified_on");
                         });
                 });
 
@@ -195,11 +204,11 @@ namespace LMS.Modules.Membership.Infrastructure.Data.Migrations
 
                             b1.Property<DateTime>("created_on")
                                 .HasColumnType("timestamp with time zone")
-                                .HasColumnName("address.created_on");
+                                .HasColumnName("created_on");
 
                             b1.Property<DateTime>("modified_on")
                                 .HasColumnType("timestamp with time zone")
-                                .HasColumnName("address.modified_on");
+                                .HasColumnName("modified_on");
 
                             b1.HasKey("PatronId");
 

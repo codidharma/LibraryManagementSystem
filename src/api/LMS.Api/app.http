@@ -44,7 +44,7 @@ Content-Type: application/json
 GET https://localhost:7145/membership/onboarding/patron/968b05dc-3727-499f-85a2-6e1509e8723e
 
 ###
-PUT https://localhost:7145/membership/onboarding/patron/0047cef1-7bc6-4933-832e-ddfbdb6cbd3a/address
+PUT https://localhost:7145/membership/onboarding/patron/d2846e49-2885-403d-80c0-daaaca24a91a/address
 Content-Type: application/json
 {
   "buildingNumber": "B1",
