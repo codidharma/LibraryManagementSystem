@@ -2,7 +2,7 @@
 
 namespace LMS.Modules.Membership.Application.Patrons.Onboarding.AddDocuments;
 
-internal sealed class AddDocumentsCommandValidator : AbstractValidator<AddDocumentsCommand>
+public sealed class AddDocumentsCommandValidator : AbstractValidator<AddDocumentsCommand>
 {
     public AddDocumentsCommandValidator()
     {
