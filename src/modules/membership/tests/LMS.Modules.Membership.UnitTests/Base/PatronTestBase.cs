@@ -5,15 +5,15 @@ public class PatronTestBase : TestBase
     protected static readonly Document PersonalIdentification = Document.Create(
         Name.Create("IdentityCard.pdf").Value,
         DocumentType.PersonalIdentification,
-        DocumentContent.Create("somedata").Value, DocumentContentType.Pdf);
+        DocumentContent.Create("somedata").Value, DocumentContentType.Pdf).Value;
     protected static readonly Document AcademicsIdentification = Document.Create(
         Name.Create("CollegeCard.pdf").Value,
         DocumentType.AcademicsIdentification,
-        DocumentContent.Create("somedata").Value, DocumentContentType.Pdf);
+        DocumentContent.Create("somedata").Value, DocumentContentType.Pdf).Value;
     protected static readonly Document AddressProof = Document.Create(
         Name.Create("AddressProof.pdf").Value,
         DocumentType.AddressProof,
-        DocumentContent.Create("somedata").Value, DocumentContentType.Pdf);
+        DocumentContent.Create("somedata").Value, DocumentContentType.Pdf).Value;
 
     protected readonly Name Name = Name.Create(Faker.Person.FullName).Value;
     protected readonly Gender Gender = Gender.Create(Faker.Person.Gender.ToString()).Value;

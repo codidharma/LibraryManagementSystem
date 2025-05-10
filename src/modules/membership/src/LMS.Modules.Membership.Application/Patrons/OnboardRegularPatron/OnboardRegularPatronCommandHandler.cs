@@ -73,7 +73,7 @@ public sealed class OnboardRegularPatronCommandHandler : ICommandHandler<Onboard
                 name: Name.Create(document.Name).Value,
                 documentType: Enumeration.FromName<DocumentType>(document.DocumentType),
                 content: documentContentResult.Value,
-                contentType: Enumeration.FromName<DocumentContentType>(document.ContentType));
+                contentType: Enumeration.FromName<DocumentContentType>(document.ContentType)).Value;
 
             idenityDocuments.Add(doc);
         }

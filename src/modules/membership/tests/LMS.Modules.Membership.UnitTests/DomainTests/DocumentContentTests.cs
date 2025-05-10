@@ -1,6 +1,4 @@
-﻿using LMS.Modules.Membership.UnitTests.Base;
-
-namespace LMS.Modules.Membership.UnitTests.DomainTests;
+﻿namespace LMS.Modules.Membership.UnitTests.DomainTests;
 
 public class DocumentContentTests : TestBase
 {

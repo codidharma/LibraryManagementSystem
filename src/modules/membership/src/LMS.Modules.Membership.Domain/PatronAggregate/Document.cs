@@ -18,13 +18,14 @@ public sealed class Document : Entity
         ContentType = contentType;
     }
 
-    public static Document Create(
+    public static Result<Document> Create(
         Name name,
         DocumentType documentType,
         DocumentContent content,
         DocumentContentType contentType
         )
     {
-        return new Document(name, documentType, content, contentType);
+        Document document = new Document(name, documentType, content, contentType);
+        return Result.Success(document);
     }
 }
