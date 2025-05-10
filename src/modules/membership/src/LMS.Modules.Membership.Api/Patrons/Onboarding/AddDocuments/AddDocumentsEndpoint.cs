@@ -27,7 +27,7 @@ internal sealed class AddDocumentsEndpoint : IEndpoint
                 documents.Add(document);
 
             }
-            AddDocumentsCommand command = new(documents);
+            AddDocumentsCommand command = new(id, documents);
 
             Result result = await dispatcher.DispatchAsync<AddDocumentsCommand, Result>(command, default);
             return result.Match(Results.NoContent, ProblemFactory.Create);

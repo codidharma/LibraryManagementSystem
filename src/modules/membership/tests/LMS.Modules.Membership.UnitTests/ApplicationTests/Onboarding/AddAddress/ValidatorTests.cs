@@ -1,6 +1,5 @@
 ﻿using FluentValidation.TestHelper;
 using LMS.Modules.Membership.Application.Patrons.Onboarding.AddAddress;
-using LMS.Modules.Membership.UnitTests.Base;
 
 namespace LMS.Modules.Membership.UnitTests.ApplicationTests.Onboarding.AddAddress;
 
@@ -38,7 +37,7 @@ public class ValidatorTests : TestBase
     }
 
     [Fact]
-    public void ForInValidCommand_Validator_ShouldReturn_IsValidAsTrue()
+    public void ForInValidCommand_Validator_ShouldReturn_IsValidAsFalse()
     {
         //Arrange
         AddAddressCommand addAddressCommand = new(
