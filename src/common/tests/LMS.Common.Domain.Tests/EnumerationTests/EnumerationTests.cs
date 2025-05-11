@@ -54,7 +54,7 @@ public class EnumerationTests
         //Arrange
         int id = 5;
 
-        string expectedErrorCode = "Common.NotFound";
+        string expectedErrorCode = "Generic.NotFound";
         string expectedExceptionMessage = $"Value of Id {id} for type {typeof(TestEnumeration)} was not found.";
         Result<TestEnumeration> expectedResult;
 
@@ -91,7 +91,7 @@ public class EnumerationTests
         //Arrange
         string inputName = "someValue";
         string expectedExceptionMessage = $"Value of Name {inputName} for type {typeof(TestEnumeration)} was not found.";
-        string expectedErrorCode = "Common.NotFound";
+        string expectedErrorCode = "Generic.NotFound";
 
         //Act
         Result<TestEnumeration> actualResult = Enumeration.FromName<TestEnumeration>(inputName);

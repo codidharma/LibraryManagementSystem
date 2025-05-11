@@ -23,7 +23,7 @@ public abstract record Enumeration
 
         if (valueFound is null)
         {
-            Error error = Error.NotFound("Common.NotFound", $"Value of Id {id} for type {typeof(T)} was not found.");
+            Error error = Error.NotFound("Generic.NotFound", $"Value of Id {id} for type {typeof(T)} was not found.");
             return Result.Failure<T>(error);
         }
         return Result.Success(valueFound);
@@ -35,7 +35,7 @@ public abstract record Enumeration
 
         if (valueFound is null)
         {
-            Error error = Error.NotFound("Common.NotFound", $"Value of Name {name} for type {typeof(T)} was not found.");
+            Error error = Error.NotFound("Generic.NotFound", $"Value of Name {name} for type {typeof(T)} was not found.");
             return Result.Failure<T>(error);
         }
         return Result.Success(valueFound);
