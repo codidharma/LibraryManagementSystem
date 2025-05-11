@@ -48,7 +48,7 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<Patron>
             .HasConversion(e => e.Value, e => Email.Create(e).Value)
             .HasColumnName("email").HasMaxLength(300);
         builder.Property(p => p.PatronType)
-            .HasConversion(pt => pt.Name, pt => Enumeration.FromName<PatronType>(pt))
+            .HasConversion(pt => pt.Name, pt => Enumeration.FromName<PatronType>(pt).Value)
             .HasColumnName("patron_type")
             .HasMaxLength(20);
         builder.OwnsOne(p => p.Address, address =>
@@ -63,11 +63,11 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<Patron>
             address.Property<DateTime>("modified_on").HasColumnName("address.modified_on");
         });
         builder.Property(p => p.KycStatus)
-            .HasConversion(ks => ks.Name, ks => Enumeration.FromName<KycStatus>(ks))
+            .HasConversion(ks => ks.Name, ks => Enumeration.FromName<KycStatus>(ks).Value)
             .HasColumnName("kyc_status")
             .HasMaxLength(20);
         builder.Property(p => p.Status)
-            .HasConversion(s => s.Name, s => Enumeration.FromName<Status>(s))
+            .HasConversion(s => s.Name, s => Enumeration.FromName<Status>(s).Value)
             .HasColumnName("status")
             .HasMaxLength(10);
         builder

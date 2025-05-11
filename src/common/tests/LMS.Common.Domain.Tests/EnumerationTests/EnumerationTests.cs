@@ -42,10 +42,10 @@ public class EnumerationTests
         TestEnumeration expected = TestEnumeration.Test1;
 
         //Act
-        TestEnumeration actual = Enumeration.FromId<TestEnumeration>(inputId);
+        Result<TestEnumeration> actualResult = Enumeration.FromId<TestEnumeration>(inputId);
 
         //Assert
-        Assert.Equal(expected, actual);
+        Assert.Equal(expected, actualResult.Value);
     }
 
     [Fact]
@@ -53,15 +53,20 @@ public class EnumerationTests
     {
         //Arrange
         int id = 5;
-        string expectedExceptionMessage = $"Value of Id {id} for type {typeof(TestEnumeration)} is invalid.";
-        TestEnumeration expected;
+
+        string expectedErrorCode = "Common.NotFound";
+        string expectedExceptionMessage = $"Value of Id {id} for type {typeof(TestEnumeration)} was not found.";
+        Result<TestEnumeration> expectedResult;
 
         //Act
-        Action action = () => { expected = Enumeration.FromId<TestEnumeration>(id); };
+        expectedResult = Enumeration.FromId<TestEnumeration>(id);
 
         //Assert
-        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(action);
-        Assert.Equal(expectedExceptionMessage, exception.Message);
+        Assert.True(expectedResult.IsFailure);
+        Assert.False(expectedResult.IsSuccess);
+        Assert.Equal(expectedErrorCode, expectedResult.Error.Code);
+        Assert.Equal(expectedExceptionMessage, expectedResult.Error.Description);
+        Assert.Equal(ErrorType.NotFound, expectedResult.Error.ErrorType);
 
     }
 
@@ -73,10 +78,11 @@ public class EnumerationTests
         TestEnumeration expected = TestEnumeration.Test1;
 
         //Act
-        TestEnumeration actual = Enumeration.FromName<TestEnumeration>(inputName);
+        Result<TestEnumeration> actual = Enumeration.FromName<TestEnumeration>(inputName);
 
         //Assert
-        Assert.Equal(expected, actual);
+        Assert.True(actual.IsSuccess);
+        Assert.Equal(expected, actual.Value);
     }
 
     [Fact]
@@ -84,15 +90,21 @@ public class EnumerationTests
     {
         //Arrange
         string inputName = "someValue";
-        string expectedExceptionMessage = $"Value of Name {inputName} for type {typeof(TestEnumeration)} is invalid.";
-        TestEnumeration enumeration;
+        string expectedExceptionMessage = $"Value of Name {inputName} for type {typeof(TestEnumeration)} was not found.";
+        string expectedErrorCode = "Common.NotFound";
 
         //Act
-        Action action = () => { enumeration = Enumeration.FromName<TestEnumeration>(inputName); };
+        Result<TestEnumeration> actualResult = Enumeration.FromName<TestEnumeration>(inputName);
+
 
         //Assert
-        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(action);
-        Assert.Equal(expectedExceptionMessage, exception.Message);
+        Assert.False(actualResult.IsSuccess);
+        Assert.True(actualResult.IsFailure);
+        Assert.Equal(expectedExceptionMessage, actualResult.Error.Description);
+        Assert.Equal(expectedErrorCode, actualResult.Error.Code);
+        Assert.Equal(ErrorType.NotFound, actualResult.Error.ErrorType);
+
+
     }
 
     [Fact]

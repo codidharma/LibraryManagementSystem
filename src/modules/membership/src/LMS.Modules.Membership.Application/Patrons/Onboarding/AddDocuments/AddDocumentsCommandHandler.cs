@@ -60,8 +60,8 @@ public sealed class AddDocumentsCommandHandler : ICommandHandler<AddDocumentsCom
         foreach (AppDocument document in command.Documents)
         {
             Result<Name> nameResult = Name.Create(document.Name);
-            DocumentType documentType = Enumeration.FromName<DocumentType>(document.DocumentType);
-            DocumentContentType contentType = Enumeration.FromName<DocumentContentType>(document.ContentType);
+            DocumentType documentType = Enumeration.FromName<DocumentType>(document.DocumentType).Value;
+            DocumentContentType contentType = Enumeration.FromName<DocumentContentType>(document.ContentType).Value;
             Result<DocumentContent> contentResult = DocumentContent.Create(document.Content);
 
             Result<DomainDocument> documentResult = DomainDocument.Create(nameResult.Value, documentType,

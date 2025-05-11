@@ -51,7 +51,7 @@ internal sealed class AddPatronCommandHandler : ICommandHandler<AddPatronCommand
         Result<Name> nameResult = Name.Create(command.Name);
         Result<Gender> genderResult = Gender.Create(command.Gender);
         Result<DateOfBirth> dobResult = DateOfBirth.Create(command.DateOfBirth);
-        PatronType patronType = Enumeration.FromName<PatronType>(command.PatronType);
+        PatronType patronType = Enumeration.FromName<PatronType>(command.PatronType).Value;
 
         Result<Patron> patronResult = Patron.Create(
             nameResult.Value,

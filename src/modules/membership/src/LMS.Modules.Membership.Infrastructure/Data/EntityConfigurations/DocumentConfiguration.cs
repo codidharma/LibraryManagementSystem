@@ -27,13 +27,13 @@ internal sealed class DocumentConfiguration : IEntityTypeConfiguration<Document>
             .HasColumnName("name")
             .HasMaxLength(50);
         builder.Property(d => d.DocumentType)
-            .HasConversion(dt => dt.Name, dt => Enumeration.FromName<DocumentType>(dt))
+            .HasConversion(dt => dt.Name, dt => Enumeration.FromName<DocumentType>(dt).Value)
             .HasColumnName("document_type");
         builder.Property(d => d.Content)
             .HasConversion(c => c.Value, c => DocumentContent.Create(c).Value)
             .HasColumnName("content");
         builder.Property(d => d.ContentType)
-            .HasConversion(ct => ct.Name, ct => Enumeration.FromName<DocumentContentType>(ct))
+            .HasConversion(ct => ct.Name, ct => Enumeration.FromName<DocumentContentType>(ct).Value)
             .HasColumnName("content_type");
         builder
             .Property<DateTime>("created_on");

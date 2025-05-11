@@ -17,25 +17,27 @@ public abstract record Enumeration
         .Select(field => field.GetValue(null))
         .Cast<T>();
 
-    public static T FromId<T>(int id) where T : Enumeration
+    public static Result<T> FromId<T>(int id) where T : Enumeration
     {
         T? valueFound = GetAll<T>().FirstOrDefault(t => t.Id == id);
 
         if (valueFound is null)
         {
-            throw new InvalidOperationException($"Value of Id {id} for type {typeof(T)} is invalid.");
+            Error error = Error.NotFound("Common.NotFound", $"Value of Id {id} for type {typeof(T)} was not found.");
+            return Result.Failure<T>(error);
         }
-        return valueFound;
+        return Result.Success(valueFound);
     }
 
-    public static T FromName<T>(string name) where T : Enumeration
+    public static Result<T> FromName<T>(string name) where T : Enumeration
     {
         T? valueFound = GetAll<T>().FirstOrDefault(t => t.Name.Equals(name, StringComparison.Ordinal));
 
         if (valueFound is null)
         {
-            throw new InvalidOperationException($"Value of Name {name} for type {typeof(T)} is invalid.");
+            Error error = Error.NotFound("Common.NotFound", $"Value of Name {name} for type {typeof(T)} was not found.");
+            return Result.Failure<T>(error);
         }
-        return valueFound;
+        return Result.Success(valueFound);
     }
 }
