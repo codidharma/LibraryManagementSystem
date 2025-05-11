@@ -57,6 +57,12 @@ internal sealed class AddAddressCommandHandler : ICommandHandler<AddAddressComma
         Result<Address> addressResult = Address
             .Create(command.BuildingNumber, command.StreetName, command.City, command.State, command.Country, command.ZipCode);
 
+        if (addressResult.IsFailure)
+        {
+            ValidationError validationError = ValidationError.FromResults([addressResult]);
+            return Result.Failure(validationError);
+        }
+
         patron.AddAddress(addressResult.Value);
         _patronRepository.Update(patron);
         await _unitOfWork.SaveChangesAsync(cancellationToken);

@@ -48,17 +48,28 @@ internal sealed class AddPatronCommandHandler : ICommandHandler<AddPatronCommand
             return conflictResult;
         }
 
+        List<Result> results = [];
         Result<Name> nameResult = Name.Create(command.Name);
+        results.Add(nameResult);
         Result<Gender> genderResult = Gender.Create(command.Gender);
+        results.Add(genderResult);
         Result<DateOfBirth> dobResult = DateOfBirth.Create(command.DateOfBirth);
-        PatronType patronType = Enumeration.FromName<PatronType>(command.PatronType).Value;
+        results.Add(dobResult);
+        Result<PatronType> patronTypeResult = Enumeration.FromName<PatronType>(command.PatronType);
+        results.Add(patronTypeResult);
+
+        if (results.Any(r => r.IsFailure))
+        {
+            ValidationError validationError = ValidationError.FromResults(results);
+            return Result.Failure<Response>(validationError);
+        }
 
         Result<Patron> patronResult = Patron.Create(
             nameResult.Value,
             genderResult.Value,
             dobResult.Value,
             emailResult.Value,
-            patronType);
+            patronTypeResult.Value);
 
         _patronRepository.Add(patronResult.Value);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
