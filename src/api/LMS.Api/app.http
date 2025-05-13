@@ -41,10 +41,10 @@ Content-Type: application/json
   "patronType": "Regular"
 }
 ###
-GET https://localhost:7145/membership/onboarding/patron/218fa41c-4b0e-49c5-a871-04f353816da2
+GET https://localhost:7145/membership/onboarding/patron/84419655-3fe2-49e4-bf48-9178d51883b9
 
 ###
-PUT https://localhost:7145/membership/onboarding/patron/216f0c56-64dd-4d8a-a66c-9afa1de1cd6d/address
+PUT https://localhost:7145/membership/onboarding/patron/84419655-3fe2-49e4-bf48-9178d51883b9/address
 Content-Type: application/json
 {
   "buildingNumber": "B1",
@@ -52,7 +52,7 @@ Content-Type: application/json
   "city": "Pune",
   "state": "Maharashtra",
   "country": "India",
-  "zipCode": "412108"
+  "zipCode": "412105"
 }
 ###
-GET https://localhost:7145/membership/onboarding/patron/605965aa-8bfa-46d5-aa52-b53ee31ade6d/address
+GET https://localhost:7145/membership/onboarding/patron/84419655-3fe2-49e4-bf48-9178d51883b9/address
