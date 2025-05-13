@@ -9,8 +9,10 @@ public static class DispatcherExtensions
         services.AddScoped<IQueryDispatcher, QueryDispatcher>();
         services.AddScoped(sp =>
         {
-            CommandDispatcher nextDispatcher = new CommandDispatcher(sp);
-            ICommandDispatcher decorator = new CommandValidationDecoratorCommandDispatcher(nextDispatcher, sp);
+            CommandDispatcher coreDispatcher = new CommandDispatcher(sp);
+            CommandValidationDecoratorCommandDispatcher validationDispatcher = new(coreDispatcher, sp);
+
+            ICommandDispatcher decorator = new LoggingDecoratorCommandDispatcher(validationDispatcher, sp);
             return decorator;
 
         });
