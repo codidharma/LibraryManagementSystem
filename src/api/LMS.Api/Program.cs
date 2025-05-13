@@ -1,3 +1,4 @@
+using LMS.Api.Middleware;
 using LMS.Common.Api;
 using LMS.Common.Application.Dispatchers;
 using LMS.Modules.Membership.Registrations;
@@ -6,6 +7,8 @@ using Scalar.AspNetCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 builder.AddServiceDefaults();
 
 // Add services to the container.
@@ -27,6 +30,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 app.MapEndpoints();
+app.UseExceptionHandler();
 
 app.UseHttpsRedirection();
 
