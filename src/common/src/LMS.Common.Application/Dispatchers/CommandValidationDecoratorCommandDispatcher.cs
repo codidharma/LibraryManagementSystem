@@ -8,12 +8,12 @@ using Microsoft.Extensions.Logging;
 
 namespace LMS.Common.Application.Dispatchers;
 
-public sealed class CommandValidationDispatchDecorator : ICommandDispatcher
+public sealed class CommandValidationDecoratorCommandDispatcher : ICommandDispatcher
 {
     private readonly ICommandDispatcher _next;
     private readonly IServiceProvider _serviceProvider;
 
-    public CommandValidationDispatchDecorator(ICommandDispatcher next, IServiceProvider serviceProvider)
+    public CommandValidationDecoratorCommandDispatcher(ICommandDispatcher next, IServiceProvider serviceProvider)
     {
         _next = next;
         _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
@@ -21,7 +21,7 @@ public sealed class CommandValidationDispatchDecorator : ICommandDispatcher
     public async Task<TCommandResult> DispatchAsync<TCommand, TCommandResult>(TCommand command, CancellationToken cancellationToken)
     {
         IValidator<TCommand> validator = _serviceProvider.GetRequiredService<IValidator<TCommand>>();
-        ILogger logger = _serviceProvider.GetRequiredService<ILogger<CommandValidationDispatchDecorator>>();
+        ILogger logger = _serviceProvider.GetRequiredService<ILogger<CommandValidationDecoratorCommandDispatcher>>();
 
         logger.LogInformation("Starting {Command} command validation.", nameof(command));
 
