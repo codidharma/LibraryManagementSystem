@@ -1,7 +1,5 @@
 ﻿using LMS.Common.Domain;
 using LMS.Modules.Membership.Domain.PatronAggregate.Constants;
-using LMS.Modules.Membership.Domain.PatronAggregate.DomainEvents;
-using LMS.Modules.Membership.Domain.PatronAggregate.Exceptions;
 
 
 
@@ -28,27 +26,6 @@ public sealed class Patron : Entity
 
     public Status Status { get; private set; }
     private Patron() { }
-    private Patron(
-        Name name,
-        Gender gender,
-        DateOfBirth dateOfBirth,
-        Email email,
-        Address address,
-        PatronType patronType,
-        List<Document> identityDocuments,
-        AccessId accessId)
-    {
-        Name = name;
-        Gender = gender;
-        DateOfBirth = dateOfBirth;
-        Email = email;
-        Address = address;
-        PatronType = patronType;
-        _documents = identityDocuments;
-        AccessId = accessId;
-        KycStatus = KycStatus.Pending;
-        Status = Status.InActive;
-    }
 
     private Patron(
         Name name,
@@ -140,55 +117,6 @@ public sealed class Patron : Entity
         return Result.Success();
     }
 
-    public static Patron Create(
-        Name name,
-        Gender gender,
-        DateOfBirth dateOfBirth,
-        Email email,
-        Address address,
-        PatronType patronType,
-        List<Document> identityDocuments,
-        AccessId accessId)
-    {
-        AddressValidationService addressValidationService = new();
-        bool isAddressAllowed = addressValidationService.Validate(address);
-
-        if (!isAddressAllowed)
-        {
-            throw new NotAllowedAddressException($"The value for property {nameof(address.ZipCode)} is not allowed.");
-        }
-
-        if (!IsPersonalIdentificationDocumentAvailable(identityDocuments))
-        {
-            throw new MissingPersonalIdentificationException($"Document of type {DocumentType.PersonalIdentification.Name} is mandatory.");
-        }
-
-        if (!IsAddressProofDocumentAvailable(identityDocuments))
-        {
-            throw new MissingAddressProofException($"Document of type {DocumentType.AddressProof.Name} is mandatory.");
-        }
-
-        if (patronType.Equals(PatronType.Research)
-            && !IsAcademicsIdentificationDocumentAvailable(identityDocuments))
-        {
-            throw new MissingAcademicsIdentificationException($"Document of type {DocumentType.AcademicsIdentification.Name} is mandatory for a research patron.");
-        }
-
-        Patron patron = new(
-            name,
-            gender,
-            dateOfBirth,
-            email,
-            address,
-            patronType,
-            identityDocuments,
-            accessId);
-
-        PatronCreatedDomainEvent patronCreatedDomainEvent = new(Guid.NewGuid(), DateTime.UtcNow, patronType.Name);
-        patron.Raise(patronCreatedDomainEvent);
-
-        return patron;
-    }
 
     private static bool IsPersonalIdentificationDocumentAvailable(List<Document> identityDocuments)
     {

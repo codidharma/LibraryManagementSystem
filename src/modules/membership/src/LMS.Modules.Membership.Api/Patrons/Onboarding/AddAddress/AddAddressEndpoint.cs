@@ -14,6 +14,7 @@ internal sealed class AddAddressEndpoint : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPut("/membership/onboarding/patron/{id:guid}/address", async (
+            [FromHeader(Name = "tracking-id")] string trackingId,
             [FromRoute] Guid id,
             [FromBody] Request request,
             ICommandDispatcher dispatcher) =>

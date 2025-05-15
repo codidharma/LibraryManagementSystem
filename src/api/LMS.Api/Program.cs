@@ -31,7 +31,7 @@ if (app.Environment.IsDevelopment())
 }
 app.MapEndpoints();
 app.UseExceptionHandler();
-
+app.UseTrackingIdVerifier();
 app.UseHttpsRedirection();
 
 await app.RunAsync();
