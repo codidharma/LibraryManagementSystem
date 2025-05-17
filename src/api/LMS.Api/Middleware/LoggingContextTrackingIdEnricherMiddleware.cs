@@ -12,7 +12,6 @@ internal sealed class LoggingContextTrackingIdEnricherMiddleware
     public async Task InvokeAsync(HttpContext context)
     {
         string trackingId = context.Request.Headers[HeadersConstants.TrackingIdHeaderName];
-
         using (LogContext.PushProperty("TrackingId", trackingId))
         {
             await _next.Invoke(context);

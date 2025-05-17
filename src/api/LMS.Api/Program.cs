@@ -39,6 +39,7 @@ app.MapEndpoints();
 app.UseExceptionHandler();
 app.UseTrackingIdVerifier();
 app.UseLoggerEnricher();
+app.UseTraceIdStamper();
 app.UseHttpsRedirection();
 
 await app.RunAsync();
