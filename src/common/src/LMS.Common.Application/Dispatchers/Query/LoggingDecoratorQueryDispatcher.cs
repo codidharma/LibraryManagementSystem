@@ -18,7 +18,9 @@ public sealed class LoggingDecoratorQueryDispatcher : IQueryDispatcher
     {
         ILogger logger = _serviceProvider.GetRequiredService<ILogger<LoggingDecoratorQueryDispatcher>>();
 
-        logger.LogInformation("Processing query {Query}", nameof(TQuery));
+        string queryName = typeof(TQuery).Name;
+
+        logger.LogInformation("Processing query {Query}", queryName);
 
         TQueryResult result = await _next.DispatchAsync<TQuery, TQueryResult>(query, cancellationToken);
 
@@ -30,11 +32,11 @@ public sealed class LoggingDecoratorQueryDispatcher : IQueryDispatcher
             {
                 if (commandResult.IsSuccess)
                 {
-                    logger.LogInformation("Processed query {Query} successfully.", nameof(TQuery));
+                    logger.LogInformation("Processed query {Query} successfully.", queryName);
                 }
                 else
                 {
-                    logger.LogInformation("Processed query {Query} with errors.", nameof(TQuery));
+                    logger.LogInformation("Processed query {Query} with errors.", queryName);
                 }
             }
             else
@@ -44,7 +46,7 @@ public sealed class LoggingDecoratorQueryDispatcher : IQueryDispatcher
         }
         else
         {
-            logger.LogInformation("Processed query {Query} successfully.", nameof(TQuery));
+            logger.LogInformation("Processed query {Query} successfully.", queryName);
         }
         return result;
 
