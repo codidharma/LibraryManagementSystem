@@ -11,9 +11,9 @@ public sealed class QueryDispatcher : IQueryDispatcher
         _serviceProvider = serviceProvider;
 
     }
-    public Task<TQueryResult> DispatchAsync<TQuery, TQueryResult>(TQuery command, CancellationToken cancellationToken)
+    public Task<TQueryResult> DispatchAsync<TQuery, TQueryResult>(TQuery query, CancellationToken cancellationToken)
     {
         IQueryHandler<TQuery, TQueryResult> handler = _serviceProvider.GetRequiredService<IQueryHandler<TQuery, TQueryResult>>();
-        return handler.HandleAsync(command, cancellationToken);
+        return handler.HandleAsync(query, cancellationToken);
     }
 }

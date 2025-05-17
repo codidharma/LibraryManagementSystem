@@ -9,6 +9,13 @@ internal static class MiddlewareExtensions
             builder => builder.UseMiddleware<TrackingIdVerifierMiddleware>());
     }
 
+    public static IApplicationBuilder UseLoggerEnricher(this IApplicationBuilder builder)
+    {
+        return builder.UseWhen(
+            context => !context.Request.Path.IsRequestInvokedForApiDocumentation(),
+            builder => builder.UseMiddleware<LoggingContextTrackingIdEnricherMiddleware>());
+    }
+
     private static bool IsRequestInvokedForApiDocumentation(this PathString pathString)
     {
         const string ScalarUiPathBlurb = "/scalar";

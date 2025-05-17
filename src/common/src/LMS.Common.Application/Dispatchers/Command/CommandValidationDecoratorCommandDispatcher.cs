@@ -21,9 +21,12 @@ public sealed class CommandValidationDecoratorCommandDispatcher : ICommandDispat
     public async Task<TCommandResult> DispatchAsync<TCommand, TCommandResult>(TCommand command, CancellationToken cancellationToken)
     {
         IValidator<TCommand> validator = _serviceProvider.GetRequiredService<IValidator<TCommand>>();
+
         ILogger logger = _serviceProvider.GetRequiredService<ILogger<CommandValidationDecoratorCommandDispatcher>>();
 
-        logger.LogInformation("Starting {Command} command validation.", nameof(command));
+        string commandName = typeof(TCommand).Name;
+
+        logger.LogInformation("Starting {Command} command validation.", commandName);
 
         ValidationResult validationResult = await validator.ValidateAsync(command, cancellationToken);
 
@@ -32,7 +35,7 @@ public sealed class CommandValidationDecoratorCommandDispatcher : ICommandDispat
             return await _next.DispatchAsync<TCommand, TCommandResult>(command, cancellationToken);
         }
 
-        logger.LogInformation("Finished {Command} command validation with status {Status}.", nameof(command), validationResult.IsValid);
+        logger.LogInformation("Finished {Command} command validation with status {Status}.", commandName, validationResult.IsValid);
 
         ValidationError validationError = GetValidationError(validationResult);
 

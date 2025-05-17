@@ -21,7 +21,9 @@ public sealed class LoggingDecoratorCommandDispatcher : ICommandDispatcher
     {
         ILogger logger = _serviceProvider.GetRequiredService<ILogger<LoggingDecoratorCommandDispatcher>>();
 
-        logger.LogInformation("Processing command {Command}", nameof(command));
+        string commandName = typeof(TCommand).Name;
+
+        logger.LogInformation("Processing command {Command}", commandName);
 
         TCommandResult result = await _next.DispatchAsync<TCommand, TCommandResult>(command, cancellationToken);
 
@@ -33,11 +35,11 @@ public sealed class LoggingDecoratorCommandDispatcher : ICommandDispatcher
             {
                 if (commandResult.IsSuccess)
                 {
-                    logger.LogInformation("Processed command {Command} successfully.", nameof(command));
+                    logger.LogInformation("Processed command {Command} successfully.", commandName);
                 }
                 else
                 {
-                    logger.LogInformation("Processed command {Command} with errors.", nameof(command));
+                    logger.LogInformation("Processed command {Command} with errors.", commandName);
                 }
             }
             else
@@ -47,7 +49,7 @@ public sealed class LoggingDecoratorCommandDispatcher : ICommandDispatcher
         }
         else
         {
-            logger.LogInformation("Processed command {Command} successfully.", nameof(command));
+            logger.LogInformation("Processed command {Command} successfully.", commandName);
         }
         return result;
 

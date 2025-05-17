@@ -4,8 +4,14 @@ using LMS.Common.Application.Dispatchers;
 using LMS.Modules.Membership.Registrations;
 using LMS.ServiceDefaults;
 using Scalar.AspNetCore;
+using Serilog;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, configuration) =>
+{
+    configuration.ReadFrom.Configuration(context.Configuration);
+});
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
@@ -32,6 +38,7 @@ if (app.Environment.IsDevelopment())
 app.MapEndpoints();
 app.UseExceptionHandler();
 app.UseTrackingIdVerifier();
+app.UseLoggerEnricher();
 app.UseHttpsRedirection();
 
 await app.RunAsync();

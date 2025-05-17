@@ -27,7 +27,7 @@ internal sealed class TrackingIdVerifierMiddleware
 
         _logger.LogInformation("The endpoint is {Name}", endpoint?.DisplayName);
 
-        string trackingId = context.Request.Headers["tracking-id"];
+        string trackingId = context.Request.Headers[HeadersConstants.TrackingIdHeaderName];
 
 
         if (!Guid.TryParse(trackingId, out _))
