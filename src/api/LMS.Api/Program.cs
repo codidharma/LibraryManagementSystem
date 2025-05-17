@@ -12,15 +12,16 @@ builder.Host.UseSerilog((context, configuration) =>
 {
     configuration.ReadFrom.Configuration(context.Configuration);
 });
+builder.AddSeqEndpoint(connectionName: "seq");
+builder.AddServiceDefaults();
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
-builder.AddServiceDefaults();
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
 builder.Services.AddDispatchers();
+
 IConfiguration configuration = builder.Configuration;
 builder.Services.RegisterMembershipModule(configuration);
 

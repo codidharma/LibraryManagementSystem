@@ -4,9 +4,16 @@ IResourceBuilder<PostgresDatabaseResource> postgres = builder.AddPostgres("postg
     .WithPgAdmin()
     .AddDatabase("lmsdb");
 
+IResourceBuilder<SeqResource> seq = builder.AddSeq("seq")
+    .ExcludeFromManifest()
+    .WithLifetime(ContainerLifetime.Persistent)
+    .WithEnvironment("ACCEPT_EULA", "Y");
+
 builder.AddProject<Projects.LMS_Api>("lmsapi")
     .WithReference(postgres)
-    .WaitFor(postgres);
+    .WaitFor(postgres)
+    .WithReference(seq)
+    .WaitFor(seq);
 
 builder.AddProject<Projects.LMS_MigrationServices>("lmsmigrationservices")
     .WithReference(postgres)

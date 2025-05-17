@@ -4,6 +4,8 @@
   </PropertyGroup>
   <!--Testing Packages-->
   <ItemGroup>
+    <PackageVersion Include="Aspire.Hosting.Seq" Version="9.2.1" />
+    <PackageVersion Include="Aspire.Seq" Version="9.2.1" />
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.3" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
