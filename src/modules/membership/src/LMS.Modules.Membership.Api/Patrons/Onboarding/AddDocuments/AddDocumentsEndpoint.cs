@@ -1,5 +1,5 @@
 ﻿using LMS.Common.Api.Results;
-using LMS.Common.Application.Dispatchers;
+using LMS.Common.Application.Dispatchers.Command;
 using LMS.Common.Domain;
 using LMS.Modules.Membership.Application.Patrons.Onboarding.AddDocuments;
 using Microsoft.AspNetCore.Builder;

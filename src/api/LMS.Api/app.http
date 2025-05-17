@@ -32,6 +32,7 @@ Content-Type: application/json
 
 ###
 POST https://localhost:7145/membership/onboarding/patron
+tracking-id: {{$guid}}
 Content-Type: application/json
 {
   "name": "Mandar Dharmadhikari",

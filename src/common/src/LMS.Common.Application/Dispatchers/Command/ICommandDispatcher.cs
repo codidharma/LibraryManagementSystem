@@ -1,4 +1,4 @@
-﻿namespace LMS.Common.Application.Dispatchers;
+﻿namespace LMS.Common.Application.Dispatchers.Command;
 
 public interface ICommandDispatcher
 {

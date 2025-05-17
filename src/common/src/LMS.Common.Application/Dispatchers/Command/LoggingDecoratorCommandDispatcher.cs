@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace LMS.Common.Application.Dispatchers;
+namespace LMS.Common.Application.Dispatchers.Command;
 
 public sealed class LoggingDecoratorCommandDispatcher : ICommandDispatcher
 {
@@ -27,7 +27,7 @@ public sealed class LoggingDecoratorCommandDispatcher : ICommandDispatcher
 
         if (IsCommandResultOfTypeResult<TCommandResult>())
         {
-            Result? commandResult = result as Result;
+            var commandResult = result as Result;
 
             if (commandResult is not null)
             {

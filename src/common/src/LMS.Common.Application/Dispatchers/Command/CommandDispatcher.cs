@@ -1,8 +1,7 @@
-﻿
-using LMS.Common.Application.Handlers;
+﻿using LMS.Common.Application.Handlers;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LMS.Common.Application.Dispatchers;
+namespace LMS.Common.Application.Dispatchers.Command;
 
 public sealed class CommandDispatcher : ICommandDispatcher
 {

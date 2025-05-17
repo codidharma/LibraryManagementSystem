@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using LMS.Common.Application.Dispatchers.Command;
+using LMS.Common.Application.Dispatchers.Query;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LMS.Common.Application.Dispatchers;
 
@@ -6,7 +8,6 @@ public static class DispatcherExtensions
 {
     public static void AddDispatchers(this IServiceCollection services)
     {
-        services.AddScoped<IQueryDispatcher, QueryDispatcher>();
         services.AddScoped(sp =>
         {
             CommandDispatcher coreDispatcher = new CommandDispatcher(sp);
@@ -15,6 +16,12 @@ public static class DispatcherExtensions
             ICommandDispatcher decorator = new LoggingDecoratorCommandDispatcher(validationDispatcher, sp);
             return decorator;
 
+        });
+        services.AddScoped(sp =>
+        {
+            QueryDispatcher coreDispatcher = new(sp);
+            IQueryDispatcher decorator = new LoggingDecoratorQueryDispatcher(coreDispatcher, sp);
+            return decorator;
         });
     }
 }

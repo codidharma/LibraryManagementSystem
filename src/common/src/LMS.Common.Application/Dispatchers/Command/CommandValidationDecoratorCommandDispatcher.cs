@@ -6,7 +6,7 @@ using LMS.Common.Domain;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace LMS.Common.Application.Dispatchers;
+namespace LMS.Common.Application.Dispatchers.Command;
 
 public sealed class CommandValidationDecoratorCommandDispatcher : ICommandDispatcher
 {
@@ -68,7 +68,7 @@ public sealed class CommandValidationDecoratorCommandDispatcher : ICommandDispat
 
     private static ValidationError GetValidationError(ValidationResult validationResult)
     {
-        List<Error> errors = validationResult.Errors.Select(e => new Error(e.ErrorCode, e.ErrorMessage, ErrorType.Validation)).ToList();
+        var errors = validationResult.Errors.Select(e => new Error(e.ErrorCode, e.ErrorMessage, ErrorType.Validation)).ToList();
 
         ValidationError validationError = new(errors);
         return validationError;

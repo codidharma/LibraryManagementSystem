@@ -1,4 +1,4 @@
-﻿using LMS.Common.Application.Dispatchers;
+﻿using LMS.Common.Application.Dispatchers.Command;
 using LMS.Common.Application.Handlers;
 using LMS.Modules.Membership.ArchitectureTests.Base;
 
