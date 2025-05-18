@@ -12,6 +12,7 @@ internal static class MappingExtensions
             Gender: getPatronByIdQueryResponse.Gender,
             DateOfBirth: getPatronByIdQueryResponse.DateOfBirth,
             Email: getPatronByIdQueryResponse.Email,
+            NationalId: getPatronByIdQueryResponse.NationalId,
             PatronType: getPatronByIdQueryResponse.PatronType
             );
         return response;

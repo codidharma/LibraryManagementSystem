@@ -14,6 +14,7 @@ public class MappingTest : TestBase
         string gender = Faker.Person.Gender.ToString();
         DateTime dateOfBirth = Faker.Person.DateOfBirth;
         string email = Faker.Person.Email;
+        string nationalId = "ABC123456D";
         string patronType = "Regular";
 
         GetPatronByIdQueryResponse queryResponse = new(
@@ -22,6 +23,7 @@ public class MappingTest : TestBase
             Gender: gender,
             DateOfBirth: dateOfBirth,
             Email: email,
+            NationalId: nationalId,
             PatronType: patronType
             );
 
@@ -33,6 +35,7 @@ public class MappingTest : TestBase
         Assert.Equal(gender, response.Gender);
         Assert.Equal(dateOfBirth, response.DateOfBirth);
         Assert.Equal(email, response.Email);
+        Assert.Equal(nationalId, response.NationalId);
         Assert.Equal(patronType, response.PatronType);
     }
 

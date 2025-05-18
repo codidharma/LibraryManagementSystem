@@ -26,6 +26,7 @@ public class PatronTestBase : TestBase
         Faker.Address.Country(),
         "412105").Value;
     protected readonly Email Email = Email.Create(Faker.Person.Email).Value;
+    protected readonly NationalId NationalId = NationalId.Create("AB123456D").Value;
     protected readonly AccessId AccessId = AccessId.Create(Guid.NewGuid()).Value;
     protected readonly PatronType RegularPatronType = PatronType.Regular;
     protected readonly PatronType ResearchPatronType = PatronType.Research;
@@ -41,6 +42,7 @@ public class PatronTestBase : TestBase
         gender: Gender.Create(Faker.Person.Gender.ToString()).Value,
         dateOfBirth: DateOfBirth.Create(Faker.Person.DateOfBirth).Value,
         email: Email.Create(Faker.Person.Email).Value,
+        nationalId: NationalId.Create("AB123456D").Value,
         patronType: PatronType.Regular).Value;
 
     protected readonly Patron ResearchPatron = Patron.Create(
@@ -48,6 +50,7 @@ public class PatronTestBase : TestBase
         gender: Gender.Create(Faker.Person.Gender.ToString()).Value,
         dateOfBirth: DateOfBirth.Create(Faker.Person.DateOfBirth).Value,
         email: Email.Create(Faker.Person.Email).Value,
+        nationalId: NationalId.Create("AB123456D").Value,
         patronType: PatronType.Research).Value;
 
     protected readonly List<Document> RegularPatronOnboardingDocuments = [PersonalIdentification, AddressProof];

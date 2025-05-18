@@ -37,6 +37,7 @@ Content-Type: application/json
 {
   "name": "Mandar Dharmadhikari",
   "email": "mandar@gmail.com",
+  "nationalId": "ABC123457D",
   "gender": "Male",
   "dateOfBirth": "1990-07-03",
   "patronType": "Regular"

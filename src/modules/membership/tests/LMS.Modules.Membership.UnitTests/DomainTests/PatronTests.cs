@@ -11,6 +11,7 @@ public class PatronTests : PatronTestBase
             Gender,
             DateOfBirth,
             Email,
+            NationalId,
             RegularPatronType);
 
         //Assert
@@ -37,6 +38,7 @@ public class PatronTests : PatronTestBase
             Gender,
             DateOfBirth,
             Email,
+            NationalId,
             ResearchPatronType);
 
         //Assert

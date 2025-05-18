@@ -27,6 +27,7 @@ public sealed class GetPatronByIdQueryHandler : IQueryHandler<Guid, Result<GetPa
             Gender: patron.Gender.Value,
             DateOfBirth: patron.DateOfBirth.Value,
             Email: patron.Email.Value,
+            NationalId: patron.NationalId.Value,
             PatronType: patron.PatronType.Name
             );
 

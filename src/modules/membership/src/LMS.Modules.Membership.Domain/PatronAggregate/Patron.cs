@@ -15,6 +15,8 @@ public sealed class Patron : Entity
     public DateOfBirth DateOfBirth { get; }
 
     public Email Email { get; }
+
+    public NationalId NationalId { get; }
     public Address Address { get; private set; }
 
     public PatronType PatronType { get; }
@@ -32,12 +34,14 @@ public sealed class Patron : Entity
         Gender gender,
         DateOfBirth dateOfBirth,
         Email email,
+        NationalId nationalId,
         PatronType patronType)
     {
         Name = name;
         Gender = gender;
         DateOfBirth = dateOfBirth;
         Email = email;
+        NationalId = nationalId;
         PatronType = patronType;
         KycStatus = KycStatus.Pending;
         Status = Status.InActive;
@@ -48,6 +52,7 @@ public sealed class Patron : Entity
         Gender gender,
         DateOfBirth dateOfBirth,
         Email email,
+        NationalId nationalId,
         PatronType patronType)
     {
         Patron patron = new(
@@ -55,6 +60,7 @@ public sealed class Patron : Entity
             gender,
             dateOfBirth,
             email,
+            nationalId,
             patronType);
 
         return Result.Success(patron);

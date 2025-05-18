@@ -10,6 +10,7 @@ public sealed class AddPatronCommandValidator : AbstractValidator<AddPatronComma
         RuleFor(command => command.Gender).NotEmpty();
         RuleFor(command => command.DateOfBirth).NotEmpty();
         RuleFor(command => command.Email).NotEmpty();
+        RuleFor(command => command.NationalId).NotEmpty();
         RuleFor(command => command.PatronType).NotEmpty();
     }
 }

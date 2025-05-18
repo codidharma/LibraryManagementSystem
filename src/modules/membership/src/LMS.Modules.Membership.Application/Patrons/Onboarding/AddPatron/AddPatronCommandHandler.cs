@@ -41,6 +41,8 @@ internal sealed class AddPatronCommandHandler : ICommandHandler<AddPatronCommand
         results.Add(genderResult);
         Result<DateOfBirth> dobResult = DateOfBirth.Create(command.DateOfBirth);
         results.Add(dobResult);
+        Result<NationalId> nationalIdResult = NationalId.Create(command.NationalId);
+        results.Add(nationalIdResult);
         Result<PatronType> patronTypeResult = Enumeration.FromName<PatronType>(command.PatronType);
         results.Add(patronTypeResult);
 
@@ -55,6 +57,7 @@ internal sealed class AddPatronCommandHandler : ICommandHandler<AddPatronCommand
             genderResult.Value,
             dobResult.Value,
             emailResult.Value,
+            nationalIdResult.Value,
             patronTypeResult.Value);
 
         _patronRepository.Add(patronResult.Value);

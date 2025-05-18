@@ -1,6 +1,5 @@
 ﻿using FluentValidation.TestHelper;
 using LMS.Modules.Membership.Application.Patrons.Onboarding.AddPatron;
-using LMS.Modules.Membership.UnitTests.Base;
 
 namespace LMS.Modules.Membership.UnitTests.ApplicationTests.Onboarding.AddPatron;
 
@@ -16,8 +15,9 @@ public class ValidatorTests : TestBase
         string gender = Faker.Person.Gender.ToString();
         DateTime dateOfBirth = Faker.Person.DateOfBirth;
         string email = Faker.Person.Email;
+        string nationalId = "AB123456D";
         string patronType = "Regular";
-        AddPatronCommand addPatronCommand = new(name, gender, dateOfBirth, email, patronType);
+        AddPatronCommand addPatronCommand = new(name, gender, dateOfBirth, email, nationalId, patronType);
 
         //Act
         TestValidationResult<AddPatronCommand> result = _validator.TestValidate(addPatronCommand);
@@ -28,11 +28,12 @@ public class ValidatorTests : TestBase
     }
 
     [Theory]
-    [InlineData("", "", "", "")]
+    [InlineData("", "", "", "", "")]
     public void ForInvalidCommand_Validator_ShouldReturn_IsValidAsFalse(
         string name,
         string gender,
         string email,
+        string nationalId,
         string patronType
         )
     {
@@ -40,7 +41,7 @@ public class ValidatorTests : TestBase
         DateTime dateOfBirth = DateTime.Now;
 
         //Act
-        AddPatronCommand command = new AddPatronCommand(name, gender, dateOfBirth, email, patronType);
+        AddPatronCommand command = new AddPatronCommand(name, gender, dateOfBirth, email, nationalId, patronType);
         TestValidationResult<AddPatronCommand> result = _validator.TestValidate(command);
 
         //Arrange
@@ -50,5 +51,6 @@ public class ValidatorTests : TestBase
         result.ShouldHaveValidationErrorFor(command => command.Email);
         result.ShouldHaveValidationErrorFor(command => command.PatronType);
         result.ShouldNotHaveValidationErrorFor(command => command.DateOfBirth);
+        result.ShouldHaveValidationErrorFor(command => command.NationalId);
     }
 }

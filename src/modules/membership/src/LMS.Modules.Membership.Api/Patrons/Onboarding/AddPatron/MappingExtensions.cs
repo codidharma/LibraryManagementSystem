@@ -11,6 +11,7 @@ internal static class MappingExtensions
             request.Gender,
             request.DateOfBirth,
             request.Email,
+            request.NationalId,
             request.PatronType);
         return command;
     }

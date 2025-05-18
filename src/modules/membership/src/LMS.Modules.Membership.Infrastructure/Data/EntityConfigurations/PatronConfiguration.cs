@@ -47,6 +47,10 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<Patron>
         builder.Property(p => p.Email)
             .HasConversion(e => e.Value, e => Email.Create(e).Value)
             .HasColumnName("email").HasMaxLength(300);
+        builder.Property(p => p.NationalId)
+            .HasConversion(nId => nId.Value, nId => NationalId.Create(nId).Value)
+            .HasColumnName("national_id")
+            .HasMaxLength(10);
         builder.Property(p => p.PatronType)
             .HasConversion(pt => pt.Name, pt => Enumeration.FromName<PatronType>(pt).Value)
             .HasColumnName("patron_type")
@@ -76,6 +80,7 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<Patron>
         builder.Property<DateTime>("modified_on");
 
         builder.HasIndex(p => p.Email).IsUnique();
+        builder.HasIndex(p => p.NationalId).IsUnique();
         builder.HasMany(p => p.Documents).WithOne();
     }
 }
