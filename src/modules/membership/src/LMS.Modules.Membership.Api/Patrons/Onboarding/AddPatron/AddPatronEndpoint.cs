@@ -29,11 +29,11 @@ internal sealed class AddPatronEndpoint : IEndpoint
 
                 List<HypermediaLink> links = [
 
-                    new(linkGerneator.GetPathByName(
+                    new(linkGerneator.GetUriByName(
                         httpContext,
                         EndpointNamesConstants.GetPatronById,
                         values: new{id = response.Id.ToString() })!, "self", HttpMethodConstants.Get),
-                    new(linkGerneator.GetPathByName(
+                    new(linkGerneator.GetUriByName(
                         httpContext,
                         EndpointNamesConstants.AddAddress,
                         values: new{id = response.Id.ToString() })!, EndpointNamesConstants.AddAddress, HttpMethodConstants.Put)

@@ -46,7 +46,8 @@ Content-Type: application/json
 GET https://localhost:7145/membership/onboarding/patron/84419655-3fe2-49e4-bf48-9178d51883b9
 
 ###
-PUT https://localhost:7145/membership/onboarding/patron/84419655-3fe2-49e4-bf48-9178d51883b9/address
+PUT https://localhost:7145/membership/onboarding/patron/f85a70cf-bdca-4429-b87d-16c0d0390f2e/address
+tracking-id: {{$guid}}
 Content-Type: application/json
 {
   "buildingNumber": "B1",
