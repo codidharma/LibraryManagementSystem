@@ -33,29 +33,41 @@ public sealed class AddDocumentsCommandHandler : ICommandHandler<AddDocumentsCom
             return notFoundResult;
         }
 
-        List<Result<DomainDocument>> domainDocumentResults = [];
+        List<Result> results = [];
 
         foreach (AppDocument document in command.Documents)
         {
             Result<Name> nameResult = Name.Create(document.Name);
-            DocumentType documentType = Enumeration.FromName<DocumentType>(document.DocumentType).Value;
-            DocumentContentType contentType = Enumeration.FromName<DocumentContentType>(document.ContentType).Value;
+            results.Add(nameResult);
+            Result<DocumentType> documentTypeResult = Enumeration.FromName<DocumentType>(document.DocumentType);
+            results.Add(documentTypeResult);
+            Result<DocumentContentType> contentTypeResult = Enumeration.FromName<DocumentContentType>(document.ContentType);
+            results.Add(contentTypeResult);
             Result<DocumentContent> contentResult = DocumentContent.Create(document.Content);
+            results.Add(contentResult);
 
-            Result<DomainDocument> documentResult = DomainDocument.Create(nameResult.Value, documentType,
-                contentResult.Value, contentType);
-            domainDocumentResults.Add(documentResult);
+            if (documentTypeResult.IsFailure || contentTypeResult.IsFailure || contentResult.IsFailure)
+            {
+                continue;
+            }
+
+            Result<DomainDocument> documentResult = DomainDocument.Create(nameResult.Value, documentTypeResult.Value,
+                contentResult.Value, contentTypeResult.Value);
+            results.Add(documentResult);
         }
 
-        if (domainDocumentResults.Any(dr => dr.IsFailure))
+        if (results.Any(dr => dr.IsFailure))
         {
-            ValidationError validationError = ValidationError.FromResults(domainDocumentResults);
+            ValidationError validationError = ValidationError.FromResults(results);
             return Result.Failure(validationError);
         }
 
-        foreach (Result<DomainDocument> domainDocumentResult in domainDocumentResults)
+        foreach (Result result in results)
         {
-            patron.AddDocument(domainDocumentResult.Value);
+            if (result is Result<DomainDocument> domainDocumentResult)
+            {
+                patron.AddDocument(domainDocumentResult.Value);
+            }
         }
 
         Result verifyDocumentsResult = patron.VerifyDocuments();
