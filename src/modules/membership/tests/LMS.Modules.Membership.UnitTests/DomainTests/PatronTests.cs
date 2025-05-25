@@ -26,6 +26,7 @@ public class PatronTests : PatronTestBase
         Assert.Equal(Email, regularPatron.Email);
         Assert.Equal(KycPending, regularPatron.KycStatus);
         Assert.Equal(PatronInActive, regularPatron.Status);
+        Assert.Equal(PatronAdded, regularPatron.OnboardingStage);
         Assert.IsType<EntityId>(regularPatron.Id);
     }
 
@@ -53,6 +54,7 @@ public class PatronTests : PatronTestBase
         Assert.Equal(ResearchPatronType, researchPatron.PatronType);
         Assert.Equal(KycPending, researchPatron.KycStatus);
         Assert.Equal(PatronInActive, researchPatron.Status);
+        Assert.Equal(PatronAdded, researchPatron.OnboardingStage);
         Assert.IsType<EntityId>(researchPatron.Id);
     }
 
@@ -80,6 +82,7 @@ public class PatronTests : PatronTestBase
         Assert.Equal(address, patronAddress);
         Assert.Equal(KycInProgress, patron.KycStatus);
         Assert.Equal(PatronInActive, patron.Status);
+        Assert.Equal(AddressAdded, patron.OnboardingStage);
 
     }
 
@@ -126,6 +129,7 @@ public class PatronTests : PatronTestBase
         Assert.True(addDocumentResult.IsSuccess);
         Assert.False(addDocumentResult.IsFailure);
         Assert.Contains(PersonalIdentification, patron.Documents);
+        Assert.Equal(DocumentAdded, patron.OnboardingStage);
     }
 
     [Fact]
@@ -287,6 +291,7 @@ public class PatronTests : PatronTestBase
         Assert.False(verifyDocumentsResult.IsFailure);
         Assert.Equal(KycCompleted, patron.KycStatus);
         Assert.Equal(PatronActive, patron.Status);
+        Assert.Equal(DocumentsVerified, patron.OnboardingStage);
     }
     [Fact]
     public void ForResearchPatron_VerifyDocuments_ShouldReturn_SuccessResult_WhenRelevantDocumnentsAreProvided()
@@ -307,5 +312,6 @@ public class PatronTests : PatronTestBase
         Assert.False(verifyDocumentsResult.IsFailure);
         Assert.Equal(KycCompleted, patron.KycStatus);
         Assert.Equal(PatronActive, patron.Status);
+        Assert.Equal(DocumentsVerified, patron.OnboardingStage);
     }
 }

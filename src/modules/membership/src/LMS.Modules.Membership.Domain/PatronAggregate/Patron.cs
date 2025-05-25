@@ -27,6 +27,8 @@ public sealed class Patron : Entity
     public KycStatus KycStatus { get; private set; }
 
     public Status Status { get; private set; }
+
+    public OnboardingStage OnboardingStage { get; private set; }
     private Patron() { }
 
     private Patron(
@@ -45,6 +47,7 @@ public sealed class Patron : Entity
         PatronType = patronType;
         KycStatus = KycStatus.Pending;
         Status = Status.InActive;
+        OnboardingStage = OnboardingStage.PatronAdded;
     }
 
     public static Result<Patron> Create(
@@ -82,6 +85,7 @@ public sealed class Patron : Entity
             return Result.Failure(error);
         }
         KycStatus = KycStatus.InProgress;
+        OnboardingStage = OnboardingStage.AddressAdded;
         return Result.Success();
     }
 
@@ -113,12 +117,14 @@ public sealed class Patron : Entity
         }
         KycStatus = KycStatus.Completed;
         Status = Status.Active;
+        OnboardingStage = OnboardingStage.DocumentsVerified;
         return Result.Success();
     }
 
     public Result AddDocument(Document document)
     {
         _documents.Add(document);
+        OnboardingStage = OnboardingStage.DocumentAdded;
 
         return Result.Success();
     }

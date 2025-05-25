@@ -36,7 +36,10 @@ public class PatronTestBase : TestBase
     protected readonly KycStatus KycCompleted = KycStatus.Completed;
     protected readonly Status PatronInActive = Status.InActive;
     protected readonly Status PatronActive = Status.Active;
-
+    protected readonly OnboardingStage PatronAdded = OnboardingStage.PatronAdded;
+    protected readonly OnboardingStage AddressAdded = OnboardingStage.AddressAdded;
+    protected readonly OnboardingStage DocumentAdded = OnboardingStage.DocumentAdded;
+    protected readonly OnboardingStage DocumentsVerified = OnboardingStage.DocumentsVerified;
     protected readonly Patron RegularPatron = Patron.Create(
         name: Name.Create(Faker.Person.FullName).Value,
         gender: Gender.Create(Faker.Person.Gender.ToString()).Value,

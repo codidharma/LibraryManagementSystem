@@ -58,6 +58,14 @@ public sealed class AddDocumentsCommandHandler : ICommandHandler<AddDocumentsCom
             patron.AddDocument(domainDocumentResult.Value);
         }
 
+        Result verifyDocumentsResult = patron.VerifyDocuments();
+
+        if (verifyDocumentsResult.IsFailure)
+        {
+            ValidationError validationError = ValidationError.FromResults([verifyDocumentsResult]);
+            return Result.Failure(validationError);
+        }
+
         _patronRepository.Update(patron);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
         return Result.Success();

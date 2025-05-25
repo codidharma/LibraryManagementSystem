@@ -43,10 +43,11 @@ Content-Type: application/json
   "patronType": "Regular"
 }
 ###
-GET https://localhost:7145/membership/onboarding/patron/84419655-3fe2-49e4-bf48-9178d51883b9
 
+GET https://localhost:7145/membership/onboarding/patron/b7ce70a5-bcf3-40a8-a927-f18c855d64a4
+tracking-id: {{$guid}}
 ###
-PUT https://localhost:7145/membership/onboarding/patron/f85a70cf-bdca-4429-b87d-16c0d0390f2e/address
+PUT https://localhost:7145/membership/onboarding/patron/b7ce70a5-bcf3-40a8-a927-f18c855d64a4/address
 tracking-id: {{$guid}}
 Content-Type: application/json
 {
