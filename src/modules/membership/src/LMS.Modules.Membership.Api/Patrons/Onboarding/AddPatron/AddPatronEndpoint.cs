@@ -18,8 +18,8 @@ internal sealed class AddPatronEndpoint : IEndpoint
         {
             AddPatronCommand command = request.ToCommand();
 
-            Result<Response> addPatronResult = await dispatcher
-            .DispatchAsync<AddPatronCommand, Result<Response>>(command, default);
+            Result<CommandResult> addPatronResult = await dispatcher
+            .DispatchAsync<AddPatronCommand, Result<CommandResult>>(command, default);
 
             return addPatronResult.Match(Results.Ok, ProblemFactory.Create);
         })

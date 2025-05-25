@@ -6,7 +6,7 @@ using LMS.Modules.Membership.Domain.PatronAggregate.Constants;
 
 namespace LMS.Modules.Membership.Application.Patrons.Onboarding.AddPatron;
 
-internal sealed class AddPatronCommandHandler : ICommandHandler<AddPatronCommand, Result<Response>>
+internal sealed class AddPatronCommandHandler : ICommandHandler<AddPatronCommand, Result<CommandResult>>
 {
     private readonly IPatronRepository _patronRepository;
     private readonly IUnitOfWork _unitOfWork;
@@ -20,7 +20,7 @@ internal sealed class AddPatronCommandHandler : ICommandHandler<AddPatronCommand
     }
 
 
-    public async Task<Result<Response>> HandleAsync(AddPatronCommand command, CancellationToken cancellationToken)
+    public async Task<Result<CommandResult>> HandleAsync(AddPatronCommand command, CancellationToken cancellationToken)
     {
 
         Result<Email> emailResult = Email.Create(command.Email);
@@ -30,7 +30,7 @@ internal sealed class AddPatronCommandHandler : ICommandHandler<AddPatronCommand
         if (isPatronEmailAlreadyUsed)
         {
             Error conflictError = Error.Conflict(ErrorCodes.Conflict, "The email provided is already taken.");
-            Result<Response> conflictResult = Result.Failure<Response>(conflictError);
+            Result<CommandResult> conflictResult = Result.Failure<CommandResult>(conflictError);
             return conflictResult;
         }
 
@@ -49,7 +49,7 @@ internal sealed class AddPatronCommandHandler : ICommandHandler<AddPatronCommand
         if (results.Any(r => r.IsFailure))
         {
             ValidationError validationError = ValidationError.FromResults(results);
-            return Result.Failure<Response>(validationError);
+            return Result.Failure<CommandResult>(validationError);
         }
 
         Result<Patron> patronResult = Patron.Create(
@@ -63,9 +63,9 @@ internal sealed class AddPatronCommandHandler : ICommandHandler<AddPatronCommand
         _patronRepository.Add(patronResult.Value);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        Response response = new(patronResult.Value.Id.Value);
+        CommandResult response = new(patronResult.Value.Id.Value);
 
-        Result<Response> idResult = Result.Success(response);
+        Result<CommandResult> idResult = Result.Success(response);
 
         return idResult;
     }
