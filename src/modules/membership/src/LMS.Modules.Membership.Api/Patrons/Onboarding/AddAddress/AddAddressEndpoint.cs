@@ -24,6 +24,8 @@ internal sealed class AddAddressEndpoint : IEndpoint
             Result addAddressResult = await dispatcher.DispatchAsync<AddAddressCommand, Result>(command, default);
 
             return addAddressResult.Match(Results.NoContent, ProblemFactory.Create);
-        });
+        })
+            .WithName(EndpointNamesConstants.AddAddress)
+            .WithTags(Tags.Membership);
     }
 }

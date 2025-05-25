@@ -33,7 +33,7 @@ internal sealed class AddDocumentsEndpoint : IEndpoint
             return result.Match(Results.NoContent, ProblemFactory.Create);
 
         })
-            .WithName(nameof(AddDocumentsEndpoint))
+            .WithName(EndpointNamesConstants.AddDocuments)
             .AllowAnonymous()
             .WithTags(Tags.Membership)
             .DisableAntiforgery();

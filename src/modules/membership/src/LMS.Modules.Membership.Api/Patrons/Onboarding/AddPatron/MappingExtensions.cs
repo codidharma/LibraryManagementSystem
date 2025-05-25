@@ -15,4 +15,10 @@ internal static class MappingExtensions
             request.PatronType);
         return command;
     }
+
+    public static Response ToDto(this CommandResult commandResult)
+    {
+        Response response = new(commandResult.Id);
+        return response;
+    }
 }

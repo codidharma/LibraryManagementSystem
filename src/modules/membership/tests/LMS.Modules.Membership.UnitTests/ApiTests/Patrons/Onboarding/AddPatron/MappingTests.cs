@@ -29,4 +29,17 @@ public class MappingTests : TestBase
         Assert.Equal(nationalId, command.NationalId);
         Assert.Equal(patronType, command.PatronType);
     }
+
+    [Fact]
+    public void ToDto_ShouldReturn_ResponseInsatnce()
+    {
+        //Arrange
+        CommandResult commandResult = new(Guid.NewGuid());
+
+        //Act
+        Response response = commandResult.ToDto();
+
+        //Assert
+        Assert.Equal(commandResult.Id, response.Id);
+    }
 }

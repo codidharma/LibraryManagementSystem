@@ -23,7 +23,7 @@ internal sealed class GetPatronByIdEndpoint : IEndpoint
             return queryResponseResult.Match(Results.Ok, ProblemFactory.Create);
         })
         .AllowAnonymous()
-        .WithName(nameof(GetPatronByIdEndpoint))
+        .WithName(EndpointNamesConstants.GetPatronById)
         .WithTags(Tags.Membership);
     }
 }
