@@ -19,8 +19,22 @@ internal sealed class GetPatronByIdEndpoint : IEndpoint
             Result<GetPatronByIdQueryResponse> queryResponseResult = await dispatcher
             .DispatchAsync<Guid, Result<GetPatronByIdQueryResponse>>(id, default);
 
+            if (queryResponseResult.IsSuccess)
+            {
+                GetPatronByIdQueryResponse queryResponse = queryResponseResult.Value;
+                Response response = new(
+                    Id: queryResponse.Id,
+                    Name: queryResponse.Name,
+                    Gender: queryResponse.Gender,
+                    DateOfBirth: queryResponse.DateOfBirth,
+                    Email: queryResponse.Email,
+                    NationalId: queryResponse.NationalId,
+                    PatronType: queryResponse.PatronType);
 
-            return queryResponseResult.Match(Results.Ok, ProblemFactory.Create);
+                return TypedResults.Ok(response);
+
+            }
+            return ProblemFactory.Create(queryResponseResult);
         })
         .AllowAnonymous()
         .WithName(EndpointNamesConstants.GetPatronById)

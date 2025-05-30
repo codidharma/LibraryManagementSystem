@@ -7,4 +7,5 @@ public static class EndpointNamesConstants
     public const string AddAddress = nameof(AddAddress);
     public const string GetAddressByPatronId = nameof(GetAddressByPatronId);
     public const string AddDocuments = nameof(AddDocuments);
+    public const string GenerateCredentials = nameof(GenerateCredentials);
 }

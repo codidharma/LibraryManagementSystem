@@ -24,7 +24,7 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<Patron>
                 );
             t.HasCheckConstraint(
                 "ck_patrons_onboarding_stage",
-                $"onboarding_stage in ('{OnboardingStage.PatronAdded.Name}', '{OnboardingStage.AddressAdded.Name}', '{OnboardingStage.DocumentAdded.Name}', '{OnboardingStage.DocumentsVerified.Name}')"
+                $"onboarding_stage in ('{OnboardingStage.PatronAdded.Name}', '{OnboardingStage.AddressAdded.Name}', '{OnboardingStage.DocumentAdded.Name}', '{OnboardingStage.DocumentsVerified.Name}', '{OnboardingStage.Completed.Name}')"
                 );
         });
         builder.Ignore(p => p.DomainEvents);
@@ -81,7 +81,7 @@ internal sealed class PatronConfiguration : IEntityTypeConfiguration<Patron>
         builder.Property(p => p.OnboardingStage)
             .HasConversion(os => os.Name, os => Enumeration.FromName<OnboardingStage>(os).Value)
             .HasColumnName("onboarding_stage")
-            .HasMaxLength(15);
+            .HasMaxLength(20);
         builder
             .Property<DateTime>("created_on");
 
