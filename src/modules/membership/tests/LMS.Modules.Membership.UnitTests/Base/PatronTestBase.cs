@@ -40,6 +40,7 @@ public class PatronTestBase : TestBase
     protected readonly OnboardingStage AddressAdded = OnboardingStage.AddressAdded;
     protected readonly OnboardingStage DocumentAdded = OnboardingStage.DocumentAdded;
     protected readonly OnboardingStage DocumentsVerified = OnboardingStage.DocumentsVerified;
+    protected readonly OnboardingStage Completed = OnboardingStage.Completed;
     protected readonly Patron RegularPatron = Patron.Create(
         name: Name.Create(Faker.Person.FullName).Value,
         gender: Gender.Create(Faker.Person.Gender.ToString()).Value,

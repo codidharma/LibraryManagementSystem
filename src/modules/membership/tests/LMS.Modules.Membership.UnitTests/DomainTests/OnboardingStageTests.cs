@@ -45,4 +45,15 @@ public class OnboardingStageTests
         //Assert
         Assert.Equal(stage1, stage2);
     }
+
+    [Fact]
+    public void New_ShouldReturn_Completed()
+    {
+        //Arrange
+        OnboardingStage stage1 = OnboardingStage.Completed;
+        OnboardingStage stage2 = OnboardingStage.Completed;
+
+        //Assert
+        Assert.Equal(stage1, stage2);
+    }
 }

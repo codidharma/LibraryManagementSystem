@@ -22,7 +22,7 @@ public sealed class Patron : Entity
     public PatronType PatronType { get; }
 
     public List<Document> Documents => _documents;
-    public AccessId AccessId { get; }
+    public AccessId AccessId { get; private set; }
 
     public KycStatus KycStatus { get; private set; }
 
@@ -126,6 +126,19 @@ public sealed class Patron : Entity
         _documents.Add(document);
         OnboardingStage = OnboardingStage.DocumentAdded;
 
+        return Result.Success();
+    }
+
+    public Result SetAccessId(Guid accessId)
+    {
+
+        Result<AccessId> accessIdCreateResult = AccessId.Create(accessId);
+        if (accessIdCreateResult.IsFailure)
+        {
+            return Result.Failure(accessIdCreateResult.Error);
+        }
+        AccessId = accessIdCreateResult.Value;
+        OnboardingStage = OnboardingStage.Completed;
         return Result.Success();
     }
 

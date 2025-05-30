@@ -1,4 +1,6 @@
-﻿namespace LMS.Modules.Membership.UnitTests.DomainTests;
+﻿using LMS.Modules.Membership.Domain.PatronAggregate.Constants;
+
+namespace LMS.Modules.Membership.UnitTests.DomainTests;
 
 public class PatronTests : PatronTestBase
 {
@@ -313,5 +315,43 @@ public class PatronTests : PatronTestBase
         Assert.Equal(KycCompleted, patron.KycStatus);
         Assert.Equal(PatronActive, patron.Status);
         Assert.Equal(DocumentsVerified, patron.OnboardingStage);
+    }
+
+    [Fact]
+    public void SetAccessId_Should_SetTheAccessIdAndCompleteOnboarding()
+    {
+        //Arrange
+        Guid accessId = Guid.NewGuid();
+        Patron patron = RegularPatron;
+
+        //Act
+        Result setAccessIdResult = patron.SetAccessId(accessId);
+
+        //Assert
+        Assert.True(setAccessIdResult.IsSuccess);
+        Assert.False(setAccessIdResult.IsFailure);
+        Assert.Equal(accessId, patron.AccessId.Value);
+        Assert.Equal(Completed, patron.OnboardingStage);
+    }
+
+    [Fact]
+    public void ForEmptyAccessId_SetAccessId_Should_ReturnFailureResult()
+    {
+        //Arrange
+        string errorCode = ErrorCodes.InvalidDomainValue;
+        string errorDescription = "Invalid AccessId. Guid can not comprise of zeros only.";
+        Guid accessId = Guid.Empty;
+        Patron patron = RegularPatron;
+
+        //Act
+        Result setAccessIdResult = patron.SetAccessId(accessId);
+
+        //Asser
+        Assert.True(setAccessIdResult.IsFailure);
+        Assert.False(setAccessIdResult.IsSuccess);
+        Error error = setAccessIdResult.Error;
+        Assert.Equal(errorCode, error.Code);
+        Assert.Equal(errorDescription, error.Description);
+        Assert.Equal(ErrorType.InvalidDomain, error.ErrorType);
     }
 }
