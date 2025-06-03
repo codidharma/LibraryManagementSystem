@@ -8,4 +8,5 @@ public static class EndpointNamesConstants
     public const string GetAddressByPatronId = nameof(GetAddressByPatronId);
     public const string AddDocuments = nameof(AddDocuments);
     public const string GenerateCredentials = nameof(GenerateCredentials);
+    public const string GetDocumentById = nameof(GetDocumentById);
 }

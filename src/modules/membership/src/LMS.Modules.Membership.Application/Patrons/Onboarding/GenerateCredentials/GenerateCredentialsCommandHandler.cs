@@ -21,8 +21,10 @@ public sealed class GenerateCredentialsCommandHandler : ICommandHandler<Generate
     }
     public async Task<Result<CommandResponse>> HandleAsync(GenerateCredentialsCommand command, CancellationToken cancellationToken)
     {
+        EntityId patronId = new(command.PatronId);
+
         Patron? patron = await _patronRepository
-            .GetByIdAsync(command.PatronId, cancellationToken);
+            .GetPatronByIdAsync(patronId, cancellationToken);
 
         if (patron is null)
         {

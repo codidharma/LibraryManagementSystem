@@ -20,15 +20,14 @@ public sealed class GetAddressByPatronIdQueryHandler : IQueryHandler<Guid, Resul
     {
         _logger.LogInformation("Starting process {Name}", nameof(GetAddressByPatronIdQueryHandler));
 
-        Patron? patron = await _patronRepository.GetByIdAsync(patronId, cancellationToken);
+        EntityId id = new(patronId);
+        Patron? patron = await _patronRepository.GetPatronByIdAsync(id, cancellationToken);
 
         if (patron is null)
         {
             Error error = Error.NotFound("Membership.NotFound", $"The patron with id {patronId.ToString()} was not found.");
             return Result.Failure<GetAddressByPatronIdQueryResponse>(error);
         }
-
-
 
         if (patron.KycStatus == KycStatus.Pending)
         {

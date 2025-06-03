@@ -13,7 +13,8 @@ public sealed class GetPatronByIdQueryHandler : IQueryHandler<Guid, Result<GetPa
     }
     public async Task<Result<GetPatronByIdQueryResponse>> HandleAsync(Guid id, CancellationToken cancellationToken)
     {
-        Patron? patron = await _patronRepository.GetByIdAsync(id, cancellationToken);
+        EntityId patronId = new(id);
+        Patron? patron = await _patronRepository.GetPatronByIdAsync(patronId, cancellationToken);
 
         if (patron is null)
         {

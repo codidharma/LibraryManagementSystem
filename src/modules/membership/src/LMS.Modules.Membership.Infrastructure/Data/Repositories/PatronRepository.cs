@@ -17,10 +17,16 @@ internal sealed class PatronRepository : IPatronRepository
         _context.Patrons.Add(patron);
     }
 
-    public async Task<Patron?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<Document?> GetDocumentByIdAsync(EntityId id, CancellationToken cancellationToken = default)
     {
-        EntityId patronId = new(id);
-        Patron? patron = await _context.Patrons.SingleOrDefaultAsync(p => p.Id == patronId, cancellationToken);
+        Document? document = await _context.Documents.SingleOrDefaultAsync(d => d.Id == id, cancellationToken);
+
+        return document;
+    }
+
+    public async Task<Patron?> GetPatronByIdAsync(EntityId id, CancellationToken cancellationToken = default)
+    {
+        Patron? patron = await _context.Patrons.SingleOrDefaultAsync(p => p.Id == id, cancellationToken);
         return patron;
     }
 

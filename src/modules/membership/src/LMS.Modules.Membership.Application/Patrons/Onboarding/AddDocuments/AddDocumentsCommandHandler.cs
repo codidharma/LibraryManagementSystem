@@ -24,7 +24,9 @@ public sealed class AddDocumentsCommandHandler : ICommandHandler<AddDocumentsCom
     }
     public async Task<Result> HandleAsync(AddDocumentsCommand command, CancellationToken cancellationToken)
     {
-        Patron? patron = await _patronRepository.GetByIdAsync(command.PatronId, cancellationToken);
+        EntityId patronId = new(command.PatronId);
+
+        Patron? patron = await _patronRepository.GetPatronByIdAsync(patronId, cancellationToken);
 
         if (patron is null)
         {

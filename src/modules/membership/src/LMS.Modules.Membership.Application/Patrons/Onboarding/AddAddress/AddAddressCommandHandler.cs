@@ -21,8 +21,8 @@ internal sealed class AddAddressCommandHandler : ICommandHandler<AddAddressComma
     }
     public async Task<Result> HandleAsync(AddAddressCommand command, CancellationToken cancellationToken)
     {
-
-        Patron? patron = await _patronRepository.GetByIdAsync(command.PatronId, cancellationToken);
+        EntityId patronId = new(command.PatronId);
+        Patron? patron = await _patronRepository.GetPatronByIdAsync(patronId, cancellationToken);
 
         if (patron is null)
         {
