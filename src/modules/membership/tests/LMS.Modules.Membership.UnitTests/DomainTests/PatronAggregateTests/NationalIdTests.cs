@@ -1,4 +1,4 @@
-﻿namespace LMS.Modules.Membership.UnitTests.DomainTests;
+﻿namespace LMS.Modules.Membership.UnitTests.DomainTests.PatronAggregateTests;
 
 public class NationalIdTests
 {

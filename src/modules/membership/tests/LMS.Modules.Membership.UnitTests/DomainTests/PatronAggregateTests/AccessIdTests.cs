@@ -1,4 +1,4 @@
-﻿namespace LMS.Modules.Membership.UnitTests.DomainTests;
+﻿namespace LMS.Modules.Membership.UnitTests.DomainTests.PatronAggregateTests;
 
 public class AccessIdTests
 {
@@ -6,7 +6,7 @@ public class AccessIdTests
     public void Create_ShouldReturn_SuccessResult()
     {
         //Arrange
-        Guid value = Guid.NewGuid();
+        var value = Guid.NewGuid();
 
         //Act
         Result<AccessId> accessIdResult = AccessId.Create(value);

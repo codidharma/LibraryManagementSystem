@@ -1,4 +1,4 @@
-﻿namespace LMS.Modules.Membership.UnitTests.DomainTests;
+﻿namespace LMS.Modules.Membership.UnitTests.DomainTests.PatronAggregateTests;
 
 public class DocumentTests
 {
@@ -6,7 +6,7 @@ public class DocumentTests
     public void Create_ShouldReturn_PdfDocumentInstance()
     {
         //Arrange
-        Domain.PatronAggregate.DocumentType documentType = DocumentType.PersonalIdentification;
+        DocumentType documentType = DocumentType.PersonalIdentification;
         string sampleData = "This is sample text";
         DocumentContentType contentType = DocumentContentType.Pdf;
         Name name = Name.Create("IdentityCard.pdf").Value;

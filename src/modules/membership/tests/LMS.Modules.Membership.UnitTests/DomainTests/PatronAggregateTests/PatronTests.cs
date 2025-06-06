@@ -1,6 +1,6 @@
 ﻿using LMS.Modules.Membership.Domain.PatronAggregate.Constants;
 
-namespace LMS.Modules.Membership.UnitTests.DomainTests;
+namespace LMS.Modules.Membership.UnitTests.DomainTests.PatronAggregateTests;
 
 public class PatronTests : PatronTestBase
 {
@@ -64,7 +64,7 @@ public class PatronTests : PatronTestBase
     public void AddAddress_ShouldAdd_AddressToThePatronInstance()
     {
         //Arrange
-        Domain.PatronAggregate.Address address = Domain.PatronAggregate.Address.Create(Faker.Address.BuildingNumber(),
+        Address address = Address.Create(Faker.Address.BuildingNumber(),
             Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
@@ -80,7 +80,7 @@ public class PatronTests : PatronTestBase
         Assert.True(addAddressResult.IsSuccess);
         Assert.False(addAddressResult.IsFailure);
 
-        Domain.PatronAggregate.Address patronAddress = patron.Address;
+        Address patronAddress = patron.Address;
         Assert.Equal(address, patronAddress);
         Assert.Equal(KycInProgress, patron.KycStatus);
         Assert.Equal(PatronInActive, patron.Status);
@@ -95,7 +95,7 @@ public class PatronTests : PatronTestBase
         string expectedErrorMessage = $"The value for property {nameof(Address.ZipCode)} is not allowed.";
         string expectedErrorCode = "Membership.InvalidDomainValue";
 
-        Domain.PatronAggregate.Address address = Domain.PatronAggregate.Address.Create(Faker.Address.BuildingNumber(),
+        Address address = Address.Create(Faker.Address.BuildingNumber(),
             Faker.Address.StreetName(),
             Faker.Address.City(),
             Faker.Address.State(),
@@ -138,7 +138,7 @@ public class PatronTests : PatronTestBase
     public void ForRegularPatron_VerifyDocuments_ShouldReturn_FailureResult_WhenPersonalIdentificationIsNotProvided()
     {
         //Arrange
-        string expectedErrorMessage = $"Document of type {Domain.PatronAggregate.DocumentType.PersonalIdentification.Name} is mandatory.";
+        string expectedErrorMessage = $"Document of type {DocumentType.PersonalIdentification.Name} is mandatory.";
         string expectedErrorCode = "Membership.InvalidDomainValue";
         Patron patron = RegularPatron;
 
@@ -164,13 +164,13 @@ public class PatronTests : PatronTestBase
     public void ForRegularPatron_VerifyDocuments_ShouldReturn_FailureResult_WhenAddressProofIsNotProvided()
     {
         //Arrange
-        string expectedErrorMessage = $"Document of type {Domain.PatronAggregate.DocumentType.AddressProof.Name} is mandatory.";
+        string expectedErrorMessage = $"Document of type {DocumentType.AddressProof.Name} is mandatory.";
         string expectedErrorCode = "Membership.InvalidDomainValue";
         Patron patron = RegularPatron;
 
 
         //Act
-        foreach (Domain.PatronAggregate.Document document in PersonalIdentificationDocuments)
+        foreach (Document document in PersonalIdentificationDocuments)
         {
             patron.AddDocument(document);
         }
@@ -194,7 +194,7 @@ public class PatronTests : PatronTestBase
     public void ForResearchPatron_VerifyDocuments_ShouldReturn_FailureResult_WhenPersonalIdentificationIsNotProvided()
     {
         //Arrange
-        string expectedErrorMessage = $"Document of type {Domain.PatronAggregate.DocumentType.PersonalIdentification.Name} is mandatory.";
+        string expectedErrorMessage = $"Document of type {DocumentType.PersonalIdentification.Name} is mandatory.";
         string expectedErrorCode = "Membership.InvalidDomainValue";
         Patron patron = ResearchPatron;
 
@@ -219,13 +219,13 @@ public class PatronTests : PatronTestBase
     public void ForResearchPatron_VerifyDocuments_ShouldReturn_FailureResult_WhenAddressProofIsNotProvided()
     {
         //Arrange
-        string expectedErrorMessage = $"Document of type {Domain.PatronAggregate.DocumentType.AddressProof.Name} is mandatory.";
+        string expectedErrorMessage = $"Document of type {DocumentType.AddressProof.Name} is mandatory.";
         string expectedErrorCode = "Membership.InvalidDomainValue";
         Patron patron = ResearchPatron;
 
 
         //Act
-        foreach (Domain.PatronAggregate.Document document in ResearchPatronMissingAddressProofDocuments)
+        foreach (Document document in ResearchPatronMissingAddressProofDocuments)
         {
             patron.AddDocument(document);
         }
@@ -254,7 +254,7 @@ public class PatronTests : PatronTestBase
 
 
         //Act
-        foreach (Domain.PatronAggregate.Document document in ResearchPatronMissingAcademicsDocuments)
+        foreach (Document document in ResearchPatronMissingAcademicsDocuments)
         {
             patron.AddDocument(document);
 
@@ -280,7 +280,7 @@ public class PatronTests : PatronTestBase
         //Arrange
         Patron patron = RegularPatron;
 
-        foreach (Domain.PatronAggregate.Document document in RegularPatronOnboardingDocuments)
+        foreach (Document document in RegularPatronOnboardingDocuments)
         {
             patron.AddDocument(document);
         }
@@ -301,7 +301,7 @@ public class PatronTests : PatronTestBase
         //Arrange
         Patron patron = ResearchPatron;
 
-        foreach (Domain.PatronAggregate.Document document in ResearchPatronOnboardingDocuments)
+        foreach (Document document in ResearchPatronOnboardingDocuments)
         {
             patron.AddDocument(document);
         }
@@ -321,7 +321,7 @@ public class PatronTests : PatronTestBase
     public void SetAccessId_Should_SetTheAccessIdAndCompleteOnboarding()
     {
         //Arrange
-        Guid accessId = Guid.NewGuid();
+        var accessId = Guid.NewGuid();
         Patron patron = RegularPatron;
 
         //Act

@@ -1,7 +1,7 @@
 ﻿using LMS.Modules.Membership.UnitTests.Base;
 using LMS.Modules.Membership.UnitTests.Helpers;
 
-namespace LMS.Modules.Membership.UnitTests.DomainTests;
+namespace LMS.Modules.Membership.UnitTests.DomainTests.PatronAggregateTests;
 
 public class AddressTests : TestBase
 {
