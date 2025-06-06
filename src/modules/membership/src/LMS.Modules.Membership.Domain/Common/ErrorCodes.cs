@@ -1,4 +1,4 @@
-﻿namespace LMS.Modules.Membership.Domain.PatronAggregate.Constants;
+﻿namespace LMS.Modules.Membership.Domain.Common;
 
 public static class ErrorCodes
 {

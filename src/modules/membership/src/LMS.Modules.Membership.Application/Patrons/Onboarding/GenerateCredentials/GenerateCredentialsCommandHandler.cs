@@ -2,8 +2,8 @@
 using LMS.Common.Application.Handlers;
 using LMS.Common.Domain;
 using LMS.Modules.Membership.Application.Common.Identity;
+using LMS.Modules.Membership.Domain.Common;
 using LMS.Modules.Membership.Domain.PatronAggregate;
-using LMS.Modules.Membership.Domain.PatronAggregate.Constants;
 
 namespace LMS.Modules.Membership.Application.Patrons.Onboarding.GenerateCredentials;
 

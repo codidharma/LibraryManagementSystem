@@ -1,6 +1,5 @@
 ﻿using LMS.Common.Domain;
 using LMS.Modules.Membership.Domain.Common;
-using LMS.Modules.Membership.Domain.PatronAggregate.Constants;
 
 
 

@@ -1,4 +1,4 @@
-﻿using LMS.Modules.Membership.Domain.PatronAggregate.Constants;
+﻿using LMS.Modules.Membership.Domain.Common;
 
 namespace LMS.Modules.Membership.UnitTests.DomainTests.PatronAggregateTests;
 

@@ -2,4 +2,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\common\src\LMS.Common.Domain\LMS.Common.Domain.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PatronAggregate\Constants\" />
+  </ItemGroup>
 </Project>
