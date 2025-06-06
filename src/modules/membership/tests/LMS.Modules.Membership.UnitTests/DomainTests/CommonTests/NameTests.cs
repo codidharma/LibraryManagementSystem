@@ -1,6 +1,6 @@
-﻿using LMS.Modules.Membership.UnitTests.Base;
+﻿using LMS.Modules.Membership.Domain.Common;
 
-namespace LMS.Modules.Membership.UnitTests.DomainTests.PatronAggregateTests;
+namespace LMS.Modules.Membership.UnitTests.DomainTests.CommonTests;
 
 public class NameTests : TestBase
 {

@@ -1,7 +1,7 @@
 ﻿using LMS.Common.Domain;
 
 
-namespace LMS.Modules.Membership.Domain.PatronAggregate;
+namespace LMS.Modules.Membership.Domain.Common;
 
 public sealed record Name : ValueObject
 {
@@ -14,12 +14,12 @@ public sealed record Name : ValueObject
     {
         if (string.IsNullOrWhiteSpace(value))
         {
-            Error InvalidNameError = Error.InvalidDomain("Membership.InvalidDomainValue", "Name can not be null, empty or whitespace string.");
+            var InvalidNameError = Error.InvalidDomain("Membership.InvalidDomainValue", "Name can not be null, empty or whitespace string.");
             return Result.Failure<Name>(InvalidNameError);
 
         }
         Name name = new(value);
-        return Result.Success<Name>(name);
+        return Result.Success(name);
     }
     public string Value { get; }
 }

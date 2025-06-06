@@ -1,4 +1,6 @@
-﻿namespace LMS.Modules.Membership.UnitTests.DomainTests.PatronAggregateTests;
+﻿using LMS.Modules.Membership.Domain.Common;
+
+namespace LMS.Modules.Membership.UnitTests.DomainTests.PatronAggregateTests;
 
 public class DocumentTests
 {

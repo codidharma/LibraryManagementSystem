@@ -1,4 +1,5 @@
 ﻿using LMS.Common.Domain;
+using LMS.Modules.Membership.Domain.Common;
 
 namespace LMS.Modules.Membership.Domain.PatronAggregate;
 

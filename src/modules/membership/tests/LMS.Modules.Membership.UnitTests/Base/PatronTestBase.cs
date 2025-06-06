@@ -1,4 +1,6 @@
-﻿namespace LMS.Modules.Membership.UnitTests.Base;
+﻿using LMS.Modules.Membership.Domain.Common;
+
+namespace LMS.Modules.Membership.UnitTests.Base;
 
 public class PatronTestBase : TestBase
 {
