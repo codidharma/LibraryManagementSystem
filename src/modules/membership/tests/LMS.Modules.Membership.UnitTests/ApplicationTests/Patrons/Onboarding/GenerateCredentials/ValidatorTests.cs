@@ -1,7 +1,7 @@
 ﻿using FluentValidation.TestHelper;
 using LMS.Modules.Membership.Application.Patrons.Onboarding.GenerateCredentials;
 
-namespace LMS.Modules.Membership.UnitTests.ApplicationTests.Onboarding.GenerateCredentials;
+namespace LMS.Modules.Membership.UnitTests.ApplicationTests.Patrons.Onboarding.GenerateCredentials;
 
 public class ValidatorTests
 {
@@ -11,7 +11,7 @@ public class ValidatorTests
     public void ForValidCommand_Validator_ShouldReturn_IsValidAsTrue()
     {
         //Arrange
-        Guid patronId = Guid.NewGuid();
+        var patronId = Guid.NewGuid();
         GenerateCredentialsCommand command = new(patronId);
 
         //Act

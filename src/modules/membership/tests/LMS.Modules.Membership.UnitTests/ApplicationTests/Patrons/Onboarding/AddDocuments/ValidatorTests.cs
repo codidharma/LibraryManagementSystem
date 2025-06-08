@@ -3,7 +3,7 @@ using FluentValidation.TestHelper;
 using LMS.Modules.Membership.Application.Patrons.Onboarding.AddDocuments;
 using Document = LMS.Modules.Membership.Application.Patrons.Onboarding.AddDocuments.Document;
 
-namespace LMS.Modules.Membership.UnitTests.ApplicationTests.Onboarding.AddDocuments;
+namespace LMS.Modules.Membership.UnitTests.ApplicationTests.Patrons.Onboarding.AddDocuments;
 
 public class ValidatorTests
 {
@@ -54,7 +54,7 @@ public class ValidatorTests
     public void ForValidCommand_Validator_ShouldReturn_IsValidAsTrue()
     {
         //Arrange
-        Guid patronId = Guid.NewGuid();
+        var patronId = Guid.NewGuid();
         string documentName = "Passport.pdf";
         string documentType = "IdentityProof";
         string contentType = "application/pdf";

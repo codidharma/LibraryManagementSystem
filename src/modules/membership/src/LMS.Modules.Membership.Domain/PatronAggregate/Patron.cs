@@ -10,11 +10,11 @@ public sealed class Patron : Entity
 #pragma warning disable IDE0032 // Use auto property
     private readonly List<Document> _documents = [];
 #pragma warning restore IDE0032 // Use auto property
-    public Name Name { get; }
+    public Name Name { get; private set; }
     public Gender Gender { get; }
     public DateOfBirth DateOfBirth { get; }
 
-    public Email Email { get; }
+    public Email Email { get; private set; }
 
     public NationalId NationalId { get; }
     public Address Address { get; private set; }
@@ -142,6 +142,13 @@ public sealed class Patron : Entity
         return Result.Success();
     }
 
+    public Result UpdatePersonalInformation(Name name, Email email)
+    {
+        Name = name;
+        Email = email;
+
+        return Result.Success();
+    }
 
     private static bool IsPersonalIdentificationDocumentAvailable(List<Document> identityDocuments)
     {

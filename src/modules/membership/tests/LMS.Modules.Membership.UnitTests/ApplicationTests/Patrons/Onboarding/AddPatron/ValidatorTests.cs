@@ -1,7 +1,7 @@
 ﻿using FluentValidation.TestHelper;
 using LMS.Modules.Membership.Application.Patrons.Onboarding.AddPatron;
 
-namespace LMS.Modules.Membership.UnitTests.ApplicationTests.Onboarding.AddPatron;
+namespace LMS.Modules.Membership.UnitTests.ApplicationTests.Patrons.Onboarding.AddPatron;
 
 public class ValidatorTests : TestBase
 {
@@ -41,7 +41,7 @@ public class ValidatorTests : TestBase
         DateTime dateOfBirth = DateTime.Now;
 
         //Act
-        AddPatronCommand command = new AddPatronCommand(name, gender, dateOfBirth, email, nationalId, patronType);
+        var command = new AddPatronCommand(name, gender, dateOfBirth, email, nationalId, patronType);
         TestValidationResult<AddPatronCommand> result = _validator.TestValidate(command);
 
         //Arrange

@@ -1,7 +1,7 @@
 ﻿using FluentValidation.TestHelper;
 using LMS.Modules.Membership.Application.Patrons.Onboarding.AddAddress;
 
-namespace LMS.Modules.Membership.UnitTests.ApplicationTests.Onboarding.AddAddress;
+namespace LMS.Modules.Membership.UnitTests.ApplicationTests.Patrons.Onboarding.AddAddress;
 
 public class ValidatorTests : TestBase
 {
@@ -11,7 +11,7 @@ public class ValidatorTests : TestBase
     public void ForValidCommand_Validator_ShouldReturn_IsValidAsTrue()
     {
         //Arrange
-        Guid patronId = Guid.NewGuid();
+        var patronId = Guid.NewGuid();
         string buildingNumber = Faker.Address.BuildingNumber().ToString();
         string streetName = Faker.Address.StreetName().ToString();
         string city = Faker.Address.City().ToString();

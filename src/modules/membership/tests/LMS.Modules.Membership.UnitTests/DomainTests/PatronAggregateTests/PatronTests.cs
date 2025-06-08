@@ -354,4 +354,24 @@ public class PatronTests : PatronTestBase
         Assert.Equal(errorDescription, error.Description);
         Assert.Equal(ErrorType.InvalidDomain, error.ErrorType);
     }
+
+    [Fact]
+    public void UpdatePersonalInformation_ShouldReturn_SuccessResult()
+    {
+        //Arrange
+        string name = Faker.Person.FullName;
+        Name toBeUpdatedName = Name.Create(name).Value;
+        string email = Faker.Person.Email;
+        Email toBeUpdatedEmail = Email.Create(email).Value;
+        Patron patron = RegularPatron;
+
+        //Act
+        Result updateResult = patron.UpdatePersonalInformation(toBeUpdatedName, toBeUpdatedEmail);
+
+        //Assert
+        Assert.True(updateResult.IsSuccess);
+        Assert.False(updateResult.IsFailure);
+        Assert.Equal(toBeUpdatedName, patron.Name);
+        Assert.Equal(toBeUpdatedEmail, patron.Email);
+    }
 }
