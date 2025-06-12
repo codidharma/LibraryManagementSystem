@@ -5,11 +5,11 @@ namespace LMS.Common.Api.Tests;
 public class HypermediaLinkTests
 {
     [Theory]
-    [InlineData(HttpMethodConstants.Get)]
-    [InlineData(HttpMethodConstants.Post)]
-    [InlineData(HttpMethodConstants.Put)]
-    [InlineData(HttpMethodConstants.Patch)]
-    [InlineData(HttpMethodConstants.Delete)]
+    [InlineData("GET")]
+    [InlineData("POST")]
+    [InlineData("PUT")]
+    [InlineData("PATCH")]
+    [InlineData("DELETE")]
     public void New_Returns_ValidHypermediaLinkInstance(string method)
     {
         //Arrange

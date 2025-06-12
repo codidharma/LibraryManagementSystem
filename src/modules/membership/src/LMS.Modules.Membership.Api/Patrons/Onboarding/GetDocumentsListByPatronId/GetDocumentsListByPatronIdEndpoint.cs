@@ -35,7 +35,7 @@ internal sealed class GetDocumentsListByPatronIdEndpoint : IEndpoint
                             EndpointNames.GetDocumentById, values: new
                             { patronId = id.ToString(), documentId = metadata.DocumentId.ToString() })!,
                         Rel: EndpointNames.GetDocumentById,
-                        Method: HttpMethodConstants.Get);
+                        Method: HttpMethods.Get);
 
                     documentInformations.Add(information);
                 }

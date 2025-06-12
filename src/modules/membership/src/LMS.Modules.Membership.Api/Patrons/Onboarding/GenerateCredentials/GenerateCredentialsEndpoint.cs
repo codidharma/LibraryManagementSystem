@@ -30,7 +30,7 @@ internal sealed class GenerateCredentialsEndpoint : IEndpoint
                     new(linkGenerator.GetUriByName(
                         httpContext,
                         EndpointNames.GetPatronById,
-                        values: new{id = id.ToString() })!, EndpointNames.GetPatronById, HttpMethodConstants.Get),
+                        values: new{id = id.ToString() })!, EndpointNames.GetPatronById, HttpMethods.Get),
                     ];
 
                 response.Links = links;

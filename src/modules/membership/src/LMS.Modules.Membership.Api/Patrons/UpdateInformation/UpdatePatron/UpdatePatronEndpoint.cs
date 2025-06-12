@@ -31,7 +31,7 @@ internal sealed class UpdatePatronEndpoint : IEndpoint
                     new(linkGenerator.GetUriByName(
                         httpContext,
                         EndpointNames.GetPatronById,
-                        values: new{id = id.ToString() })!, "self", HttpMethodConstants.Get),
+                        values: new{id = id.ToString() })!, "self", HttpMethods.Get),
                     ];
                 BaseResponse response = new()
                 {

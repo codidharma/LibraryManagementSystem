@@ -33,11 +33,11 @@ internal sealed class AddPatronEndpoint : IEndpoint
                     new(linkGenerator.GetUriByName(
                         httpContext,
                         EndpointNames.GetPatronById,
-                        values: new{id = response.Id.ToString() })!, "self", HttpMethodConstants.Get),
+                        values: new{id = response.Id.ToString() })!, "self", HttpMethods.Get),
                     new(linkGenerator.GetUriByName(
                         httpContext,
                         EndpointNames.AddAddress,
-                        values: new{id = response.Id.ToString() })!, EndpointNames.AddAddress, HttpMethodConstants.Put)
+                        values: new{id = response.Id.ToString() })!, EndpointNames.AddAddress, HttpMethods.Put)
 
                     ];
 

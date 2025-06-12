@@ -30,12 +30,12 @@ internal sealed class AddAddressEndpoint : IEndpoint
                     new(linkGenerator.GetUriByName(
                         httpContext,
                         EndpointNames.GetAddressByPatronId,
-                        values: new { id = id.ToString()})!, "Self", HttpMethodConstants.Get),
+                        values: new { id = id.ToString()})!, "Self", HttpMethods.Get),
 
                     new(linkGenerator.GetUriByName(
                         httpContext,
                         EndpointNames.AddDocuments,
-                        values: new { id = id.ToString()})!, EndpointNames.AddDocuments, HttpMethodConstants.Put)
+                        values: new { id = id.ToString()})!, EndpointNames.AddDocuments, HttpMethods.Put)
 
                     ];
                 BaseResponse response = new() { Links = links };
