@@ -16,7 +16,9 @@ internal sealed class AddDocumentsEndpoint : IEndpoint
         app.MapPut("/memberships/onboarding/patrons/{id}/documents", async (
             Guid id,
             [FromForm] IFormFileCollection formFiles,
-            ICommandDispatcher dispatcher
+            ICommandDispatcher dispatcher,
+            HttpContext httpContext,
+            LinkGenerator linkGenerator
             ) =>
         {
             List<Document> documents = [];
@@ -30,7 +32,22 @@ internal sealed class AddDocumentsEndpoint : IEndpoint
             AddDocumentsCommand command = new(id, documents);
 
             Result result = await dispatcher.DispatchAsync<AddDocumentsCommand, Result>(command, default);
-            return result.Match(Results.NoContent, ProblemFactory.Create);
+
+            if (result.IsSuccess)
+            {
+                BaseResponse baseResponse = new()
+                {
+                    Links = [
+                        new(
+                            Href:linkGenerator.GetUriByName(httpContext, EndpointNames.GetDocumentsListByPatronId, values: new{ id = id.ToString()})!,
+                            Rel: EndpointNames.GetDocumentsListByPatronId,
+                            Method:HttpMethods.Get
+                            )
+                        ]
+                };
+                return TypedResults.Ok(baseResponse);
+            }
+            return ProblemFactory.Create(result);
 
         })
             .WithName(EndpointNames.AddDocuments)

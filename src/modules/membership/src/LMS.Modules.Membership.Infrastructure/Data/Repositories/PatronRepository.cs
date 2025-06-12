@@ -27,6 +27,16 @@ internal sealed class PatronRepository : IPatronRepository
         return document;
     }
 
+    public async Task<Patron?> GetPatronWithDocumentsAsync(EntityId id, CancellationToken cancellationToken = default)
+    {
+        Patron? patron = await _context
+            .Patrons
+            .Include(p => p.Documents)
+            .SingleOrDefaultAsync(p => p.Id == id, cancellationToken);
+
+        return patron;
+    }
+
     public async Task<Patron?> GetPatronByIdAsync(EntityId id, CancellationToken cancellationToken = default)
     {
         Patron? patron = await _context.Patrons.SingleOrDefaultAsync(p => p.Id == id, cancellationToken);

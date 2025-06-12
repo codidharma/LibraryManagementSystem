@@ -10,4 +10,5 @@ public static class EndpointNames
     public const string AddDocuments = nameof(AddDocuments);
     public const string GenerateCredentials = nameof(GenerateCredentials);
     public const string GetDocumentById = nameof(GetDocumentById);
+    public const string GetDocumentsListByPatronId = nameof(GetDocumentsListByPatronId);
 }
