@@ -13,9 +13,8 @@ internal sealed class AddAddressEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPut("/membership/onboarding/patron/{id:guid}/address", async (
-            [FromHeader(Name = "tracking-id")] string trackingId,
-            [FromRoute] Guid id,
+        app.MapPut("/memberships/onboarding/patrons/{id:guid}/addresses", async (
+            Guid id,
             [FromBody] Request request,
             ICommandDispatcher dispatcher,
             HttpContext httpContext,
@@ -30,13 +29,13 @@ internal sealed class AddAddressEndpoint : IEndpoint
 
                     new(linkGenerator.GetUriByName(
                         httpContext,
-                        EndpointNamesConstants.GetAddressByPatronId,
+                        EndpointNames.GetAddressByPatronId,
                         values: new { id = id.ToString()})!, "Self", HttpMethodConstants.Get),
 
                     new(linkGenerator.GetUriByName(
                         httpContext,
-                        EndpointNamesConstants.AddDocuments,
-                        values: new { id = id.ToString()})!, EndpointNamesConstants.AddDocuments, HttpMethodConstants.Put)
+                        EndpointNames.AddDocuments,
+                        values: new { id = id.ToString()})!, EndpointNames.AddDocuments, HttpMethodConstants.Put)
 
                     ];
                 BaseResponse response = new() { Links = links };
@@ -45,7 +44,7 @@ internal sealed class AddAddressEndpoint : IEndpoint
             }
             return ProblemFactory.Create(addAddressResult);
         })
-            .WithName(EndpointNamesConstants.AddAddress)
+            .WithName(EndpointNames.AddAddress)
             .WithTags(Tags.Membership);
     }
 }

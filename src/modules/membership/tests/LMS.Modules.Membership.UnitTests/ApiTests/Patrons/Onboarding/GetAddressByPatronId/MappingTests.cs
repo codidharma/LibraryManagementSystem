@@ -1,4 +1,4 @@
-﻿using LMS.Modules.Membership.Api.Patrons.Onboarding.GetAddressByPatronId;
+﻿using LMS.Modules.Membership.Api.Patrons.Common.GetAddressByPatronId;
 using LMS.Modules.Membership.Application.Patrons.Onboarding.GetAddressByPatronId;
 
 namespace LMS.Modules.Membership.UnitTests.ApiTests.Patrons.Onboarding.GetAddressByPatronId;

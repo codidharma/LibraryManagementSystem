@@ -1,4 +1,4 @@
-﻿namespace LMS.Modules.Membership.Api.Patrons.Onboarding.GetPatronById;
+﻿namespace LMS.Modules.Membership.Api.Patrons.Common.GetPatronById;
 
 internal sealed record Response(
     Guid Id,

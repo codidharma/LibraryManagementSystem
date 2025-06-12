@@ -13,16 +13,36 @@ internal sealed class UpdatePatronEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPatch("/membership/updateinformation/patrons/{id}", async (
+        app.MapPatch("/memberships/updateinformation/patrons/{id}", async (
             Guid id,
             [FromBody] Request request,
-            ICommandDispatcher dispatcher) =>
+            ICommandDispatcher dispatcher,
+            HttpContext httpContext,
+            LinkGenerator linkGenerator) =>
         {
             UpdatePatronCommand command = request.ToCommand(id);
             Result updateResult = await dispatcher.DispatchAsync<UpdatePatronCommand, Result>(command, default);
 
-            return updateResult.Match(Results.NoContent, ProblemFactory.Create);
+            if (updateResult.IsSuccess)
+            {
+
+                List<HypermediaLink> links = [
+
+                    new(linkGenerator.GetUriByName(
+                        httpContext,
+                        EndpointNames.GetPatronById,
+                        values: new{id = id.ToString() })!, "self", HttpMethodConstants.Get),
+                    ];
+                BaseResponse response = new()
+                {
+                    Links = links
+                };
+
+                return TypedResults.Ok(response);
+            }
+
+            return ProblemFactory.Create(updateResult);
         })
-            .WithName("UpdatePatron");
+            .WithName(EndpointNames.UpdatePatron);
     }
 }

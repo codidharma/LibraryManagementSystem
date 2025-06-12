@@ -1,6 +1,6 @@
 ﻿using LMS.Modules.Membership.Application.Patrons.Onboarding.GetAddressByPatronId;
 
-namespace LMS.Modules.Membership.Api.Patrons.Onboarding.GetAddressByPatronId;
+namespace LMS.Modules.Membership.Api.Patrons.Common.GetAddressByPatronId;
 
 internal static class MappingExtensions
 {

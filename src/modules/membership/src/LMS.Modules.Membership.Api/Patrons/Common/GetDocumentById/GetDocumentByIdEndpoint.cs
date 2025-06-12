@@ -4,18 +4,17 @@ using LMS.Common.Domain;
 using LMS.Modules.Membership.Application.Patrons.Onboarding.GetDocumentById;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
-namespace LMS.Modules.Membership.Api.Patrons.Onboarding.GetDocumentById;
+namespace LMS.Modules.Membership.Api.Patrons.Common.GetDocumentById;
 
 internal sealed class GetDocumentByIdEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("/membership/onboarding/patron/{patronId}/documents/{documentId}", async (
-            [FromRoute] Guid patronId,
-            [FromRoute] Guid documentId,
+        app.MapGet("/memberships/patrons/{patronId}/documents/{documentId}", async (
+            Guid patronId,
+            Guid documentId,
             HttpContext httpContext,
             IQueryDispatcher dispatcher
             ) =>
@@ -34,9 +33,9 @@ internal sealed class GetDocumentByIdEndpoint : IEndpoint
             }
             return ProblemFactory.Create(result);
         })
-            .WithName(EndpointNamesConstants.GetDocumentById)
+            .WithName(EndpointNames.GetDocumentById)
             .WithTags(Tags.Membership)
             .WithDescription("Get document using document id for the patron.")
-            .WithDisplayName(EndpointNamesConstants.GetDocumentById);
+            .WithDisplayName(EndpointNames.GetDocumentById);
     }
 }

@@ -1,5 +1,5 @@
 ﻿
-using LMS.Modules.Membership.Api.Patrons.Onboarding.GetPatronById;
+using LMS.Modules.Membership.Api.Patrons.Common.GetPatronById;
 using LMS.Modules.Membership.Application.Patrons.Onboarding.GetPatronById;
 
 namespace LMS.Modules.Membership.UnitTests.ApiTests.Patrons.Onboarding.GetPatronById;

@@ -13,8 +13,8 @@ internal sealed class AddDocumentsEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPut("/membership/onboarding/patron/{id}/documents", async (
-            [FromRoute] Guid id,
+        app.MapPut("/memberships/onboarding/patrons/{id}/documents", async (
+            Guid id,
             [FromForm] IFormFileCollection formFiles,
             ICommandDispatcher dispatcher
             ) =>
@@ -33,7 +33,7 @@ internal sealed class AddDocumentsEndpoint : IEndpoint
             return result.Match(Results.NoContent, ProblemFactory.Create);
 
         })
-            .WithName(EndpointNamesConstants.AddDocuments)
+            .WithName(EndpointNames.AddDocuments)
             .AllowAnonymous()
             .WithTags(Tags.Membership)
             .DisableAntiforgery();

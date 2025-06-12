@@ -4,16 +4,15 @@ using LMS.Common.Domain;
 using LMS.Modules.Membership.Application.Patrons.Onboarding.GetAddressByPatronId;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
-namespace LMS.Modules.Membership.Api.Patrons.Onboarding.GetPatronById;
+namespace LMS.Modules.Membership.Api.Patrons.Common.GetAddressByPatronId;
 
 internal sealed class GetAddressByPatronIdEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("/membership/onboarding/patron/{id}/address", async ([FromRoute] Guid id, IQueryDispatcher dispatcher) =>
+        app.MapGet("/memberships/patrons/{id}/address", async (Guid id, IQueryDispatcher dispatcher) =>
         {
 
             Result<GetAddressByPatronIdQueryResponse> queryResponseResult = await dispatcher
@@ -23,7 +22,7 @@ internal sealed class GetAddressByPatronIdEndpoint : IEndpoint
             return queryResponseResult.Match(Results.Ok, ProblemFactory.Create);
         })
         .AllowAnonymous()
-        .WithName(EndpointNamesConstants.GetAddressByPatronId)
+        .WithName(EndpointNames.GetAddressByPatronId)
         .WithTags(Tags.Membership);
     }
 }

@@ -4,6 +4,7 @@ using LMS.Common.Domain;
 using LMS.Modules.Membership.Application.Patrons.Onboarding.AddPatron;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
 namespace LMS.Modules.Membership.Api.Patrons.Onboarding.AddPatron;
@@ -12,11 +13,11 @@ internal sealed class AddPatronEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("/membership/onboarding/patron", async (
-            Request request,
+        app.MapPost("/memberships/onboarding/patrons", async (
+            [FromBody] Request request,
             ICommandDispatcher dispatcher,
             HttpContext httpContext,
-            LinkGenerator linkGerneator) =>
+            LinkGenerator linkGenerator) =>
         {
             AddPatronCommand command = request.ToCommand();
 
@@ -29,14 +30,14 @@ internal sealed class AddPatronEndpoint : IEndpoint
 
                 List<HypermediaLink> links = [
 
-                    new(linkGerneator.GetUriByName(
+                    new(linkGenerator.GetUriByName(
                         httpContext,
-                        EndpointNamesConstants.GetPatronById,
+                        EndpointNames.GetPatronById,
                         values: new{id = response.Id.ToString() })!, "self", HttpMethodConstants.Get),
-                    new(linkGerneator.GetUriByName(
+                    new(linkGenerator.GetUriByName(
                         httpContext,
-                        EndpointNamesConstants.AddAddress,
-                        values: new{id = response.Id.ToString() })!, EndpointNamesConstants.AddAddress, HttpMethodConstants.Put)
+                        EndpointNames.AddAddress,
+                        values: new{id = response.Id.ToString() })!, EndpointNames.AddAddress, HttpMethodConstants.Put)
 
                     ];
 
@@ -48,8 +49,8 @@ internal sealed class AddPatronEndpoint : IEndpoint
         })
         .AllowAnonymous()
         .WithTags(Tags.Membership)
-        .WithName(EndpointNamesConstants.AddPatron)
-        .WithMetadata(new EndpointNameMetadata(EndpointNamesConstants.AddPatron));
+        .WithName(EndpointNames.AddPatron)
+        .WithMetadata(new EndpointNameMetadata(EndpointNames.AddPatron));
 
     }
 }

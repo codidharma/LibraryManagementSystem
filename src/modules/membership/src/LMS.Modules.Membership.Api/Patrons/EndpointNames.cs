@@ -1,8 +1,9 @@
-﻿namespace LMS.Modules.Membership.Api.Patrons.Onboarding;
+﻿namespace LMS.Modules.Membership.Api.Patrons;
 
-public static class EndpointNamesConstants
+public static class EndpointNames
 {
     public const string AddPatron = nameof(AddPatron);
+    public const string UpdatePatron = nameof(UpdatePatron);
     public const string GetPatronById = nameof(GetPatronById);
     public const string AddAddress = nameof(AddAddress);
     public const string GetAddressByPatronId = nameof(GetAddressByPatronId);

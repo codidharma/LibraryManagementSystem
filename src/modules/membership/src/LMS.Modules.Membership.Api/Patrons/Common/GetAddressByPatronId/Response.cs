@@ -1,4 +1,4 @@
-﻿namespace LMS.Modules.Membership.Api.Patrons.Onboarding.GetAddressByPatronId;
+﻿namespace LMS.Modules.Membership.Api.Patrons.Common.GetAddressByPatronId;
 
 internal sealed record Response(
     string BuildingNumber,
