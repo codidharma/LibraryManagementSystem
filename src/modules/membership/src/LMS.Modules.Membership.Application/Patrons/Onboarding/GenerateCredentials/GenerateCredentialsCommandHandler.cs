@@ -1,5 +1,4 @@
-﻿using LMS.Common.Application.Data;
-using LMS.Common.Application.Handlers;
+﻿using LMS.Common.Application.Handlers;
 using LMS.Common.Domain;
 using LMS.Modules.Membership.Application.Common.Identity;
 using LMS.Modules.Membership.Domain.Common;
@@ -11,13 +10,10 @@ public sealed class GenerateCredentialsCommandHandler : ICommandHandler<Generate
 {
     private readonly IPatronRepository _patronRepository;
     private readonly IIdentityService _identityService;
-    private readonly IUnitOfWork _unitOfWork;
-
-    public GenerateCredentialsCommandHandler(IPatronRepository patronRepository, IIdentityService identityService, IUnitOfWork unitOfWork)
+    public GenerateCredentialsCommandHandler(IPatronRepository patronRepository, IIdentityService identityService)
     {
         _patronRepository = patronRepository ?? throw new ArgumentNullException(nameof(patronRepository));
         _identityService = identityService ?? throw new ArgumentNullException(nameof(identityService));
-        _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
     }
     public async Task<Result<CommandResponse>> HandleAsync(GenerateCredentialsCommand command, CancellationToken cancellationToken)
     {
@@ -45,7 +41,7 @@ public sealed class GenerateCredentialsCommandHandler : ICommandHandler<Generate
         }
 
         _patronRepository.Update(patron);
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _patronRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
 
         CommandResponse commandResponse = new(patron.Email.Value, "SomePassword");
         return Result.Success(commandResponse);

@@ -12,6 +12,9 @@ internal sealed class PatronRepository : IPatronRepository
     {
         _context = context;
     }
+
+    public IUnitOfWork UnitOfWork => _context;
+
     public void Add(Patron patron)
     {
         _context.Patrons.Add(patron);

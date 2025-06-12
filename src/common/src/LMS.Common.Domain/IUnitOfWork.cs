@@ -1,4 +1,4 @@
-﻿namespace LMS.Common.Application.Data;
+﻿namespace LMS.Common.Domain;
 
 public interface IUnitOfWork : IDisposable
 {

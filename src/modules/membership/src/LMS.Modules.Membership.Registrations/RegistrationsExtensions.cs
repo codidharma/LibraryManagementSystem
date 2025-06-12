@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using LMS.Common.Api;
-using LMS.Common.Application.Data;
 using LMS.Common.Application.Handlers;
 using LMS.Modules.Membership.Application.Common.Identity;
 using LMS.Modules.Membership.Domain.PatronAggregate;
@@ -32,7 +31,6 @@ public static class RegistrationsExtensions
                 ?? throw new InvalidOperationException("Connection string 'lmsdb' not found."),
                 npgSqlOptions => npgSqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schema.Name));
         });
-        services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<MembershipDbContext>());
         services.AddScoped<IPatronRepository, PatronRepository>();
         services.AddScoped<IIdentityService, IdentityService>();
     }

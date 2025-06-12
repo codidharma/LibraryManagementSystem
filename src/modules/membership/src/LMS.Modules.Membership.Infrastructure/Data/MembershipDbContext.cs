@@ -1,4 +1,4 @@
-﻿using LMS.Common.Application.Data;
+﻿using LMS.Common.Domain;
 using LMS.Modules.Membership.Domain.PatronAggregate;
 using LMS.Modules.Membership.Infrastructure.Data.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;

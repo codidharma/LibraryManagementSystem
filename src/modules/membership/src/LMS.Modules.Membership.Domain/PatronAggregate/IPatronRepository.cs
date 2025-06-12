@@ -2,7 +2,7 @@
 
 namespace LMS.Modules.Membership.Domain.PatronAggregate;
 
-public interface IPatronRepository
+public interface IPatronRepository : IRepository<Patron>
 {
     void Add(Patron patron);
     Task<Patron?> GetPatronByIdAsync(EntityId id, CancellationToken cancellationToken = default);

@@ -1,5 +1,4 @@
-﻿using LMS.Common.Application.Data;
-using LMS.Common.Application.Handlers;
+﻿using LMS.Common.Application.Handlers;
 using LMS.Common.Domain;
 using LMS.Modules.Membership.Application.Patrons.Onboarding.AddPatron;
 using LMS.Modules.Membership.Domain.Common;
@@ -10,11 +9,9 @@ namespace LMS.Modules.Membership.Application.Patrons.UpdateInformation.UpdatePat
 internal sealed class UpdatePatronCommandHandler : ICommandHandler<UpdatePatronCommand, Result>
 {
     private readonly IPatronRepository _patronRepository;
-    private readonly IUnitOfWork _unitOfWork;
-    public UpdatePatronCommandHandler(IPatronRepository patronRepository, IUnitOfWork unitOfWork)
+    public UpdatePatronCommandHandler(IPatronRepository patronRepository)
     {
         _patronRepository = patronRepository ?? throw new ArgumentNullException(nameof(patronRepository));
-        _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
     }
 
     public async Task<Result> HandleAsync(UpdatePatronCommand command, CancellationToken cancellationToken)
@@ -53,7 +50,7 @@ internal sealed class UpdatePatronCommandHandler : ICommandHandler<UpdatePatronC
 
         patron.UpdatePersonalInformation(name: nameResult.Value, email: emailResult.Value);
         _patronRepository.Update(patron);
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _patronRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
         return Result.Success();
     }
 }

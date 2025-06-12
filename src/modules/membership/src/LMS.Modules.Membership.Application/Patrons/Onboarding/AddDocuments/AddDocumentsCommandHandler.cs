@@ -1,5 +1,4 @@
-﻿using LMS.Common.Application.Data;
-using LMS.Common.Application.Handlers;
+﻿using LMS.Common.Application.Handlers;
 using LMS.Common.Domain;
 using LMS.Modules.Membership.Domain.Common;
 using LMS.Modules.Membership.Domain.PatronAggregate;
@@ -11,15 +10,10 @@ namespace LMS.Modules.Membership.Application.Patrons.Onboarding.AddDocuments;
 public sealed class AddDocumentsCommandHandler : ICommandHandler<AddDocumentsCommand, Result>
 {
     private readonly IPatronRepository _patronRepository;
-    private readonly IUnitOfWork _unitOfWork;
 
-
-    public AddDocumentsCommandHandler(
-        IPatronRepository patronRepository,
-        IUnitOfWork unitOfWork)
+    public AddDocumentsCommandHandler(IPatronRepository patronRepository)
     {
         _patronRepository = patronRepository ?? throw new ArgumentNullException(nameof(patronRepository));
-        _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
 
     }
     public async Task<Result> HandleAsync(AddDocumentsCommand command, CancellationToken cancellationToken)
@@ -81,7 +75,7 @@ public sealed class AddDocumentsCommandHandler : ICommandHandler<AddDocumentsCom
         }
 
         _patronRepository.Update(patron);
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _patronRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
         return Result.Success();
     }
 }

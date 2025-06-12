@@ -1,5 +1,4 @@
-﻿using LMS.Common.Application.Data;
-using LMS.Common.Application.Handlers;
+﻿using LMS.Common.Application.Handlers;
 using LMS.Common.Domain;
 using LMS.Modules.Membership.Domain.Common;
 using LMS.Modules.Membership.Domain.PatronAggregate;
@@ -9,14 +8,10 @@ namespace LMS.Modules.Membership.Application.Patrons.Onboarding.AddPatron;
 internal sealed class AddPatronCommandHandler : ICommandHandler<AddPatronCommand, Result<CommandResult>>
 {
     private readonly IPatronRepository _patronRepository;
-    private readonly IUnitOfWork _unitOfWork;
 
-    public AddPatronCommandHandler(
-        IPatronRepository patronRepository,
-        IUnitOfWork unitOfWork)
+    public AddPatronCommandHandler(IPatronRepository patronRepository)
     {
         _patronRepository = patronRepository ?? throw new ArgumentNullException(nameof(patronRepository));
-        _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
     }
 
 
@@ -61,7 +56,7 @@ internal sealed class AddPatronCommandHandler : ICommandHandler<AddPatronCommand
             patronTypeResult.Value);
 
         _patronRepository.Add(patronResult.Value);
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _patronRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
 
         CommandResult response = new(patronResult.Value.Id.Value);
 

@@ -5,7 +5,7 @@ using LMS.Modules.Membership.Domain.Common;
 
 namespace LMS.Modules.Membership.Domain.PatronAggregate;
 
-public sealed class Patron : Entity
+public sealed class Patron : Entity, IAggregateRoot
 {
 #pragma warning disable IDE0032 // Use auto property
     private readonly List<Document> _documents = [];

@@ -1,5 +1,4 @@
-﻿using LMS.Common.Application.Data;
-using LMS.Common.Application.Handlers;
+﻿using LMS.Common.Application.Handlers;
 using LMS.Common.Domain;
 using LMS.Modules.Membership.Domain.Common;
 using LMS.Modules.Membership.Domain.PatronAggregate;
@@ -9,14 +8,10 @@ namespace LMS.Modules.Membership.Application.Patrons.Onboarding.AddAddress;
 internal sealed class AddAddressCommandHandler : ICommandHandler<AddAddressCommand, Result>
 {
     private readonly IPatronRepository _patronRepository;
-    private readonly IUnitOfWork _unitOfWork;
     public AddAddressCommandHandler(
-        IPatronRepository patronRepository,
-        IUnitOfWork unitOfWork)
+        IPatronRepository patronRepository)
     {
         _patronRepository = patronRepository ?? throw new ArgumentNullException(nameof(patronRepository));
-        _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-
 
     }
     public async Task<Result> HandleAsync(AddAddressCommand command, CancellationToken cancellationToken)
@@ -49,7 +44,7 @@ internal sealed class AddAddressCommandHandler : ICommandHandler<AddAddressComma
         }
 
         _patronRepository.Update(patron);
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _patronRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
 
