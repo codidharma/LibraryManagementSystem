@@ -24,9 +24,7 @@ public sealed class AddDocumentsCommandHandler : ICommandHandler<AddDocumentsCom
 
         if (patron is null)
         {
-            Error error = Error.NotFound(ErrorCodes.NotFound, $"The patron with id {command.PatronId} was not found.");
-            Result notFoundResult = Result.Failure(error);
-            return notFoundResult;
+            return Result.Failure(PatronErrors.PatronNotFound(command.PatronId));
         }
 
         List<Result> results = [];

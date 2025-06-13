@@ -22,9 +22,7 @@ internal sealed class UpdatePatronCommandHandler : ICommandHandler<UpdatePatronC
 
         if (patron is null)
         {
-            Error error = Error.NotFound(ErrorCodes.NotFound, $"The patron with id {command.PatronId} was not found.");
-            Result notFoundResult = Result.Failure(error);
-            return notFoundResult;
+            return Result.Failure(PatronErrors.PatronNotFound(command.PatronId));
         }
 
         List<Result> results = [];
@@ -43,9 +41,7 @@ internal sealed class UpdatePatronCommandHandler : ICommandHandler<UpdatePatronC
 
         if (isPatronEmailAlreadyUsed)
         {
-            Error conflictError = Error.Conflict(ErrorCodes.Conflict, "The email provided is already taken.");
-            Result<CommandResult> conflictResult = Result.Failure<CommandResult>(conflictError);
-            return conflictResult;
+            return Result.Failure<CommandResult>(PatronErrors.EmailAlreadyTaken(emailResult.Value.Value));
         }
 
         patron.UpdatePersonalInformation(name: nameResult.Value, email: emailResult.Value);

@@ -20,8 +20,7 @@ public sealed class GetDocumentsListByPatronIdQueryHandler : IQueryHandler<Guid,
 
         if (patron is null)
         {
-            Error error = Error.NotFound("Membership.NotFound", $"The patron with id {id.ToString()} was not found.");
-            return Result.Failure<QueryResponse>(error);
+            return Result.Failure<QueryResponse>(PatronErrors.PatronNotFound(id));
         }
 
         List<DocumentMetadata> metadataCollection = [];

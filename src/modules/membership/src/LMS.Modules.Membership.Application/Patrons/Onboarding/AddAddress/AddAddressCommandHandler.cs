@@ -1,6 +1,5 @@
 ﻿using LMS.Common.Application.Handlers;
 using LMS.Common.Domain;
-using LMS.Modules.Membership.Domain.Common;
 using LMS.Modules.Membership.Domain.PatronAggregate;
 
 namespace LMS.Modules.Membership.Application.Patrons.Onboarding.AddAddress;
@@ -21,9 +20,7 @@ internal sealed class AddAddressCommandHandler : ICommandHandler<AddAddressComma
 
         if (patron is null)
         {
-            Error error = Error.NotFound(ErrorCodes.NotFound, $"The patron with id {command.PatronId} was not found.");
-            Result notFoundResult = Result.Failure(error);
-            return notFoundResult;
+            return Result.Failure(PatronErrors.PatronNotFound(command.PatronId));
         }
 
         Result<Address> addressResult = Address

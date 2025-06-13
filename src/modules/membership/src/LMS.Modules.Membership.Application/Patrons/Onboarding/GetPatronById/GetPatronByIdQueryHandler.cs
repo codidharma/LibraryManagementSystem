@@ -18,8 +18,7 @@ public sealed class GetPatronByIdQueryHandler : IQueryHandler<Guid, Result<GetPa
 
         if (patron is null)
         {
-            Error error = Error.NotFound("Membership.NotFound", $"The patron with id {id.ToString()} was not found.");
-            return Result.Failure<GetPatronByIdQueryResponse>(error);
+            return Result.Failure<GetPatronByIdQueryResponse>(PatronErrors.PatronNotFound(id));
         }
 
         GetPatronByIdQueryResponse response = new(

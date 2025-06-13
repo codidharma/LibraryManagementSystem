@@ -1,7 +1,6 @@
 ﻿using LMS.Common.Application.Handlers;
 using LMS.Common.Domain;
 using LMS.Modules.Membership.Application.Common.Identity;
-using LMS.Modules.Membership.Domain.Common;
 using LMS.Modules.Membership.Domain.PatronAggregate;
 
 namespace LMS.Modules.Membership.Application.Patrons.Onboarding.GenerateCredentials;
@@ -24,9 +23,7 @@ public sealed class GenerateCredentialsCommandHandler : ICommandHandler<Generate
 
         if (patron is null)
         {
-            Error error = Error.NotFound(ErrorCodes.NotFound, $"The patron with id {command.PatronId} was not found.");
-            Result<CommandResponse> notFoundResult = Result.Failure<CommandResponse>(error);
-            return notFoundResult;
+            return Result.Failure<CommandResponse>(PatronErrors.PatronNotFound(command.PatronId));
         }
 
         Guid accessId = await _identityService

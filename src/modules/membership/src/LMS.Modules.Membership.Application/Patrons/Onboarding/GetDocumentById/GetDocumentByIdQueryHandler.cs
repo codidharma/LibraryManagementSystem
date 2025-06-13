@@ -19,8 +19,7 @@ public sealed class GetDocumentByIdQueryHandler : IQueryHandler<GetDocumentByIdQ
 
         if (patron is null)
         {
-            Error error = Error.NotFound("Membership.NotFound", $"The patron with id {query.PatronId.ToString()} was not found.");
-            return Result.Failure<QueryResponse>(error);
+            return Result.Failure<QueryResponse>(PatronErrors.PatronNotFound(query.PatronId));
         }
 
 
@@ -30,8 +29,7 @@ public sealed class GetDocumentByIdQueryHandler : IQueryHandler<GetDocumentByIdQ
 
         if (document is null)
         {
-            Error error = Error.NotFound("Membership.NotFound", $"The document with id {query.DocumentId.ToString()} was not found.");
-            return Result.Failure<QueryResponse>(error);
+            return Result.Failure<QueryResponse>(PatronErrors.DocumentNotFound(query.DocumentId));
         }
 
         QueryResponse queryResponse = new(

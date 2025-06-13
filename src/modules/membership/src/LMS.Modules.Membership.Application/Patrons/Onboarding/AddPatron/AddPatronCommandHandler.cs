@@ -24,9 +24,7 @@ internal sealed class AddPatronCommandHandler : ICommandHandler<AddPatronCommand
 
         if (isPatronEmailAlreadyUsed)
         {
-            Error conflictError = Error.Conflict(ErrorCodes.Conflict, "The email provided is already taken.");
-            Result<CommandResult> conflictResult = Result.Failure<CommandResult>(conflictError);
-            return conflictResult;
+            return Result.Failure<CommandResult>(PatronErrors.EmailAlreadyTaken(emailResult.Value.Value));
         }
 
         List<Result> results = [];

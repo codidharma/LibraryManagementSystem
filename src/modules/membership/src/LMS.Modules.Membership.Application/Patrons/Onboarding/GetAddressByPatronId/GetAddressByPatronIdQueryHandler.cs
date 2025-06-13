@@ -25,14 +25,12 @@ public sealed class GetAddressByPatronIdQueryHandler : IQueryHandler<Guid, Resul
 
         if (patron is null)
         {
-            Error error = Error.NotFound("Membership.NotFound", $"The patron with id {patronId.ToString()} was not found.");
-            return Result.Failure<GetAddressByPatronIdQueryResponse>(error);
+            return Result.Failure<GetAddressByPatronIdQueryResponse>(PatronErrors.PatronNotFound(patronId));
         }
 
         if (patron.KycStatus == KycStatus.Pending)
         {
-            Error error = Error.NotFound("Membership.NotFound", $"There was no address found on the patron with id {patronId.ToString()}.");
-            return Result.Failure<GetAddressByPatronIdQueryResponse>(error);
+            return Result.Failure<GetAddressByPatronIdQueryResponse>(PatronErrors.AddressNotFound(patronId));
         }
 
         GetAddressByPatronIdQueryResponse queryResponse = new(
