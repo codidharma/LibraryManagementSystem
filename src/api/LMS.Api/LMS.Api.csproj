@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\common\src\LMS.Common.Infrastructure\LMS.Common.Infrastructure.csproj" />
     <ProjectReference Include="..\..\hosting\LMS.ServiceDefaults\LMS.ServiceDefaults.csproj" />
     <ProjectReference Include="..\..\modules\membership\src\LMS.Modules.Membership.Registrations\LMS.Modules.Membership.Registrations.csproj" />
   </ItemGroup>

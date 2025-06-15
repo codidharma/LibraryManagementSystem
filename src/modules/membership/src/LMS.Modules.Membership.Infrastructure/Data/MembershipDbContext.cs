@@ -1,4 +1,5 @@
 ﻿using LMS.Common.Domain;
+using LMS.Common.Infrastructure.Outbox;
 using LMS.Modules.Membership.Domain.PatronAggregate;
 using LMS.Modules.Membership.Infrastructure.Data.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
@@ -11,11 +12,13 @@ internal sealed class MembershipDbContext(DbContextOptions<MembershipDbContext> 
     internal DbSet<Document> Documents { get; set; }
     internal DbSet<Patron> Patrons { get; set; }
 
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema(Schema.Name);
         modelBuilder.ApplyConfiguration(new DocumentConfiguration());
         modelBuilder.ApplyConfiguration(new PatronConfiguration());
+        modelBuilder.ApplyConfiguration(new OutboxMessageConfiguration());
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

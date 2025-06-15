@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using LMS.Common.Api;
 using LMS.Common.Application.Handlers;
+using LMS.Common.Infrastructure.Outbox;
 using LMS.Modules.Membership.Application.Common.Identity;
 using LMS.Modules.Membership.Domain.PatronAggregate;
 using LMS.Modules.Membership.Infrastructure.Data;
@@ -25,11 +26,12 @@ public static class RegistrationsExtensions
 
     private static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<MembershipDbContext>(options =>
+        services.AddDbContext<MembershipDbContext>((sp, options) =>
         {
             options.UseNpgsql(configuration.GetConnectionString("lmsdb")
                 ?? throw new InvalidOperationException("Connection string 'lmsdb' not found."),
                 npgSqlOptions => npgSqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schema.Name));
+            options.AddInterceptors(sp.GetRequiredService<OutboxMessageInterceptor>());
         });
         services.AddScoped<IPatronRepository, PatronRepository>();
         services.AddScoped<IIdentityService, IdentityService>();

@@ -5,10 +5,11 @@
 	<ItemGroup>
 		<InternalsVisibleTo Include="LMS.Modules.Membership.UnitTests" />
 		<InternalsVisibleTo Include="LMS.Modules.Membership.Registrations" />
-		<InternalsVisibleTo Include="LMS.MigrationServices"/>
+		<InternalsVisibleTo Include="LMS.MigrationServices" />
 	</ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\common\src\LMS.Common.Infrastructure\LMS.Common.Infrastructure.csproj" />
     <ProjectReference Include="..\LMS.Modules.Membership.Application\LMS.Modules.Membership.Application.csproj" />
     <ProjectReference Include="..\LMS.Modules.Membership.Domain\LMS.Modules.Membership.Domain.csproj" />
   </ItemGroup>

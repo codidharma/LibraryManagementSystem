@@ -1,6 +1,7 @@
 using LMS.Api.Middleware;
 using LMS.Common.Api;
 using LMS.Common.Application.Dispatchers;
+using LMS.Common.Infrastructure;
 using LMS.Modules.Membership.Registrations;
 using LMS.ServiceDefaults;
 using Scalar.AspNetCore;
@@ -21,6 +22,7 @@ builder.Services.AddProblemDetails();
 builder.Services.AddOpenApi();
 
 builder.Services.AddDispatchers();
+builder.Services.AddCommonInfrastructure();
 
 IConfiguration configuration = builder.Configuration;
 builder.Services.RegisterMembershipModule(configuration);
