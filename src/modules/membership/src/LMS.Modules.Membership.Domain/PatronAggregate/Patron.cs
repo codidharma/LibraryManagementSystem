@@ -1,5 +1,6 @@
 ﻿using LMS.Common.Domain;
 using LMS.Modules.Membership.Domain.Common;
+using LMS.Modules.Membership.Domain.PatronAggregate.DomainEvents;
 
 
 
@@ -139,6 +140,10 @@ public sealed class Patron : Entity, IAggregateRoot
         }
         AccessId = accessIdCreateResult.Value;
         OnboardingStage = OnboardingStage.Completed;
+
+        PatronOnboardedDomainEvent domainevent = new(Guid.NewGuid(), DateTime.UtcNow, PatronType.Name);
+        Raise(domainevent);
+
         return Result.Success();
     }
 

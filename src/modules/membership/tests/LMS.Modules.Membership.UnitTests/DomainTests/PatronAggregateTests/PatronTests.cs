@@ -1,4 +1,5 @@
 ﻿using LMS.Modules.Membership.Domain.Common;
+using LMS.Modules.Membership.Domain.PatronAggregate.DomainEvents;
 
 namespace LMS.Modules.Membership.UnitTests.DomainTests.PatronAggregateTests;
 
@@ -318,7 +319,7 @@ public class PatronTests : PatronTestBase
     }
 
     [Fact]
-    public void SetAccessId_Should_SetTheAccessIdAndCompleteOnboarding()
+    public void SetAccessId_Should_SetTheAccessIdAndCompleteOnboardingAndRaisePatronOnboardedDomainEvent()
     {
         //Arrange
         var accessId = Guid.NewGuid();
@@ -332,6 +333,10 @@ public class PatronTests : PatronTestBase
         Assert.False(setAccessIdResult.IsFailure);
         Assert.Equal(accessId, patron.AccessId.Value);
         Assert.Equal(Completed, patron.OnboardingStage);
+        Assert.Contains(patron.DomainEvents, e => e is PatronOnboardedDomainEvent);
+        Assert.Single(patron.DomainEvents, e => e is PatronOnboardedDomainEvent);
+        PatronOnboardedDomainEvent domainEvent = (PatronOnboardedDomainEvent)patron.DomainEvents.First(e => e is PatronOnboardedDomainEvent);
+        Assert.Equal(patron.PatronType.Name, domainEvent.PatronType);
     }
 
     [Fact]
