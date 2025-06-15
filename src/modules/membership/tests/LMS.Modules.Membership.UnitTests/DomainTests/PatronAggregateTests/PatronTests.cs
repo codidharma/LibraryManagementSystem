@@ -337,6 +337,9 @@ public class PatronTests : PatronTestBase
         Assert.Single(patron.DomainEvents, e => e is PatronOnboardedDomainEvent);
         PatronOnboardedDomainEvent domainEvent = (PatronOnboardedDomainEvent)patron.DomainEvents.First(e => e is PatronOnboardedDomainEvent);
         Assert.Equal(patron.PatronType.Name, domainEvent.PatronType);
+        Assert.Equal(patron.Name.Value, domainEvent.PatronName);
+        Assert.Equal(patron.Email.Value, domainEvent.PatronEmail);
+        Assert.Equal(patron.Id.Value, domainEvent.PatronId);
     }
 
     [Fact]

@@ -141,7 +141,13 @@ public sealed class Patron : Entity, IAggregateRoot
         AccessId = accessIdCreateResult.Value;
         OnboardingStage = OnboardingStage.Completed;
 
-        PatronOnboardedDomainEvent domainevent = new(Guid.NewGuid(), DateTime.UtcNow, PatronType.Name);
+        PatronOnboardedDomainEvent domainevent = new(
+            Guid.NewGuid(),
+            DateTime.UtcNow,
+            PatronType.Name,
+            Name.Value,
+            Email.Value,
+            Id.Value);
         Raise(domainevent);
 
         return Result.Success();
