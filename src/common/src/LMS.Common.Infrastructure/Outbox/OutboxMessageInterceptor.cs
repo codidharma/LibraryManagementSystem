@@ -1,8 +1,9 @@
-﻿using System.Text.Json;
-using LMS.Common.Domain;
+﻿using LMS.Common.Domain;
 using LMS.Common.Infrastructrure.Outbox;
+using LMS.Common.Infrastructure.JsonSerialization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Newtonsoft.Json;
 
 namespace LMS.Common.Infrastructure.Outbox;
 
@@ -44,7 +45,7 @@ public sealed class OutboxMessageInterceptor : SaveChangesInterceptor
             {
                 Id = domainEvent.Id,
                 EventType = domainEvent.GetType().Name,
-                EventPayload = JsonSerializer.Serialize(domainEvent),
+                EventPayload = JsonConvert.SerializeObject(domainEvent, SerializerSettings.Instance),
                 IsProcessed = false,
                 OccuredOnUtc = domainEvent.OccuredOnUtc,
             };

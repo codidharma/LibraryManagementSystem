@@ -1,12 +1,13 @@
-﻿using System.Text.Json;
-using LMS.Common.Application.Dispatchers.DomainEventDispatcher;
+﻿using LMS.Common.Application.Dispatchers.DomainEventDispatcher;
 using LMS.Common.Domain;
 using LMS.Common.Infrastructrure.Outbox;
+using LMS.Common.Infrastructure.JsonSerialization;
 using LMS.Modules.Membership.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace LMS.Modules.Membership.Infrastructure.Outbox;
 
@@ -44,7 +45,9 @@ public sealed class OutboxProcessorService : BackgroundService
                         continue;
                     }
 
-                    IDomainEvent domainEvent = JsonSerializer.Deserialize<IDomainEvent>(message.EventPayload);
+
+                    IDomainEvent domainEvent = JsonConvert
+                        .DeserializeObject<IDomainEvent>(message.EventPayload, SerializerSettings.Instance);
 
                     if (domainEvent is null)
                     {
