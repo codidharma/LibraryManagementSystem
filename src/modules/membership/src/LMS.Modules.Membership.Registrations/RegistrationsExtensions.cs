@@ -7,6 +7,7 @@ using LMS.Modules.Membership.Domain.PatronAggregate;
 using LMS.Modules.Membership.Infrastructure.Data;
 using LMS.Modules.Membership.Infrastructure.Data.Repositories;
 using LMS.Modules.Membership.Infrastructure.Identity;
+using LMS.Modules.Membership.Infrastructure.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
@@ -35,6 +36,7 @@ public static class RegistrationsExtensions
         });
         services.AddScoped<IPatronRepository, PatronRepository>();
         services.AddScoped<IIdentityService, IdentityService>();
+        services.AddHostedService<OutboxProcessorService>();
     }
 
     private static void AddApplication(this IServiceCollection services)

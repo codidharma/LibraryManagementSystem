@@ -9,14 +9,17 @@ IResourceBuilder<SeqResource> seq = builder.AddSeq("seq")
     .WithLifetime(ContainerLifetime.Persistent)
     .WithEnvironment("ACCEPT_EULA", "Y");
 
+
+
+IResourceBuilder<ProjectResource> migrationService = builder.AddProject<Projects.LMS_MigrationServices>("lmsmigrationservices")
+    .WithReference(postgres)
+    .WaitFor(postgres);
+
 builder.AddProject<Projects.LMS_Api>("lmsapi")
     .WithReference(postgres)
     .WaitFor(postgres)
     .WithReference(seq)
-    .WaitFor(seq);
-
-builder.AddProject<Projects.LMS_MigrationServices>("lmsmigrationservices")
-    .WithReference(postgres)
-    .WaitFor(postgres);
+    .WaitFor(seq)
+    .WaitForCompletion(migrationService);
 
 await builder.Build().RunAsync();

@@ -8,5 +8,5 @@ public sealed class OutboxMessage
     public DateTime OccuredOnUtc { get; init; }
     public bool IsProcessed { get; set; }
     public DateTime? ProcessedOnUtc { get; set; }
-    public string? Error { get; init; }
+    public string? Error { get; set; }
 }

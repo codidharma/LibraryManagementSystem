@@ -1,4 +1,5 @@
 ﻿using LMS.Common.Application.Dispatchers.Command;
+using LMS.Common.Application.Dispatchers.DomainEventDispatcher;
 using LMS.Common.Application.Dispatchers.Query;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,5 +24,6 @@ public static class DispatcherExtensions
             IQueryDispatcher decorator = new LoggingDecoratorQueryDispatcher(coreDispatcher, sp);
             return decorator;
         });
+        services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher.DomainEventDispatcher>();
     }
 }

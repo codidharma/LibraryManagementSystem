@@ -29,5 +29,7 @@ public class OutboxMessageConfiguration : IEntityTypeConfiguration<OutboxMessage
             .HasColumnName("processedon_utc");
         builder.Property(om => om.Error)
             .HasColumnName("error");
+        builder.Property<DateTime>("created_on");
+        builder.Property<DateTime>("modified_on");
     }
 }

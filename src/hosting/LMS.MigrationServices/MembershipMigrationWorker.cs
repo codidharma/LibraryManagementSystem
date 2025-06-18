@@ -22,17 +22,26 @@ internal sealed class MembershipMigrationWorker : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         using Activity? activity = _activitySource.StartActivity("Migrating membership database.", ActivityKind.Client);
+        using IServiceScope scope = _serviceProvider.CreateScope();
+        ILogger logger = scope.ServiceProvider.GetRequiredService<ILogger<MembershipMigrationWorker>>();
+#pragma warning disable S2139 // Exceptions should be either logged or rethrown but not both
         try
         {
-            using IServiceScope scope = _serviceProvider.CreateScope();
+
+
             MembershipDbContext dbContext = scope.ServiceProvider.GetRequiredService<MembershipDbContext>();
+
+            logger.LogInformation("Running the migrations.");
             await RunMigrationAsync(dbContext, stoppingToken);
+            logger.LogInformation("Finished running the migrations.");
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Failed while applying migrations.");
             activity?.RecordException(ex);
             throw;
         }
+#pragma warning restore S2139 // Exceptions should be either logged or rethrown but not both
         _hostApplicationLifetime.StopApplication();
     }
 

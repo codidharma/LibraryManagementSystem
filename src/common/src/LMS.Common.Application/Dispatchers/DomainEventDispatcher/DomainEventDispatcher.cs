@@ -13,10 +13,10 @@ public sealed class DomainEventDispatcher : IDomainEventDispatcher
         _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
 
     }
-    public async Task DispatchAsync<TDomainEvent>(
-        TDomainEvent domainEvent,
+    public async Task DispatchAsync(
+        IDomainEvent domainEvent,
         Assembly assembly,
-        CancellationToken cancellationToken = default) where TDomainEvent : IDomainEvent
+        CancellationToken cancellationToken = default)
     {
         Type domainEventType = domainEvent.GetType();
         IEnumerable<IDomainEventHandler> handlers = DomainEventHandlersFactory

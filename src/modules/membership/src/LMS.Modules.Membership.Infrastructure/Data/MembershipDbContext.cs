@@ -1,4 +1,5 @@
 ﻿using LMS.Common.Domain;
+using LMS.Common.Infrastructrure.Outbox;
 using LMS.Common.Infrastructure.Outbox;
 using LMS.Modules.Membership.Domain.PatronAggregate;
 using LMS.Modules.Membership.Infrastructure.Data.EntityConfigurations;
@@ -12,6 +13,7 @@ internal sealed class MembershipDbContext(DbContextOptions<MembershipDbContext> 
     internal DbSet<Document> Documents { get; set; }
     internal DbSet<Patron> Patrons { get; set; }
 
+    internal DbSet<OutboxMessage> OutboxMessages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
