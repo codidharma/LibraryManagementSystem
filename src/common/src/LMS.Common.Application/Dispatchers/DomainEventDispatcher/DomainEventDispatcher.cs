@@ -1,6 +1,6 @@
-﻿using LMS.Common.Application.Handlers;
+﻿using System.Reflection;
+using LMS.Common.Application.Handlers;
 using LMS.Common.Domain;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace LMS.Common.Application.Dispatchers.DomainEventDispatcher;
 
@@ -13,10 +13,20 @@ public sealed class DomainEventDispatcher : IDomainEventDispatcher
         _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
 
     }
-    public async Task DispatchAsync<TDomainEvent>(TDomainEvent domainEvent, CancellationToken cancellationToken = default) where TDomainEvent : IDomainEvent
+    public async Task DispatchAsync<TDomainEvent>(
+        TDomainEvent domainEvent,
+        Assembly assembly,
+        CancellationToken cancellationToken = default) where TDomainEvent : IDomainEvent
     {
-        IDomainEventHandler<TDomainEvent> handler = _serviceProvider.GetRequiredService<IDomainEventHandler<TDomainEvent>>();
+        Type domainEventType = domainEvent.GetType();
+        IEnumerable<IDomainEventHandler> handlers = DomainEventHandlersFactory
+            .GetHandlers(domainEventType, _serviceProvider, assembly);
 
-        await handler.HandleAsync(domainEvent, cancellationToken);
+        foreach (IDomainEventHandler handler in handlers)
+        {
+            await handler.HandleAsync(domainEvent, cancellationToken);
+        }
     }
+
+
 }

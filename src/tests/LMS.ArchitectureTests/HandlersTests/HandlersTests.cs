@@ -149,6 +149,8 @@ public class HandlersTests
             .InAssemblies(ApplicationAssemblies)
             .That()
             .ImplementInterface(typeof(IDomainEventHandler<>))
+            .And()
+            .AreNotAbstract()
             .Should()
             .BeSealed()
             .GetResult();
@@ -165,6 +167,8 @@ public class HandlersTests
             .InAssemblies(ApplicationAssemblies)
             .That()
             .ImplementInterface(typeof(IDomainEventHandler<>))
+            .And()
+            .AreNotAbstract()
             .Should()
             .HaveNameEndingWith("DomainEventHandler")
             .GetResult();

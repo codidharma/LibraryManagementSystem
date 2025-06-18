@@ -1,9 +1,10 @@
-﻿using LMS.Common.Domain;
+﻿using System.Reflection;
+using LMS.Common.Domain;
 
 namespace LMS.Common.Application.Dispatchers.DomainEventDispatcher;
 
 public interface IDomainEventDispatcher
 {
-    Task DispatchAsync<TDomainEvent>(TDomainEvent domainEvent, CancellationToken cancellationToken = default)
+    Task DispatchAsync<TDomainEvent>(TDomainEvent domainEvent, Assembly assembly, CancellationToken cancellationToken = default)
         where TDomainEvent : IDomainEvent;
 }
