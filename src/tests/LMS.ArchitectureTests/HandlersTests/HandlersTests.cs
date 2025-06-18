@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using LMS.Common.Application.Dispatchers.Command;
+using LMS.Common.Application.Dispatchers.DomainEventDispatcher;
 using LMS.Common.Application.Dispatchers.Query;
 using LMS.Common.Application.Handlers;
-using NetArchTest.Rules;
 
 namespace LMS.ArchitectureTests.HandlersTests;
 
@@ -140,4 +140,69 @@ public class HandlersTests
         //Assert
         Assert.True(result.IsSuccessful);
     }
+
+    [Fact]
+    public void DomainEventHandlers_ShouldBe_Sealed()
+    {
+        //Act
+        TestResult result = Types
+            .InAssemblies(ApplicationAssemblies)
+            .That()
+            .ImplementInterface(typeof(IDomainEventHandler<>))
+            .Should()
+            .BeSealed()
+            .GetResult();
+
+        //Assert
+        Assert.True(result.IsSuccessful);
+    }
+
+    [Fact]
+    public void DomainEventHandlers_ShouldEndWith_DomainEventHandlerPostFix()
+    {
+        //Act
+        TestResult result = Types
+            .InAssemblies(ApplicationAssemblies)
+            .That()
+            .ImplementInterface(typeof(IDomainEventHandler<>))
+            .Should()
+            .HaveNameEndingWith("DomainEventHandler")
+            .GetResult();
+
+        //Assert
+        Assert.True(result.IsSuccessful);
+    }
+
+    [Fact]
+    public void DomainEventDispatchers_ShouldBe_Sealed()
+    {
+        //Act
+        TestResult result = Types
+            .InAssemblies(ApplicationAssemblies)
+            .That()
+            .ImplementInterface(typeof(IDomainEventDispatcher))
+            .Should()
+            .BeSealed()
+            .GetResult();
+
+        //Assert
+        Assert.True(result.IsSuccessful);
+    }
+
+    [Fact]
+    public void DomainEventDispatchers_ShouldEndWith_DomainEventDispatcherPostFix()
+    {
+        //Act
+        TestResult result = Types
+            .InAssemblies(ApplicationAssemblies)
+            .That()
+            .ImplementInterface(typeof(IDomainEventDispatcher))
+            .Should()
+            .HaveNameEndingWith("DomainEventDispatcher")
+            .GetResult();
+
+        //Assert
+        Assert.True(result.IsSuccessful);
+    }
+
 }

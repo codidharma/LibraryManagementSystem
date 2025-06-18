@@ -28,7 +28,7 @@ public sealed class OutboxMessageInterceptor : SaveChangesInterceptor
             .Entries<Entity>()
             .Select(entry => entry.Entity);
 
-        List<DomainEvent> domainEvents = [];
+        List<IDomainEvent> domainEvents = [];
 
         foreach (Entity entity in entities)
         {
@@ -38,7 +38,7 @@ public sealed class OutboxMessageInterceptor : SaveChangesInterceptor
 
         List<OutboxMessage> outboxMessages = [];
 
-        foreach (DomainEvent domainEvent in domainEvents)
+        foreach (IDomainEvent domainEvent in domainEvents)
         {
             OutboxMessage outboxMessage = new()
             {

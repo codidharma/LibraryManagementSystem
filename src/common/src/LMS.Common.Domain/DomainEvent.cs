@@ -1,6 +1,6 @@
 ﻿namespace LMS.Common.Domain;
 
-public abstract class DomainEvent
+public abstract class DomainEvent : IDomainEvent
 {
     public Guid Id { get; protected set; }
     public DateTime OccuredOnUtc { get; protected set; }
