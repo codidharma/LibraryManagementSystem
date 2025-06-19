@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using LMS.Common.Application.Dispatchers.Command;
-using LMS.Common.Application.Dispatchers.DomainEventDispatcher;
+using LMS.Common.Application.Dispatchers.DomainEvent;
 using LMS.Common.Application.Dispatchers.Query;
 using LMS.Common.Application.Handlers;
 

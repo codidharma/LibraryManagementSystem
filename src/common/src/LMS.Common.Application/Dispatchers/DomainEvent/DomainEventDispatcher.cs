@@ -2,7 +2,7 @@
 using LMS.Common.Application.Handlers;
 using LMS.Common.Domain;
 
-namespace LMS.Common.Application.Dispatchers.DomainEventDispatcher;
+namespace LMS.Common.Application.Dispatchers.DomainEvent;
 
 public sealed class DomainEventDispatcher : IDomainEventDispatcher
 {

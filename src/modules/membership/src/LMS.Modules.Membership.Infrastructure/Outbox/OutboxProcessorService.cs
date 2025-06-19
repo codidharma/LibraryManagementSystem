@@ -1,4 +1,4 @@
-﻿using LMS.Common.Application.Dispatchers.DomainEventDispatcher;
+﻿using LMS.Common.Application.Dispatchers.DomainEvent;
 using LMS.Common.Domain;
 using LMS.Common.Infrastructrure.Outbox;
 using LMS.Common.Infrastructure.JsonSerialization;

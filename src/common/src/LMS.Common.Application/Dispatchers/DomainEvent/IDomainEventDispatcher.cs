@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using LMS.Common.Domain;
 
-namespace LMS.Common.Application.Dispatchers.DomainEventDispatcher;
+namespace LMS.Common.Application.Dispatchers.DomainEvent;
 
 public interface IDomainEventDispatcher
 {

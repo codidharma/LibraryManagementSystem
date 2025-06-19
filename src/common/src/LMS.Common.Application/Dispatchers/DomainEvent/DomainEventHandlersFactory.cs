@@ -2,7 +2,7 @@
 using LMS.Common.Application.Handlers;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LMS.Common.Application.Dispatchers.DomainEventDispatcher;
+namespace LMS.Common.Application.Dispatchers.DomainEvent;
 
 public static class DomainEventHandlersFactory
 {
