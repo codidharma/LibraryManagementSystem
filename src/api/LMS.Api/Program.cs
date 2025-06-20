@@ -1,3 +1,4 @@
+using LMS.Api.Extensions;
 using LMS.Api.Middleware;
 using LMS.Common.Api;
 using LMS.Common.Application.Dispatchers;
@@ -23,6 +24,8 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddDispatchers();
 builder.Services.AddCommonInfrastructure();
+
+builder.Configuration.AddModuleConfiguration(["memberships"]);
 
 IConfiguration configuration = builder.Configuration;
 builder.Services.RegisterMembershipModule(configuration);

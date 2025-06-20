@@ -34,6 +34,12 @@ public static class RegistrationsExtensions
                 npgSqlOptions => npgSqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schema.Name));
             options.AddInterceptors(sp.GetRequiredService<OutboxMessageInterceptor>());
         });
+
+        services.AddOptions<OutboxOptions>()
+            .Bind(configuration.GetSection("Memberships:Outbox"))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
         services.AddScoped<IPatronRepository, PatronRepository>();
         services.AddScoped<IIdentityService, IdentityService>();
         services.AddHostedService<OutboxProcessorService>();

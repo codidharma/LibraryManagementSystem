@@ -1,0 +1,8 @@
+{
+  "Memberships": {
+    "Outbox": {
+      "IntervalBetweenRunsInSeconds": 5,
+      "BatchSize":  60
+    }
+  }
+}
