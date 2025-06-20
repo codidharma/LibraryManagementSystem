@@ -59,12 +59,7 @@ public static class HandlerExtensions
             .ToArray();
         foreach (Type type in types)
         {
-            IEnumerable<Type> interfaceTypes = type.GetInterfaces()
-                .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IDomainEventHandler<>));
-            foreach (Type interfaceType in interfaceTypes)
-            {
-                services.AddScoped(interfaceType, type);
-            }
+            services.AddScoped(type);
         }
     }
 }

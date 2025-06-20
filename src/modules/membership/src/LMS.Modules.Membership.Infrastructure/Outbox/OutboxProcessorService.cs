@@ -54,7 +54,7 @@ public sealed class OutboxProcessorService : BackgroundService
                         continue;
                     }
 
-                    await dispatcher.DispatchAsync(domainEvent!, AssemblyReference.Assembly, stoppingToken);
+                    await dispatcher.DispatchAsync(domainEvent!, Application.AssemblyReference.Assembly, stoppingToken);
 
                     message.IsProcessed = true;
                     message.ProcessedOnUtc = DateTime.UtcNow;
